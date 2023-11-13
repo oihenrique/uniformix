@@ -1,0 +1,20 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 144px;
+  height: 44px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  background-color: #F27516;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.button img {
+  width: 26px;
+  height: 26px;
+}
