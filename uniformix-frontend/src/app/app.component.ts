@@ -6,10 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'uniformix';
-  addButtonText = 'adicionar';
-  removeButtonText = 'remover';
-  searchButtonText = 'pesquisar';
+  title = 'Uniformix';
   addIcon = '../assets/icons/Add icon.svg';
   removeIcon = '../assets/icons/Remove button.svg';
 }
