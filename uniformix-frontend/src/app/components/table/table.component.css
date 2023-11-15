@@ -1,0 +1,28 @@
+.table-head {
+  height: fit-content;
+  opacity: 0.9;
+  background: #292929;
+}
+
+.table-head-row td {
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.table-body {
+  height: fit-content;
+}
+
+.table-body-row td {
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  color: #373737;
+}
+
+.table-body-row:nth-child(even) {
+  background-color: rgba(109, 144, 166, 0.15);
+}
