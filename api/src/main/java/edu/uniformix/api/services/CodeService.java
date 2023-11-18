@@ -1,5 +1,6 @@
 package edu.uniformix.api.services;
 
+import edu.uniformix.api.repositories.BatchRepository;
 import edu.uniformix.api.repositories.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -10,9 +11,11 @@ import java.util.Random;
 @Service
 public class CodeService {
     @Autowired
-    private static SupplierRepository supplierRepository;
+    private SupplierRepository supplierRepository;
+    @Autowired
+    private BatchRepository batchRepository;
 
-    public static String generateCode() {
+    public String generateCode() {
         Random random = new Random();
         StringBuilder code = new StringBuilder();
 
@@ -24,7 +27,7 @@ public class CodeService {
         return code.toString();
     }
 
-    public static boolean validateSupplyCode(String code) {
+    public Boolean validateSupplyCode(String code) {
         try {
             return supplierRepository.existsByCode(code);
         } catch (NullPointerException e) {
@@ -33,10 +36,10 @@ public class CodeService {
         }
     }
 
-    public static boolean validateBatchCode(String code) {
+    public Boolean validateBatchCode(String code) {
         try {
-            return supplierRepository.existsByCode(code);
-        } catch (DataAccessException e) {
+            return batchRepository.existsByCode(code);
+        } catch (NullPointerException e) {
             e.printStackTrace();
             return false;
         }

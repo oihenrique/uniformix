@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping("uniform")
 public class UniformController {
     @Autowired
-    private UniformRepository uniformRepository;
+    UniformRepository uniformRepository;
 
     @PostMapping
     @Transactional

@@ -20,14 +20,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class SupplierController {
     @Autowired
     SupplierRepository supplierRepository;
+    @Autowired
+    CodeService codeService;
 
     @PostMapping
     @Transactional
     public ResponseEntity<SupplierListDto> post(@RequestBody @Valid SupplierDto supplierDto, UriComponentsBuilder uriBuilder) {
 
-        String code = CodeService.generateCode();
-        while(CodeService.validateSupplyCode(code)) {
-          code = CodeService.generateCode();
+        String code = codeService.generateCode();
+        while(codeService.validateSupplyCode(code)) {
+          code = codeService.generateCode();
         }
 
         Supplier supplier = new Supplier(supplierDto, code);
