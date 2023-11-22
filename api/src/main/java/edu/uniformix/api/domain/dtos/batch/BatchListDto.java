@@ -11,6 +11,6 @@ public record BatchListDto(
         Timestamp aquisitionDate
 ) {
     public BatchListDto(Batch batch) {
-        this(batch.getBatchCode(), batch.getDescription(), batch.getQuantity(), batch.getAquisitionDate());
+        this(batch.getBatchCode(), batch.getDescription(), batch.getQuantity(), batch.getAcquisition_date());
     }
 }

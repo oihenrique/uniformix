@@ -20,18 +20,18 @@ public class Batch {
     private String batchCode;
     private String description;
     private int quantity;
-    private Timestamp aquisitionDate;
+    private Timestamp acquisition_date;
     @ManyToOne
-    @JoinColumn(name = "supplier", referencedColumnName = "id")
+    @JoinColumn(name = "id_supplier", referencedColumnName = "id")
     private Supplier supplier;
     @OneToOne
-    @JoinColumn(name = "category", referencedColumnName = "id")
+    @JoinColumn(name = "id_category", referencedColumnName = "id")
     private Category category;
 
     public Batch(BatchDto batchDto, String code) {
         this.batchCode = code;
         this.description = batchDto.description();
         this.quantity = batchDto.quantity();
-        this.aquisitionDate = new Timestamp(System.currentTimeMillis());
+        this.acquisition_date = new Timestamp(System.currentTimeMillis());
     }
 }
