@@ -5,13 +5,16 @@ import edu.uniformix.api.domain.dtos.batch.BatchDto;
 import edu.uniformix.api.domain.dtos.batch.BatchListDto;
 import edu.uniformix.api.repositories.BatchRepository;
 import edu.uniformix.api.services.CodeService;
+import edu.uniformix.api.services.UtilsService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -23,10 +26,11 @@ public class BatchController {
     CodeService codeService;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<BatchListDto> post(@RequestBody @Valid BatchDto batchDto, UriComponentsBuilder uriBuilder) {
-        String code = codeService.generateCode('S');
-        while(codeService.validateBatchCode(code)) {
-            code = codeService.generateCode('S');
+        String code = codeService.generateCode('B');
+        while (codeService.validateBatchCode(code)) {
+            code = codeService.generateCode('B');
         }
 
         Batch batch = new Batch(batchDto, code);
@@ -35,5 +39,50 @@ public class BatchController {
         var uri = uriBuilder.buildAndExpand("/{id}").toUri();
 
         return ResponseEntity.created(uri).body(new BatchListDto(batch));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<BatchListDto>> list(@PageableDefault(sort = "acquisitionDate") Pageable paginate) {
+        Page<BatchListDto> batchList = batchRepository.findAll(paginate).map(BatchListDto::new);
+
+        return ResponseEntity.ok(batchList);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> get(@PathVariable Long id) {
+        Batch batch = batchRepository.findById(id).orElse(null);
+
+        if (batch == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
+        }
+
+        return ResponseEntity.ok(new BatchListDto(batch));
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> update(@RequestBody BatchDto batchDto, @PathVariable Long id) {
+        Batch batch = batchRepository.findById(id).orElse(null);
+
+        if (batch == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
+        }
+
+        UtilsService.copyNonNullProperties(batchDto, batch);
+        return ResponseEntity.ok().body(batchRepository.save(batch));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Object> delete(@PathVariable Long id) {
+        Batch batch = batchRepository.findById(id).orElse(null);
+
+        if (batch == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
+        }
+
+        batchRepository.delete(batch);
+
+        return ResponseEntity.noContent().build();
     }
 }

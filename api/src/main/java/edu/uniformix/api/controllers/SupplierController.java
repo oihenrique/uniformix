@@ -29,9 +29,9 @@ public class SupplierController {
     @Transactional
     public ResponseEntity<SupplierListDto> post(@RequestBody @Valid SupplierDto supplierDto, UriComponentsBuilder uriBuilder) {
 
-        String generatedCode = codeService.generateCode('B');
+        String generatedCode = codeService.generateCode('S');
         while (codeService.validateSupplyCode(generatedCode)) {
-            generatedCode = codeService.generateCode('B');
+            generatedCode = codeService.generateCode('S');
         }
 
         Supplier supplier = new Supplier(supplierDto, generatedCode);

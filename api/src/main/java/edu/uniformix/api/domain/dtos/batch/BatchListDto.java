@@ -8,9 +8,9 @@ public record BatchListDto(
         String batchCode,
         String description,
         Integer quantity,
-        Timestamp aquisitionDate
+        Timestamp acquisition_date
 ) {
     public BatchListDto(Batch batch) {
-        this(batch.getBatchCode(), batch.getDescription(), batch.getQuantity(), batch.getAcquisition_date());
+        this(batch.getBatchCode(), batch.getDescription(), batch.getQuantity(), batch.getAcquisitionDate());
     }
 }

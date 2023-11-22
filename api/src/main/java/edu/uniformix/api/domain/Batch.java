@@ -20,7 +20,7 @@ public class Batch {
     private String batchCode;
     private String description;
     private int quantity;
-    private Timestamp acquisition_date;
+    private Timestamp acquisitionDate;
     @ManyToOne
     @JoinColumn(name = "id_supplier", referencedColumnName = "id")
     private Supplier supplier;
@@ -32,6 +32,6 @@ public class Batch {
         this.batchCode = code;
         this.description = batchDto.description();
         this.quantity = batchDto.quantity();
-        this.acquisition_date = new Timestamp(System.currentTimeMillis());
+        this.acquisitionDate = new Timestamp(System.currentTimeMillis());
     }
 }
