@@ -19,6 +19,9 @@ public class Uniform {
     private int quantity;
     private char sex;
     private String size;
+    @ManyToOne
+    @JoinColumn(name = "id_batch", referencedColumnName = "id")
+    private Batch batch;
 
     public Uniform(UniformDto uniformDto) {
         this.name = uniformDto.name();
