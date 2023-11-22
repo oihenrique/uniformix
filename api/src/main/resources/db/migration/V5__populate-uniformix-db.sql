@@ -14,15 +14,15 @@ INSERT INTO supplier (code, name, state) VALUES
 
 -- Migration para popular a tabela category
 INSERT INTO category (name, state) VALUES
-  ('Camisetas de eventos', 1),
-  ('Calças', 1),
-  ('Jalecos', 1),
-  ('Camisa social', 1),
-  ('Serviços gerais', 1),
-  ('Óculos de Proteção', 1),
-  ('Uniformes Esportivos', 1),
-  ('Estoque', 1),
-  ('TI', 1);
+  ('Camisetas de eventos', 'true'),
+  ('Calças', 'true'),
+  ('Jalecos', 'true'),
+  ('Camisa social', 'true'),
+  ('Serviços gerais', 'true'),
+  ('Óculos de Proteção', 'true'),
+  ('Uniformes Esportivos', 'true'),
+  ('Estoque', 'true'),
+  ('TI', 'true');
 
 
 -- Migration para popular a tabela batch

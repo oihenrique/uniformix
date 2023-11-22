@@ -1,5 +1,5 @@
 CREATE TABLE category (
     id SERIAL PRIMARY KEY NOT NULL,
     name VARCHAR(64) NOT NULL,
-    state SMALLINT NOT NULL
+    state BOOLEAN NOT NULL
 );
