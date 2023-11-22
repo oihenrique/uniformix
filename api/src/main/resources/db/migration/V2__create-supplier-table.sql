@@ -2,5 +2,5 @@ CREATE TABLE supplier (
     id SERIAL PRIMARY KEY,
     code VARCHAR(6) NOT NULL,
     name VARCHAR(64) NOT NULL,
-    state SMALLINT NOT NULL
+    state BOOLEAN NOT NULL
 );

@@ -1,15 +1,15 @@
 -- Migration para popular a tabela supplier
 INSERT INTO supplier (code, name, state) VALUES
-  ('S12345', 'Suprimentos Express', 1),
-  ('S54321', 'Global Materials', 0),
-  ('S98765', 'Quality Merchants', 1),
-  ('S45678', 'Infinite Supplies', 0),
-  ('S87654', 'Trade Connect', 1),
-  ('S23456', 'Pinnacle Resources', 0),
-  ('S78901', 'Eco Ventures', 1),
-  ('S34567', 'Elite Procure', 0),
-  ('S21098', 'Harmony Suppliers', 1),
-  ('S87654', 'Vista Enterprises', 0);
+  ('S12345', 'Suprimentos Express', true),
+  ('S54321', 'Global Materials', false),
+  ('S98765', 'Quality Merchants', true),
+  ('S45678', 'Infinite Supplies', false),
+  ('S87654', 'Trade Connect', true),
+  ('S23456', 'Pinnacle Resources', false),
+  ('S78901', 'Eco Ventures', true),
+  ('S34567', 'Elite Procure', false),
+  ('S21098', 'Harmony Suppliers', true),
+  ('S87654', 'Vista Enterprises', false);
 
 
 -- Migration para popular a tabela category

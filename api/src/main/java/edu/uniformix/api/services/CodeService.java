@@ -15,11 +15,12 @@ public class CodeService {
     @Autowired
     private BatchRepository batchRepository;
 
-    public String generateCode() {
+    public String generateCode(char initialCodeCharacter) {
         Random random = new Random();
         StringBuilder code = new StringBuilder();
+        code.append(initialCodeCharacter);
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             int digit = random.nextInt(10);
             code.append(digit);
         }

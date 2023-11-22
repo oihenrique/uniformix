@@ -24,9 +24,9 @@ public class BatchController {
 
     @PostMapping
     public ResponseEntity<BatchListDto> post(@RequestBody @Valid BatchDto batchDto, UriComponentsBuilder uriBuilder) {
-        String code = codeService.generateCode();
+        String code = codeService.generateCode('S');
         while(codeService.validateBatchCode(code)) {
-            code = codeService.generateCode();
+            code = codeService.generateCode('S');
         }
 
         Batch batch = new Batch(batchDto, code);
