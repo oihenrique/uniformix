@@ -21,10 +21,10 @@ public class Batch {
     private String description;
     private int quantity;
     private Timestamp acquisitionDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_supplier", referencedColumnName = "id")
     private Supplier supplier;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_category", referencedColumnName = "id")
     private Category category;
 
