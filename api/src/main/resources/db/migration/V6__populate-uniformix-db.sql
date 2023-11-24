@@ -81,3 +81,11 @@ INSERT INTO uniform (name, quantity, sex, size, id_batch) VALUES
   ('Uniforme Estoque Azul P', 7, 'M', 'P', 8),
   ('Uniforme Esportivo Amarelo G', 20, 'F', 'G', 9),
   ('Calça Casual P', 30, 'F', 'P', 10);
+
+
+  -- Migration para popular a tabela user
+  INSERT INTO users (name, email, password)
+  VALUES
+    ('João Silva', 'joao@example.com', 'senha123'),
+    ('Maria Oliveira', 'maria@example.com', 'senha456'),
+    ('Carlos Santos', 'carlos@example.com', 'senha789');
