@@ -4,7 +4,6 @@ import edu.uniformix.api.domain.dtos.user.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,12 +12,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity(name = "users")
-@Table(name = "users")
+@Entity
+@Table
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class Users implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,7 +30,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRoles role;
 
-    public User(UserDto userDTO, String encryptedPassword) {
+    public Users(UserDto userDTO, String encryptedPassword) {
         this.name = userDTO.name();
         this.login = userDTO.login();
         this.password = encryptedPassword;
