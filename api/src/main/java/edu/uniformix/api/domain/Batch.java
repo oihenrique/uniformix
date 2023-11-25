@@ -20,10 +20,14 @@ public class Batch {
     private String batchCode;
     private String description;
     private int quantity;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp acquisitionDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_supplier", referencedColumnName = "id")
     private Supplier supplier;
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_category", referencedColumnName = "id")
     private Category category;
