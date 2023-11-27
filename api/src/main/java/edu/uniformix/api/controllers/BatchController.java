@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("batch")
 public class BatchController {
     @Autowired
@@ -25,7 +26,6 @@ public class BatchController {
     @Autowired
     CodeService codeService;
 
-    @PostMapping
     @Transactional
     public ResponseEntity<BatchListDto> post(@RequestBody @Valid BatchDto batchDto, UriComponentsBuilder uriBuilder) {
         String code = codeService.generateCode('B');
