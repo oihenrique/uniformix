@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TableInfoServiceService } from 'src/app/services/tableInfoService.service';
+import { tableInfoInterface } from './tableInfoInterface';
 
 @Component({
   selector: 'app-table',
@@ -6,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit {
-  constructor() {}
+  info: tableInfoInterface[] = [];
+  columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao'];
 
-  ngOnInit(): void {}
+  constructor(private tableService: TableInfoServiceService) {}
+
+  ngOnInit(): void {
+    this.tableService.getInfo().subscribe((info) => {
+      this.info = info;
+    })
+  }
 }

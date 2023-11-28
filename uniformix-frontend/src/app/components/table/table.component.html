@@ -1,22 +1,12 @@
 <table datatable class="table">
   <thead class="table-head">
     <tr class="table-head-row">
-      <td>Cód. Lote</td>
-      <td>Descrição</td>
-      <td>Quantidade</td>
-      <td>Categoria</td>
-      <td>Fornecedor</td>
-      <td>Data de aquisição</td>
+      <td *ngFor="let column of columns"> {{ column }} </td>
     </tr>
   </thead>
   <tbody class="table-body">
-    <tr class="table-body-row">
-      <td>13140236</td>
-      <td>Fardamento para serviços gerais de limpeza</td>
-      <td>14</td>
-      <td>Limpeza</td>
-      <td>i9 Fardamentos</td>
-      <td>24-10-2023</td>
+    <tr *ngFor="let infos of info" class="table-body-row">
+      <td *ngFor="let column of columns"> {{ infos[column] }}</td>
     </tr>
   </tbody>
 </table>

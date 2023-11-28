@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("batch")
@@ -42,8 +44,9 @@ public class BatchController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<BatchListDto>> list(@PageableDefault(sort = "acquisitionDate") Pageable paginate) {
-        Page<BatchListDto> batchList = batchRepository.findAll(paginate).map(BatchListDto::new);
+    public ResponseEntity<List<BatchListDto>> list(@PageableDefault(sort = "acquisitionDate") Pageable paginate) {
+        Page<BatchListDto> batchPage = batchRepository.findAll(paginate).map(BatchListDto::new);
+        List<BatchListDto> batchList = batchPage.getContent();
 
         return ResponseEntity.ok(batchList);
     }

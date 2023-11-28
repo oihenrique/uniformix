@@ -2,10 +2,12 @@ package edu.uniformix.api.domain;
 
 import edu.uniformix.api.domain.dtos.batch.BatchDto;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.Fetch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
@@ -24,7 +26,7 @@ public class Batch {
     @Temporal(TemporalType.TIMESTAMP)
     private Timestamp acquisitionDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_supplier", referencedColumnName = "id")
     private Supplier supplier;
 

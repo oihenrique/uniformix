@@ -5,7 +5,7 @@ import { OrangeButtonComponent } from './orangeButton/orangeButton.component';
 import { GrayButtonComponent } from './grayButton/grayButton.component';
 import { SmallButtonComponent } from './small-button/small-button.component';
 import { TableComponent } from './table/table.component';
-import { TableInfoServiceService } from '../services/table-info-service.service';
+import { TableInfoServiceService } from '../services/tableInfoService.service';
 
 @NgModule({
   declarations: [
