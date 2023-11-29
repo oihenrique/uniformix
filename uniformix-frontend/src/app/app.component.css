@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.dash-area {
+    padding: 5rem 5.75rem 0 5.75rem;
+    width: 100%;
+}
+
+.dash-title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.count-itens-title {
+    margin-top: 8px;
+    color: #888;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600; 
+}
+
+.table-actions-bar {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4.5rem;
+    gap: 32px;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.table-container {
+    margin-top: 2.5rem;
+}
+
+.table-nav-buttons {
+    display: flex;
+    justify-content: right;
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+}

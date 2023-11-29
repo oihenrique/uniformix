@@ -9,4 +9,6 @@ export class AppComponent {
   title = 'Uniformix';
   addIcon = '../assets/icons/Add icon.svg';
   removeIcon = '../assets/icons/Remove button.svg';
+  searchIcon = '../assets/icons/Search icon.svg';
+  exportIcon = '../assets/icons/Export icon.svg';
 }
