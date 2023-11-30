@@ -4,7 +4,7 @@ body {
 }
 
 .dash-area {
-    padding: 5rem 5.75rem 0 5.75rem;
+    padding: 5rem 4rem 0 4rem;
     width: 100%;
 }
 
@@ -25,8 +25,8 @@ body {
 .table-actions-bar {
     display: flex;
     flex-direction: row;
-    margin-top: 4.5rem;
-    gap: 32px;
+    margin-top: 3rem;
+    gap: 1.5rem;
 }
 
 .search-input {

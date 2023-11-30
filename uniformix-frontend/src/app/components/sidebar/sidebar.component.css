@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 18rem;
-  height: 100vh;
-  padding: 4.5rem 0;
+  width: 16rem;
+  height: 100%;
+  padding-top: 4.5rem;
   background-color: rgba(109, 144, 166, 0.05);
 }
 
@@ -21,7 +21,7 @@
 .nav-buttons {
   display: flex;
   flex-direction: column;
-  margin-top: 6rem;
+  margin-top: 4rem;
   gap: 1rem;
 }
 
