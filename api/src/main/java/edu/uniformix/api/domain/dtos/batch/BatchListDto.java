@@ -1,10 +1,10 @@
 package edu.uniformix.api.domain.dtos.batch;
 
 import edu.uniformix.api.domain.Batch;
-import edu.uniformix.api.domain.Category;
-import edu.uniformix.api.domain.Supplier;
+import edu.uniformix.api.services.UtilsService;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public record BatchListDto(
         String codigo,
@@ -12,9 +12,14 @@ public record BatchListDto(
         Integer quantidade,
         String fornecedor,
         String categoria,
-        Timestamp aquisicao
+        String aquisicao
 ) {
     public BatchListDto(Batch batch) {
-        this(batch.getBatchCode(), batch.getDescription(), batch.getQuantity(), batch.getSupplier().getName(), batch.getCategory().getName(), batch.getAcquisitionDate());
+        this(batch.getBatchCode(),
+                batch.getDescription(),
+                batch.getQuantity(),
+                batch.getSupplier().getName(),
+                batch.getCategory().getName(),
+                UtilsService.dateFormatter(batch.getAcquisitionDate()));
     }
 }
