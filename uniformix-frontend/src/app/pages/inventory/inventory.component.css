@@ -1,0 +1,40 @@
+.dash-area {
+    padding: 5rem 4rem 0 4rem;
+    width: 100%;
+}
+
+.dash-title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.count-itens-title {
+    margin-top: 8px;
+    color: #888;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600; 
+}
+
+.table-actions-bar {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    gap: 1.5rem;
+}
+
+.search-input {
+    width: 100%;
+}
+
+.table-container {
+    margin-top: 2.5rem;
+}
+
+.table-nav-buttons {
+    display: flex;
+    justify-content: right;
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+}
