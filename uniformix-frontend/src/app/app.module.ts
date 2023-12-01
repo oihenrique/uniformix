@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ComponentsModule } from './components/components.module';
+import { PagesModule } from './pages/pages.module';
 import { TableInfoServiceService } from './services/tableInfoService.service';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { TableInfoServiceService } from './services/tableInfoService.service';
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
+    PagesModule,
     HttpClientModule
   ],
   providers: [TableInfoServiceService],

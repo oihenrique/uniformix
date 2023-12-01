@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { OrangeButtonComponent } from './orangeButton/orangeButton.component';
 import { GrayButtonComponent } from './grayButton/grayButton.component';
@@ -15,7 +16,10 @@ import { TableInfoServiceService } from '../services/tableInfoService.service';
     SmallButtonComponent,
     TableComponent,
   ],
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   exports: [
     SidebarComponent,
     OrangeButtonComponent,

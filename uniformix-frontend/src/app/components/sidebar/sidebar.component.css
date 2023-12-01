@@ -19,6 +19,10 @@
   margin: 0;
 }
 
+.logo-link{
+  text-decoration: none;
+}
+
 .nav-buttons {
   display: flex;
   flex-direction: column;
