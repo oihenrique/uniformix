@@ -7,6 +7,7 @@ import { GrayButtonComponent } from './grayButton/grayButton.component';
 import { SmallButtonComponent } from './small-button/small-button.component';
 import { TableComponent } from './table/table.component';
 import { TableInfoServiceService } from '../services/tableInfoService.service';
+import { InputComponent } from './input/input.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TableInfoServiceService } from '../services/tableInfoService.service';
     GrayButtonComponent,
     SmallButtonComponent,
     TableComponent,
+    InputComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import { TableInfoServiceService } from '../services/tableInfoService.service';
     GrayButtonComponent,
     SmallButtonComponent,
     TableComponent,
+    InputComponent
   ],
   providers: [TableInfoServiceService],
 })

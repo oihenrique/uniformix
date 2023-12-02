@@ -8,6 +8,7 @@ import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { TableInfoServiceService } from './services/tableInfoService.service';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
