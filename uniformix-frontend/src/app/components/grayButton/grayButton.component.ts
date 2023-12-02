@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class GrayButtonComponent implements OnInit {
   @Input() buttonText: string = '';
   @Input() icon: string = '';
+  @Input() type: string = 'button';
 
   constructor() {}
 
