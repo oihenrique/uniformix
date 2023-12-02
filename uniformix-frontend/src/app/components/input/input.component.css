@@ -4,8 +4,14 @@ input {
     outline: none;
 }
 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 2rem;
+}
+
 .input-box {
-    margin: 5rem;
     border: 2px solid #7a7a7a;
     border-radius: 4px;
     padding: 4px;
@@ -14,4 +20,9 @@ input {
 .input-box:focus-within {
     outline: 2px solid #F27516;
     opacity: .9;
+}
+
+.label-text {
+    color:#3f3f3f;
+    font-weight: 600;
 }

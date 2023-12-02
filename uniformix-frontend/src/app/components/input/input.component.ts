@@ -12,6 +12,8 @@ export class InputComponent implements OnInit {
 
   @Input() size: object = this.md;
   @Input() placeholder: string = '';
+  @Input() isLabel: boolean = false;
+  @Input() labelText: string = '';
 
   constructor() { }
 
