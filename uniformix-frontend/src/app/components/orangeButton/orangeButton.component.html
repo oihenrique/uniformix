@@ -1,4 +1,4 @@
 <button class="button">
-  <img src="{{ icon }}" />
+  <img *ngIf="icon != ''" src="{{ icon }}" />
   {{ buttonText }}
 </button>
