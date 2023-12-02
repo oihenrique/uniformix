@@ -14,7 +14,6 @@ export class InputComponent implements OnInit {
   @Input() placeholder: string = '';
   @Input() isLabel: boolean = false;
   @Input() labelText: string = '';
-  @Input() inputName: string = '';
 
   constructor() { }
 
