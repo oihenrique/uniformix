@@ -8,7 +8,6 @@ input {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin-bottom: 2rem;
 }
 
 .input-box {
