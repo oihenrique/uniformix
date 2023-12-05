@@ -1,0 +1,22 @@
+.cb-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label-text {
+    color:#3f3f3f;
+    font-weight: 600;
+}
+
+select {
+    background: rgba(236, 236, 236, .4);
+    border: 2px solid #7a7a7a;
+    border-radius: 5px;
+    padding: 4px;
+}
+
+select:focus-within {
+    outline: 1px solid #F27516;
+    opacity: .9;
+}

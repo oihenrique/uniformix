@@ -1,0 +1,7 @@
+<div class="cb-container">
+    <label *ngIf="sLabel" class="label-text" for="combobox">{{ sLabel }}</label>
+    <select name="combobox" id="combobox">
+        <option value="blank-selection">Selecionar</option>
+        <option *ngFor="let item of list" [ngValue]="item.name">{{ item.name }}</option>
+    </select>
+</div>
