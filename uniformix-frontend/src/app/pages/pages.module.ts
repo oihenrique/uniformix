@@ -5,6 +5,12 @@ import { HomeComponent } from './home/home.component';
 import { ComponentsModule } from '../components/components.module';
 import { InventoryComponent } from './inventory/inventory.component';
 import { AddBatchComponent } from './inventory/add-batch/add-batch.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BatchServiceService } from '../services/batch-service.service';
+import { SupplierServiceService } from '../services/supplier-service.service';
+import { CategoryServiceService } from '../services/category-service.service';
 
 
 @NgModule({
@@ -14,6 +20,9 @@ import { AddBatchComponent } from './inventory/add-batch/add-batch.component';
     AddBatchComponent
   ],
   imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
     CommonModule,
     ComponentsModule,
     RouterLink
@@ -21,6 +30,11 @@ import { AddBatchComponent } from './inventory/add-batch/add-batch.component';
   exports: [
     HomeComponent,
     InventoryComponent
+  ],
+  providers: [
+    BatchServiceService,
+    SupplierServiceService,
+    CategoryServiceService
   ]
 })
 export class PagesModule { }
