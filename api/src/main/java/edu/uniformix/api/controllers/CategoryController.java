@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("category")
 public class CategoryController {
@@ -34,8 +36,9 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<CategoryListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
-        Page<CategoryListDto> categoryList = categoryRepository.findAll(paginate).map(CategoryListDto::new);
+    public ResponseEntity<List<CategoryListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
+        Page<CategoryListDto> categoryPage = categoryRepository.findAll(paginate).map(CategoryListDto::new);
+        List<CategoryListDto> categoryList = categoryPage.getContent();
 
         return ResponseEntity.ok(categoryList);
     }

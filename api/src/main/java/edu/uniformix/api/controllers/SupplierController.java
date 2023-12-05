@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("supplier")
 public class SupplierController {
@@ -43,8 +45,9 @@ public class SupplierController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<SupplierListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
-        Page<SupplierListDto> supplierList = supplierRepository.findAll(paginate).map(SupplierListDto::new);
+    public ResponseEntity<List<SupplierListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
+        Page<SupplierListDto> supplierPage = supplierRepository.findAll(paginate).map(SupplierListDto::new);
+        List<SupplierListDto> supplierList = supplierPage.getContent();
 
         return ResponseEntity.ok(supplierList);
     }

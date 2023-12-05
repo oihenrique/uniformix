@@ -1,9 +1,13 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Batch;
+import edu.uniformix.api.domain.Category;
+import edu.uniformix.api.domain.Supplier;
 import edu.uniformix.api.domain.dtos.batch.BatchDto;
 import edu.uniformix.api.domain.dtos.batch.BatchListDto;
 import edu.uniformix.api.repositories.BatchRepository;
+import edu.uniformix.api.repositories.CategoryRepository;
+import edu.uniformix.api.repositories.SupplierRepository;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.UtilsService;
 import jakarta.transaction.Transactional;
@@ -20,14 +24,19 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200/")
+//@CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("batch")
 public class BatchController {
     @Autowired
     BatchRepository batchRepository;
     @Autowired
+    SupplierRepository supplierRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
+    @Autowired
     CodeService codeService;
 
+    @PostMapping
     @Transactional
     public ResponseEntity<BatchListDto> post(@RequestBody @Valid BatchDto batchDto, UriComponentsBuilder uriBuilder) {
         String code = codeService.generateCode('B');
@@ -35,7 +44,13 @@ public class BatchController {
             code = codeService.generateCode('B');
         }
 
+        Supplier supplier = supplierRepository.findByName(batchDto.supplier());
+        Category category = categoryRepository.findByName(batchDto.category());
+
         Batch batch = new Batch(batchDto, code);
+        batch.setSupplier(supplier);
+        batch.setCategory(category);
+
         batchRepository.save(batch);
 
         var uri = uriBuilder.buildAndExpand("/{id}").toUri();

@@ -2,12 +2,10 @@ package edu.uniformix.api.domain;
 
 import edu.uniformix.api.domain.dtos.batch.BatchDto;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.Fetch;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
