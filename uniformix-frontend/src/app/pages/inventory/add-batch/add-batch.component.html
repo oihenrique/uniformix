@@ -1,8 +1,29 @@
 <div class="addBatch-area">
     <h2 class="addbatch-title">Adicionar lote</h2>
     <div class="add-inputs">
-        <app-input labelText="Descrição"></app-input>
-        <app-input labelText="Quantidade"></app-input>
+        <form class="add-batch-form" #addBatchForm="ngForm" (ngSubmit)="onSubmit(addBatchForm.value)">
+            <app-input labelText="Descrição"
+            placeholder="Camisas P Baby-look..."
+            name="description"
+            ngDefaultControl
+            ngModel
+            ></app-input>
+            <app-input labelText="Quantidade"
+            name="quantity"
+            ngDefaultControl
+            ngModel
+            ></app-input>
+            <app-combobox sLabel="Categoria" [cbList]="categories"
+            name="category"
+            ngDefaultControl
+            ngModel
+            ></app-combobox>
+            <app-combobox sLabel="Fornecedor" [cbList]="suppliers"
+            name="supplier"
+            ngDefaultControl
+            ngModel
+            ></app-combobox>
+            <app-orangeButton buttonText="próximo" type="submit"></app-orangeButton>
+        </form>
     </div>
-    <app-orangeButton buttonText="próximo"></app-orangeButton>
 </div>

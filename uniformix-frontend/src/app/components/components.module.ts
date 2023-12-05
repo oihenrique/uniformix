@@ -8,6 +8,8 @@ import { SmallButtonComponent } from './small-button/small-button.component';
 import { TableComponent } from './table/table.component';
 import { TableInfoServiceService } from '../services/tableInfoService.service';
 import { InputComponent } from './input/input.component';
+import { supplierComboboxComponent } from './combobox/combobox.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,10 +19,12 @@ import { InputComponent } from './input/input.component';
     SmallButtonComponent,
     TableComponent,
     InputComponent,
+    supplierComboboxComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     SidebarComponent,
@@ -28,8 +32,11 @@ import { InputComponent } from './input/input.component';
     GrayButtonComponent,
     SmallButtonComponent,
     TableComponent,
-    InputComponent
+    InputComponent,
+    supplierComboboxComponent
   ],
-  providers: [TableInfoServiceService],
+  providers: [
+    TableInfoServiceService
+  ],
 })
 export class ComponentsModule {}
