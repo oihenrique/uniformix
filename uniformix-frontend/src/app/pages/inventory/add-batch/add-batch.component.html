@@ -1,29 +1,83 @@
-<div class="addBatch-area">
-    <h2 class="addbatch-title">Adicionar lote</h2>
-    <div class="add-inputs">
-        <form class="add-batch-form" #addBatchForm="ngForm" (ngSubmit)="onSubmit(addBatchForm.value)">
-            <app-input labelText="Descrição"
-            placeholder="Camisas P Baby-look..."
-            name="description"
-            ngDefaultControl
-            ngModel
-            ></app-input>
-            <app-input labelText="Quantidade"
-            name="quantity"
-            ngDefaultControl
-            ngModel
-            ></app-input>
-            <app-combobox sLabel="Categoria" [cbList]="categories"
-            name="category"
-            ngDefaultControl
-            ngModel
-            ></app-combobox>
-            <app-combobox sLabel="Fornecedor" [cbList]="suppliers"
-            name="supplier"
-            ngDefaultControl
-            ngModel
-            ></app-combobox>
-            <app-orangeButton buttonText="próximo" type="submit"></app-orangeButton>
-        </form>
+<div class="container">
+  <div class="forms-box">
+    <div class="add-batch-form">
+        <h2 class="addbatch-title">Adicionar lote</h2>
+      <form
+        class="form"
+        #addBatchForm="ngForm"
+        (ngSubmit)="onSubmit(addBatchForm.value)"
+      >
+        <app-input
+          labelText="Descrição"
+          placeholder="Camisas da convenção 2024"
+          name="description"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-input
+          labelText="Quantidade"
+          name="quantity"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-combobox
+          sLabel="Categoria"
+          [cbList]="categories"
+          name="category"
+          ngDefaultControl
+          ngModel
+        ></app-combobox>
+        <app-combobox
+          sLabel="Fornecedor"
+          [cbList]="suppliers"
+          name="supplier"
+          ngDefaultControl
+          ngModel
+        ></app-combobox>
+        <app-orangeButton buttonText="próximo" type="submit"></app-orangeButton>
+      </form>
     </div>
+    <div class="add-uniform-form">
+        <h2 class="addbatch-title">Adicionar uniforme</h2>
+      <form
+        class="form"
+        #addUniformForm="ngForm"
+        (ngSubmit)="onSubmitUniform(addUniformForm.value)"
+      >
+        <app-input
+          labelText="Nome"
+          placeholder="Camisas P Baby-look"
+          name="name"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-input
+          labelText="Quantidade"
+          name="quantity"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <div class="uniform-select-itens">
+          <app-combobox
+            sLabel="Sexo"
+            [cbList]="sex"
+            name="sex"
+            ngDefaultControl
+            ngModel
+          ></app-combobox>
+          <app-combobox
+            sLabel="Tamanho"
+            [cbList]="size"
+            name="size"
+            ngDefaultControl
+            ngModel
+          ></app-combobox>
+        </div>
+        <app-grayButton buttonText="adicionar" type="submit"></app-grayButton>
+      </form>
+      <div class="uniform-stack">
+        
+      </div>
+    </div>
+  </div>
 </div>

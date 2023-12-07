@@ -1,4 +1,4 @@
-.addBatch-area {
+.container {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -15,8 +15,37 @@
     margin-bottom: 4.5rem;
 }
 
-.add-batch-form {
+.forms-box {
+    display: flex;
+    flex-direction: row;
+    gap: 6rem;
+}
+
+.uniform-select-itens {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+.form {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.add-batch-form {
+    padding: 1.5rem;
+}
+
+.add-uniform-form {
+    padding: 1.5rem;
+    background-color: #f3f3f3;
+    border-radius: 6px;
+}
+
+.uniform-stack {
+    margin-top: 2rem;
+    height: 10rem;
+    background-color: white;
+    border: 2px solid #666666;
 }

@@ -15,6 +15,8 @@ import { categoryInterface } from 'src/app/interfaces/categoryInterface';
 export class AddBatchComponent implements OnInit {
   suppliers: supplierInterface[] = [];
   categories: categoryInterface[] = [];
+  sex = [];
+  size = [];
   
   sm = { width: '14rem' };
   md = { width: '20rem' };
@@ -41,4 +43,6 @@ export class AddBatchComponent implements OnInit {
   onSubmit(batch: batchInterface): void {
     this.batchService.post(batch).subscribe();
   }
+
+  onSubmitUniform(uniform:object): void {}
 }
