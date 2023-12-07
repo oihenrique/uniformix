@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { tableInfoInterface } from '../components/table/tableInfoInterface';
+import { tableInfoInterface } from '../interfaces/tableInfoInterface';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
