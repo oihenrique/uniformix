@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableInfoServiceService } from 'src/app/services/tableInfoService.service';
-import { tableInfoInterface } from './tableInfoInterface';
+import { tableInfoInterface } from '../../interfaces/tableInfoInterface';
 
 @Component({
   selector: 'app-table',
