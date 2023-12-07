@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BatchServiceService } from '../services/batch-service.service';
 import { SupplierServiceService } from '../services/supplier-service.service';
 import { CategoryServiceService } from '../services/category-service.service';
+import { UniformServiceService } from '../services/uniform-service.service';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { CategoryServiceService } from '../services/category-service.service';
   providers: [
     BatchServiceService,
     SupplierServiceService,
-    CategoryServiceService
+    CategoryServiceService,
+    UniformServiceService
   ]
 })
 export class PagesModule { }
