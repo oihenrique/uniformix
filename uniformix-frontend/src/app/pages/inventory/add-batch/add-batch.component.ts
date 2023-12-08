@@ -16,15 +16,16 @@ import { uniformInterface } from 'src/app/interfaces/uniformInterface';
 export class AddBatchComponent implements OnInit {
   suppliers: supplierInterface[] = [];
   categories: categoryInterface[] = [];
-  sex: object[] = [{ name: 'M' }, { name: 'F' }];
+  sex: object[] = [{ name: 'M' }, { name: 'F' }, { name: 'Unisex' }];
 
   size: object[] = [
     { name: 'PP' },
     { name: 'P' },
     { name: 'P BL' },
+    { name: 'M' },
     { name: 'M BL' },
-    { name: 'G BL' },
     { name: 'G' },
+    { name: 'G BL' },
     { name: 'GG' },
     { name: 'XGG' },
   ];
@@ -57,14 +58,29 @@ export class AddBatchComponent implements OnInit {
         this.categories = data;
       });
   }
-
+  
   onSubmit(batch: batchInterface): void {
+    var uniformIdList: number[] = [];
+  
+    for (let i = 0; i < this.uniformStack.length; i++) {
+      this.uniformService.post(this.uniformStack[i]).subscribe(
+        (response) => {
+          if (response.body && response.body.id) {
+            uniformIdList.push(response.body.id);
+          }
+        }
+      );
+    }
+    
+    batch.uniform = uniformIdList;
+
     this.batchService.post(batch).subscribe();
   }
+  
+  
 
   onSubmitUniform(uniform: uniformInterface): void {
     const data = this.uniformService.generateUniformObject(uniform);
     this.uniformStack.push(data);
-    console.log(data)
   }
 }

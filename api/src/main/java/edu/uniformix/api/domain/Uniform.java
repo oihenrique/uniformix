@@ -17,7 +17,7 @@ public class Uniform {
     private Long id;
     private String name;
     private int quantity;
-    private char sex;
+    private String sex;
     private String size;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_batch", referencedColumnName = "id")

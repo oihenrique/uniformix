@@ -9,7 +9,7 @@ public record UniformDto(
         String name,
         @NotNull
         Integer quantity,
-        Character sex,
+        String sex,
         @NotBlank
         String size) {
 }
