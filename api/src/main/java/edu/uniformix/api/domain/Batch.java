@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -31,6 +33,8 @@ public class Batch {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_category", referencedColumnName = "id")
     private Category category;
+
+    private List<Long> uniform = new ArrayList<>();
 
     public Batch(BatchDto batchDto, String code) {
         this.batchCode = code;

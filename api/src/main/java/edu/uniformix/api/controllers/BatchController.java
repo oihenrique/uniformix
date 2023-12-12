@@ -3,11 +3,14 @@ package edu.uniformix.api.controllers;
 import edu.uniformix.api.domain.Batch;
 import edu.uniformix.api.domain.Category;
 import edu.uniformix.api.domain.Supplier;
+import edu.uniformix.api.domain.Uniform;
 import edu.uniformix.api.domain.dtos.batch.BatchDto;
 import edu.uniformix.api.domain.dtos.batch.BatchListDto;
+import edu.uniformix.api.domain.dtos.uniform.UniformDto;
 import edu.uniformix.api.repositories.BatchRepository;
 import edu.uniformix.api.repositories.CategoryRepository;
 import edu.uniformix.api.repositories.SupplierRepository;
+import edu.uniformix.api.repositories.UniformRepository;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.UtilsService;
 import jakarta.transaction.Transactional;
@@ -34,6 +37,8 @@ public class BatchController {
     @Autowired
     CategoryRepository categoryRepository;
     @Autowired
+    UniformRepository uniformRepository;
+    @Autowired
     CodeService codeService;
 
     @PostMapping
@@ -50,6 +55,13 @@ public class BatchController {
         Batch batch = new Batch(batchDto, code);
         batch.setSupplier(supplier);
         batch.setCategory(category);
+
+        for (UniformDto uniformDto : batchDto.uniforms()) {
+            Uniform uniform = new Uniform(uniformDto);
+            uniform.setBatch(batch);
+            uniformRepository.save(uniform);
+            batch.getUniform().add(uniform.getId());
+        }
 
         batchRepository.save(batch);
 

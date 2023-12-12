@@ -60,21 +60,9 @@ export class AddBatchComponent implements OnInit {
   }
   
   onSubmit(batch: batchInterface): void {
-    var uniformIdList: number[] = [];
-  
-    for (let i = 0; i < this.uniformStack.length; i++) {
-      this.uniformService.post(this.uniformStack[i]).subscribe(
-        (response) => {
-          if (response.body && response.body.id) {
-            uniformIdList.push(response.body.id);
-          }
-        }
-      );
-    }
-    
-    batch.uniform = uniformIdList;
-
+    batch.uniforms = this.uniformStack;
     this.batchService.post(batch).subscribe();
+    console.log(batch);
   }
   
   

@@ -1,5 +1,6 @@
 package edu.uniformix.api.domain.dtos.batch;
 
+import edu.uniformix.api.domain.dtos.uniform.UniformDto;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -10,6 +11,6 @@ public record BatchDto(
         Integer quantity,
         String supplier,
         String category,
-        List<Long> uniform
+        List<UniformDto> uniforms
 ) {
 }
