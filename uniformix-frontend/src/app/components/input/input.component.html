@@ -1,9 +1,12 @@
 <div class="input-container">
     <label *ngIf="labelText != ''" class="label-text">{{ labelText }}</label>
-    <div class="input-box" [style]="size">
-        <input [style]="size" 
-        type="text"
+    <div class="input-box" [ngStyle]="isDisabled ? disabledStyle : null">
+        <input 
+        [disabled]="isDisabled"
+        [ngStyle]="size"
+        [type]="type"
         placeholder={{placeholder}}
+        [value]="initValue"
         >
     </div>
 </div>

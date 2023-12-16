@@ -6,14 +6,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-  sm = {width: '14rem'};
-  md = {width: '20rem'};
-  lg = {width: '32rem'};
+  public sm = {width: '14rem'};
+  public md = {width: '20rem'};
+  public lg = {width: '32rem'};
+
+  public disabledStyle = {
+    'background-color': '#EBEBE4'
+  }
 
   @Input() size: object = this.md;
   @Input() placeholder: string = '';
   @Input() isLabel: boolean = false;
+  @Input() isDisabled: boolean = false;
+  @Input() initValue: string = '';
   @Input() labelText: string = '';
+  @Input() type: string = 'text';
+  @Input() class: string = '';
 
   constructor() { }
 
