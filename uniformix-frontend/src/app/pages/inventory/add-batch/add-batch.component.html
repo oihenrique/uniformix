@@ -15,8 +15,12 @@
           ngModel
         ></app-input>
         <app-input
+          id="batch-quantity-input"
           labelText="Quantidade"
           name="quantity"
+          type="number"
+          [isDisabled]="true"
+          [initValue]="calculateTotalQuantity()"
           ngDefaultControl
           ngModel
         ></app-input>
@@ -53,6 +57,7 @@
         ></app-input>
         <app-input
           labelText="Quantidade"
+          type="number"
           name="quantity"
           ngDefaultControl
           ngModel

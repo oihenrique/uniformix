@@ -56,7 +56,7 @@ public class BatchController {
         batch.setSupplier(supplier);
         batch.setCategory(category);
 
-        for (UniformDto uniformDto : batchDto.uniforms()) {
+        for (UniformDto uniformDto : batchDto.uniform()) {
             Uniform uniform = new Uniform(uniformDto);
             uniform.setBatch(batch);
             uniformRepository.save(uniform);

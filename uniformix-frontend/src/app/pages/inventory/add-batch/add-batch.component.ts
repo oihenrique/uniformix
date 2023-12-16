@@ -60,15 +60,23 @@ export class AddBatchComponent implements OnInit {
   }
   
   onSubmit(batch: batchInterface): void {
-    batch.uniforms = this.uniformStack;
+    batch.uniform = this.uniformStack;
+    batch.quantity = Number(this.calculateTotalQuantity());
     this.batchService.post(batch).subscribe();
-    console.log(batch);
   }
-  
   
 
   onSubmitUniform(uniform: uniformInterface): void {
     const data = this.uniformService.generateUniformObject(uniform);
     this.uniformStack.push(data);
+  
+    const batchQuantityInput = document.getElementById('batch-quantity-input') as HTMLInputElement;
+    if (batchQuantityInput) {
+      batchQuantityInput.value = this.calculateTotalQuantity().toString();
+    }
   }
+
+  calculateTotalQuantity(): string {
+    return this.uniformStack.reduce((total, uniform) => total + Number(uniform.quantity), 0).toString();
+  }  
 }

@@ -11,6 +11,6 @@ public record BatchDto(
         Integer quantity,
         String supplier,
         String category,
-        List<UniformDto> uniforms
+        List<UniformDto> uniform
 ) {
 }

@@ -5,5 +5,5 @@ export interface batchInterface {
     quantity: number,
     supplier: number,
     category: number,
-    uniforms: Array<uniformInterface>
+    uniform: Array<uniformInterface>
 }
