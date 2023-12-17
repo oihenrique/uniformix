@@ -7,6 +7,9 @@ import { CategoryServiceService } from 'src/app/services/category-service.servic
 import { categoryInterface } from 'src/app/interfaces/categoryInterface';
 import { UniformServiceService } from 'src/app/services/uniform-service.service';
 import { uniformInterface } from 'src/app/interfaces/uniformInterface';
+import { RouterServiceService } from 'src/app/services/router-service.service';
+import { AlertServiceService } from 'src/app/services/alert-service.service';
+import { AlertTypeEnum } from 'src/app/components/alert/alertType.enum';
 
 @Component({
   selector: 'app-add-batch',
@@ -16,6 +19,7 @@ import { uniformInterface } from 'src/app/interfaces/uniformInterface';
 export class AddBatchComponent implements OnInit {
   suppliers: supplierInterface[] = [];
   categories: categoryInterface[] = [];
+  alertTypes = AlertTypeEnum;
   sex: object[] = [{ name: 'M' }, { name: 'F' }, { name: 'Unisex' }];
 
   size: object[] = [
@@ -33,7 +37,7 @@ export class AddBatchComponent implements OnInit {
   uniformStack: Array<uniformInterface> = [];
   info: Array<uniformInterface> = [];
   columns: Array<keyof uniformInterface> = ['name', 'quantity', 'sex', 'size'];
-  
+
   sm = { width: '14rem' };
   md = { width: '20rem' };
   lg = { width: '32rem' };
@@ -42,7 +46,9 @@ export class AddBatchComponent implements OnInit {
     private batchService: BatchServiceService,
     private supplierService: SupplierServiceService,
     private categoryService: CategoryServiceService,
-    private uniformService: UniformServiceService
+    private uniformService: UniformServiceService,
+    private routerService: RouterServiceService,
+    private alertService: AlertServiceService
   ) {}
 
   ngOnInit(): void {
@@ -58,25 +64,47 @@ export class AddBatchComponent implements OnInit {
         this.categories = data;
       });
   }
-  
+
   onSubmit(batch: batchInterface): void {
     batch.uniform = this.uniformStack;
     batch.quantity = Number(this.calculateTotalQuantity());
-    this.batchService.post(batch).subscribe();
+
+    if (!this.batchService.hasEmptyFields(batch)) {
+      this.batchService.post(batch).subscribe();
+      this.alertService.showAlert(this.alertTypes.sucess, 'Lote Cadastrado!');
+
+      setTimeout(() => {
+        this.routerService.redirectToInventoryRoute();
+      }, 1500);
+      
+    } else {
+      this.alertService.showAlert(
+        this.alertTypes.error,
+        'Preencha todos os campos!'
+      );
+    }
   }
-  
 
   onSubmitUniform(uniform: uniformInterface): void {
-    const data = this.uniformService.generateUniformObject(uniform);
-    this.uniformStack.push(data);
-  
-    const batchQuantityInput = document.getElementById('batch-quantity-input') as HTMLInputElement;
-    if (batchQuantityInput) {
+    if (!this.uniformService.hasEmptyFields(uniform)) {
+      const data = this.uniformService.generateUniformObject(uniform);
+      this.uniformStack.push(data);
+
+      const batchQuantityInput = document.getElementById(
+        'batch-quantity-input'
+      ) as HTMLInputElement;
       batchQuantityInput.value = this.calculateTotalQuantity().toString();
+    } else {
+      this.alertService.showAlert(
+        this.alertTypes.error,
+        'Preencha todos os campos!'
+      );
     }
   }
 
   calculateTotalQuantity(): string {
-    return this.uniformStack.reduce((total, uniform) => total + Number(uniform.quantity), 0).toString();
-  }  
+    return this.uniformStack
+      .reduce((total, uniform) => total + Number(uniform.quantity), 0)
+      .toString();
+  }
 }

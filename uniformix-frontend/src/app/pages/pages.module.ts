@@ -12,6 +12,8 @@ import { BatchServiceService } from '../services/batch-service.service';
 import { SupplierServiceService } from '../services/supplier-service.service';
 import { CategoryServiceService } from '../services/category-service.service';
 import { UniformServiceService } from '../services/uniform-service.service';
+import { RouterServiceService } from '../services/router-service.service';
+import { AlertServiceService } from '../services/alert-service.service';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { UniformServiceService } from '../services/uniform-service.service';
     BatchServiceService,
     SupplierServiceService,
     CategoryServiceService,
-    UniformServiceService
+    UniformServiceService,
+    RouterServiceService,
+    AlertServiceService
   ]
 })
 export class PagesModule { }

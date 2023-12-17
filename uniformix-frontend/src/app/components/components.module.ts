@@ -10,6 +10,8 @@ import { TableInfoServiceService } from '../services/tableInfoService.service';
 import { InputComponent } from './input/input.component';
 import { supplierComboboxComponent } from './combobox/combobox.component';
 import { FormsModule } from '@angular/forms';
+import { AlertComponent } from './alert/alert.component';
+import { AlertServiceService } from '../services/alert-service.service';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     TableComponent,
     InputComponent,
     supplierComboboxComponent,
+    AlertComponent,
   ],
   imports: [
     CommonModule,
@@ -33,10 +36,12 @@ import { FormsModule } from '@angular/forms';
     SmallButtonComponent,
     TableComponent,
     InputComponent,
-    supplierComboboxComponent
+    supplierComboboxComponent,
+    AlertComponent
   ],
   providers: [
-    TableInfoServiceService
+    TableInfoServiceService,
+    AlertServiceService
   ],
 })
 export class ComponentsModule {}

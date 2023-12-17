@@ -15,7 +15,7 @@ export class UniformServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzAyNzQwNTE3fQ.9-OHwDNwt4reKbFnFrX6EQPNMGa2J1h62fgG89QCCkU'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzAyODQ3MDY1fQ._bgqTVwuSC5_swqtHBMTxB2JBdEsLmqavdrHcfA2IX0'
     })
   };
 
@@ -27,5 +27,10 @@ export class UniformServiceService {
     return this.http.post(this.url, uniform, { observe: 'response', headers:this.httpOptions.headers}).pipe(
       map((response: HttpResponse<any>) => response)
     );
+  }
+
+  hasEmptyFields(uniform: any): boolean {
+    return ['name', 'quantity', 'sex', 'size']
+    .some(field => uniform[field] == null || uniform[field] === '' || uniform[field] == 0)
   }
 }
