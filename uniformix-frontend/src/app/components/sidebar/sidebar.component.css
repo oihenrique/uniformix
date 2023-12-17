@@ -50,3 +50,7 @@
 .nav-button:hover {
   color: #F27516;
 }
+
+.active-button {
+  color: #F27516;
+}

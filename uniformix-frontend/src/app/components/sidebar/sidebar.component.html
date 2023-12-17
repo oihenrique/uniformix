@@ -3,23 +3,63 @@
     <h1 class="logo">Uni<span>formix</span></h1>
   </a>
   <div class="nav-buttons">
-    <button class="nav-button" routerLink="/inventory">
+    <button
+      class="nav-button"
+      routerLink="/inventory"
+      [ngClass]="{
+        'nav-button': true,
+        'active-button': activeButton === 'Estoque'
+      }"
+      (click)="markAsActive('Estoque')"
+    >
       <img src="../../../assets/icons/Clothes icon.svg" alt="Clothes icon" />
       Estoque
     </button>
-    <button class="nav-button">
+    <button
+      class="nav-button"
+      routerLink="/suppliers"
+      [ngClass]="{
+        'nav-button': true,
+        'active-button': activeButton === 'Fornecedores'
+      }"
+      (click)="markAsActive('Fornecedores')"
+    >
       <img src="../../../assets/icons/Supplier icon.svg" alt="Suppliers icon" />
       Fornecedores
     </button>
-    <button class="nav-button">
+    <button
+      class="nav-button"
+      routerLink="/categories"
+      [ngClass]="{
+        'nav-button': true,
+        'active-button': activeButton === 'Categorias'
+      }"
+      (click)="markAsActive('Categorias')"
+    >
       <img src="../../../assets/icons/Tag icon.svg" alt="Tag icon" />
       Categorias
     </button>
-    <button class="nav-button">
+    <button
+      class="nav-button"
+      routerLink="/user"
+      [ngClass]="{
+        'nav-button': true,
+        'active-button': activeButton === 'Usuário'
+      }"
+      (click)="markAsActive('Usuário')"
+    >
       <img src="../../../assets/icons/User icon.svg" alt="User icon" />
       Usuário
     </button>
-    <button class="nav-button">
+    <button
+      class="nav-button"
+      routerLink="/settings"
+      [ngClass]="{
+        'nav-button': true,
+        'active-button': activeButton === 'Configurações'
+      }"
+      (click)="markAsActive('Configurações')"
+    >
       <img
         src="../../../assets/icons/Config icon.svg"
         alt="Configurations icon"
