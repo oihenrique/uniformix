@@ -1,0 +1,19 @@
+.alert {
+    padding: 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    position: absolute;
+    left: 50%;
+    top: 5%
+}
+
+.sucess {
+    color: #0f5132;
+    background: #d1e7dd;
+}
+
+.error {
+    color: #842029;
+    background: #f8d7da;
+}
