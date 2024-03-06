@@ -14,10 +14,10 @@ public class CorsConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                CorsRegistration cors = registry.addMapping("/*");
+                CorsRegistration cors = registry.addMapping("/**");
                 cors.allowedOrigins("http://localhost:4200");
                 cors.allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS");
-                cors.allowedHeaders("Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization");
+                cors.allowedHeaders("Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization");
                 cors.allowCredentials(true);
             }
         };
