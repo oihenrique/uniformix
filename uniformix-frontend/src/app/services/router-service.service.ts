@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Injectable({
@@ -7,10 +7,20 @@ import { Router } from '@angular/router';
 })
 export class RouterServiceService {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+    ) {}
 
   redirectToInventoryRoute() {
     this.router.navigate(['/inventory']);
   }
   
+  resetPage() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([this.router.url], {
+      relativeTo: this.route
+    });
+  }
 }
