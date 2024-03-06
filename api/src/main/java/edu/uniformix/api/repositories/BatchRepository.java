@@ -8,4 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface BatchRepository extends JpaRepository<Batch, Long> {
     @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM Batch b WHERE b.batchCode = :code")
     Boolean existsByCode(@Param("code") String code);
+
+    @Query("SELECT b FROM Batch b WHERE b.batchCode = :code")
+    Batch findByCode(@Param("code") String code);
 }
