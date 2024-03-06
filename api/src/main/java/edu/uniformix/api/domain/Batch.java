@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -34,7 +35,8 @@ public class Batch {
     @JoinColumn(name = "id_category", referencedColumnName = "id")
     private Category category;
 
-    private List<Long> uniform = new ArrayList<>();
+    @OneToMany(mappedBy = "batch", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Uniform> uniform = new ArrayList<>();
 
     public Batch(BatchDto batchDto, String code) {
         this.batchCode = code;
