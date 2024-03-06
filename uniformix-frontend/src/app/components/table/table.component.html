@@ -1,12 +1,12 @@
 <table datatable class="table">
   <thead class="table-head">
     <tr class="table-head-row">
-      <td *ngFor="let column of columns"> {{ column }} </td>
+      <td *ngFor="let column of columns">{{ column }}</td>
     </tr>
   </thead>
   <tbody class="table-body">
-    <tr *ngFor="let infos of info" class="table-body-row">
-      <td *ngFor="let column of columns"> {{ infos[column] }}</td>
+    <tr *ngFor="let infos of info" class="table-body-row" (click)="handleRowClick(infos)">
+      <td *ngFor="let column of columns">{{ infos[column] }}</td>
     </tr>
   </tbody>
 </table>

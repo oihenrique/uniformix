@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { TableInfoServiceService } from 'src/app/services/tableInfoService.service';
-import { tableInfoInterface } from '../../interfaces/tableInfoInterface';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -8,14 +6,15 @@ import { tableInfoInterface } from '../../interfaces/tableInfoInterface';
   styleUrls: ['./table.component.css'],
 })
 export class TableComponent implements OnInit {
-  info: tableInfoInterface[] = [];
-  columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao'];
+  @Input() info: any[] = [];
+  @Input() columns: Array<any> = [];
+  @Output() onRowClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private tableService: TableInfoServiceService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.tableService.getInfo().subscribe((info) => {
-      this.info = info;
-    })
+  ngOnInit(): void {}
+
+  handleRowClick(infos: any): void {
+    this.onRowClick.emit(infos);
   }
 }

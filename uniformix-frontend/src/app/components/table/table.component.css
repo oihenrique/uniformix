@@ -31,3 +31,12 @@
 .table-body-row:nth-child(even) {
   background-color: rgba(109, 144, 166, 0.15);
 }
+
+.table-body-row:hover {
+  background-color: #eb8f6b;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}

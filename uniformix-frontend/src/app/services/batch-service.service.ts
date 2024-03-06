@@ -15,7 +15,7 @@ export class BatchServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzAyODQ3MDY1fQ._bgqTVwuSC5_swqtHBMTxB2JBdEsLmqavdrHcfA2IX0'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzA5Njg4ODAzfQ.6stAak2rsVpawBhO1oFeWN5ckrUkxqhpggoG7LGa_P4'
     })
   };
 
@@ -41,5 +41,11 @@ export class BatchServiceService {
     }
   
     return emptyFields.join(', ');
+  }
+
+  delete(code: string): void{
+    const url = `http://localhost:8080/batch/${code}`;
+
+    this.http.delete(url, this.httpOptions).subscribe();
   }
 }
