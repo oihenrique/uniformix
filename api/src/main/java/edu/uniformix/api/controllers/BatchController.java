@@ -60,7 +60,7 @@ public class BatchController {
             Uniform uniform = new Uniform(uniformDto);
             uniform.setBatch(batch);
             uniformRepository.save(uniform);
-            batch.getUniform().add(uniform.getId());
+            batch.getUniform().add(uniform);
         }
 
         batchRepository.save(batch);
@@ -102,10 +102,24 @@ public class BatchController {
         return ResponseEntity.ok().body(batchRepository.save(batch));
     }
 
-    @DeleteMapping("/{id}")
+//    @DeleteMapping("/{id}")
+//    @Transactional
+//    public ResponseEntity<Object> delete(@PathVariable Long id) {
+//        Batch batch = batchRepository.findById(id).orElse(null);
+//
+//        if (batch == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
+//        }
+//
+//        batchRepository.delete(batch);
+//
+//        return ResponseEntity.noContent().build();
+//    }
+
+    @DeleteMapping("/{code}")
     @Transactional
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
-        Batch batch = batchRepository.findById(id).orElse(null);
+    public ResponseEntity<Object> deleteByCode(@PathVariable String code) {
+        Batch batch = batchRepository.findByCode(code);
 
         if (batch == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
