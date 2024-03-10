@@ -24,9 +24,13 @@
     gap: 1.5rem;
 }
 
-.search-input {
-    width: 100%;
+.searchBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
 }
+
 
 .table-container {
     margin-top: 2.5rem;
