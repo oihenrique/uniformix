@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { tableInfoInterface } from 'src/app/interfaces/tableInfoInterface';
 
 @Component({
   selector: 'app-table',
