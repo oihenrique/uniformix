@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { batchInterface } from '../interfaces/batchInterface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tableInfoInterface } from '../interfaces/tableInfoInterface';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class BatchServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzA5Njg4ODAzfQ.6stAak2rsVpawBhO1oFeWN5ckrUkxqhpggoG7LGa_P4'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEwMDAzMjQwfQ.zfj26TnHXcEi_kQqaSK17gSOd9i_N6XbcuBVidShWGQ'
     })
   };
 
@@ -41,6 +42,13 @@ export class BatchServiceService {
     }
   
     return emptyFields.join(', ');
+  }
+
+  getBatchByText(text: string): Observable<tableInfoInterface[]> {
+    const url = `http://localhost:8080/batch/search/${text}`;
+
+    return this.http.get<tableInfoInterface[]>(url);
+
   }
 
   delete(code: string): void{

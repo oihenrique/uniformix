@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { tableInfoInterface } from 'src/app/interfaces/tableInfoInterface';
+import { BatchServiceService } from 'src/app/services/batch-service.service';
 import { RouterServiceService } from 'src/app/services/router-service.service';
 import { TableInfoServiceService } from 'src/app/services/tableInfoService.service';
+import { Observable, of } from 'rxjs'
 
 @Component({
   selector: 'app-inventory',
@@ -17,19 +19,22 @@ export class InventoryComponent implements OnInit {
   info: tableInfoInterface[] = [];
   columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao']
   batchCode: string = "";
+  searchResult$: any;
 
   constructor(
     private tableService: TableInfoServiceService,
-    private routerService: RouterServiceService
+    private routerService: RouterServiceService,
+    private batchService: BatchServiceService
     ) {}
 
   ngOnInit(): void {
-    this.fetchData();
+      this.fetchData();
   }
 
   fetchData(): void {
     this.tableService.getInfo().subscribe((info) => {
       this.info = info;
+      this.searchResult$ = of(this.info);
     });
   }
 
@@ -37,7 +42,20 @@ export class InventoryComponent implements OnInit {
     this.batchCode = infos.codigo;
   }
 
-  delete(info: tableInfoInterface[], code: string) {
+  onSearchSubmit(text: string): void {
+    this.batchService.getBatchByText(text).subscribe((result) => {
+      this.searchResult$ = result;
+    })
+
+    new Observable(item => {
+      setTimeout(() => {
+        item.next(this.info = this.searchResult$);
+
+      }, 1500);
+    }).subscribe()
+  }
+
+  delete(info: tableInfoInterface[], code: string): void {
     this.tableService.deleteBatch(info, code).subscribe();
     setTimeout(() => {
       this.routerService.resetPage();

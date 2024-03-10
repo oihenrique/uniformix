@@ -15,7 +15,7 @@ export class UniformServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzAyODQ3MDY1fQ._bgqTVwuSC5_swqtHBMTxB2JBdEsLmqavdrHcfA2IX0'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzA5NjA3NjU4fQ.A8vLPWbUr-CJOlLGs6X0H2cjD3IY6i7VKaxoTdP0GTI'
     })
   };
 

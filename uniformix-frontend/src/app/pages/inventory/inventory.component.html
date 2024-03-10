@@ -13,11 +13,16 @@
       [icon]="removeIcon"
       (click)="delete(info, batchCode)"
     ></app-orangeButton>
-    <app-input
-      placeholder="Camisas da convenção 2024"
-      name="search"
-    ></app-input>
-    <app-grayButton buttonText="pesquisar" [icon]="searchIcon"></app-grayButton>
+    <form #inventorySearchBar="ngForm" class="searchBar" (ngSubmit)="onSearchSubmit(inventorySearchBar.value.searchValue)">
+        <app-input
+        class="searchBarInput"
+        placeholder="Camisas da convenção 2024"
+        name="searchValue"
+        ngDefaultControl
+        ngModel
+        ></app-input>
+        <app-grayButton buttonText="pesquisar" [icon]="searchIcon" type="submit"></app-grayButton>
+    </form>
     <app-grayButton buttonText="exportar" [icon]="exportIcon"></app-grayButton>
   </div>
   <div class="table-container">

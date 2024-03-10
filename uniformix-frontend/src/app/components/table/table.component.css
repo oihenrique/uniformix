@@ -26,6 +26,7 @@
   font-weight: 400;
   text-align: center;
   color: #373737;
+  cursor: pointer;
 }
 
 .table-body-row:nth-child(even) {

@@ -19,9 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -76,6 +79,23 @@ public class BatchController {
         List<BatchListDto> batchList = batchPage.getContent();
 
         return ResponseEntity.ok(batchList);
+    }
+
+    @GetMapping("/search/{search}")
+    public ResponseEntity<List<BatchListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "acquisitionDate") Pageable paginate) {
+        try {
+            Page<BatchListDto> batchPage = batchRepository.findByText(search.toLowerCase(), paginate).map(BatchListDto::new);
+            List<BatchListDto> batchList = batchPage.getContent();
+
+            if (batchList.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(batchList);
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/{id}")
