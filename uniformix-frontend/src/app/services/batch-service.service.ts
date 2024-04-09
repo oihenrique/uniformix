@@ -16,7 +16,7 @@ export class BatchServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEwMDAzMjQwfQ.zfj26TnHXcEi_kQqaSK17gSOd9i_N6XbcuBVidShWGQ'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEyMDIyMTYxfQ.YLBplNJ-wQoLiVdxybTmHMqWlSwTB54NDANiAJcZjpM'
     })
   };
 

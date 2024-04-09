@@ -20,6 +20,7 @@ export class InventoryComponent implements OnInit {
   columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao']
   batchCode: string = "";
   searchResult$: any;
+  tablePageNumber$: number = 0;
 
   constructor(
     private tableService: TableInfoServiceService,
@@ -31,8 +32,14 @@ export class InventoryComponent implements OnInit {
       this.fetchData();
   }
 
-  fetchData(): void {
-    this.tableService.getInfo().subscribe((info) => {
+  fetchData(next: boolean = false, prev: boolean = false): void {
+    if (next) {
+      this.tablePageNumber$ =+ 1;
+    } else if (prev && this.tablePageNumber$ > 0) {
+      this.tablePageNumber$ =- 1;
+    }
+
+    this.tableService.getInfo(this.tablePageNumber$).subscribe((info) => {
       this.info = info;
       this.searchResult$ = of(this.info);
     });

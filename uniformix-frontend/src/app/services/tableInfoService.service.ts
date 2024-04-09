@@ -15,8 +15,8 @@ export class TableInfoServiceService {
     private batchService: BatchServiceService
   ) {}
 
-  getInfo(): Observable<tableInfoInterface[]> {
-    const url = 'http://localhost:8080/batch';
+  getInfo(pageNumber: Number): Observable<tableInfoInterface[]> {
+    const url = `http://localhost:8080/batch?page=${pageNumber}`;
     return this.httpClient.get<tableInfoInterface[]>(url);
   }
 

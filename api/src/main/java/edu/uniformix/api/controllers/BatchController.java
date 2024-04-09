@@ -17,6 +17,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpMethod;
@@ -73,7 +74,7 @@ public class BatchController {
         return ResponseEntity.created(uri).body(new BatchListDto(batch));
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<BatchListDto>> list(@PageableDefault(sort = "acquisitionDate") Pageable paginate) {
         Page<BatchListDto> batchPage = batchRepository.findAll(paginate).map(BatchListDto::new);
         List<BatchListDto> batchList = batchPage.getContent();
@@ -98,16 +99,16 @@ public class BatchController {
         }
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> get(@PathVariable Long id) {
-        Batch batch = batchRepository.findById(id).orElse(null);
-
-        if (batch == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
-        }
-
-        return ResponseEntity.ok(new BatchListDto(batch));
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Object> get(@PathVariable Long id) {
+//        Batch batch = batchRepository.findById(id).orElse(null);
+//
+//        if (batch == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Batch not found");
+//        }
+//
+//        return ResponseEntity.ok(new BatchListDto(batch));
+//    }
 
     @PutMapping("/{id}")
     @Transactional

@@ -29,7 +29,11 @@
     <app-table [info]="info" [columns]="columns" (onRowClick)="getBatchCodeFromRow($event)"></app-table>
   </div>
   <div class="table-nav-buttons">
-    <app-small-button buttonText="anterior"></app-small-button>
-    <app-small-button buttonText="proxima"></app-small-button>
+    <app-small-button buttonText="anterior"
+      (click)="fetchData(false, true)">
+    </app-small-button>
+    <app-small-button buttonText="proxima"
+      (click)="fetchData(true, false)">
+    </app-small-button>
   </div>
 </div>
