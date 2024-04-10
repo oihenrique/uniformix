@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -75,7 +76,7 @@ public class BatchController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<BatchListDto>> list(@PageableDefault(sort = "acquisitionDate") Pageable paginate) {
+    public ResponseEntity<List<BatchListDto>> list(@PageableDefault(sort = "acquisitionDate", direction = Sort.Direction.DESC) Pageable paginate) {
         Page<BatchListDto> batchPage = batchRepository.findAll(paginate).map(BatchListDto::new);
         List<BatchListDto> batchList = batchPage.getContent();
 
