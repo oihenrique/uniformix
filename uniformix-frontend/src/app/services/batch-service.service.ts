@@ -16,7 +16,7 @@ export class BatchServiceService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEyMDIyMTYxfQ.YLBplNJ-wQoLiVdxybTmHMqWlSwTB54NDANiAJcZjpM'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEyNzE2MDU5fQ.al1AB4Titfa0UIXzf9KLGYIESq2AeABVB0l_hGLImHQ'
     })
   };
 
@@ -42,6 +42,12 @@ export class BatchServiceService {
     }
   
     return emptyFields.join(', ');
+  }
+
+  getTotalInventory() {
+    const url = 'http://localhost:8080/batch/info/totalInventory';
+
+    return this.http.get<number>(url);
   }
 
   getBatchByText(text: string): Observable<tableInfoInterface[]> {

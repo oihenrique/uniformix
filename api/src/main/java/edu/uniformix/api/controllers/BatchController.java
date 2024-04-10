@@ -99,6 +99,10 @@ public class BatchController {
         }
     }
 
+    @GetMapping("/info/totalInventory")
+    public ResponseEntity<Long> countTotalInventory() {
+        return ResponseEntity.ok(batchRepository.countTotalRows());
+    }
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Object> get(@PathVariable Long id) {
 //        Batch batch = batchRepository.findById(id).orElse(null);

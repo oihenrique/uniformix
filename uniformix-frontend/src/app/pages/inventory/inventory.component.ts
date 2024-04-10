@@ -21,6 +21,7 @@ export class InventoryComponent implements OnInit {
   batchCode: string = "";
   searchResult$: any;
   tablePageNumber$: number = 0;
+  totalInventory: number = 0;
 
   constructor(
     private tableService: TableInfoServiceService,
@@ -30,6 +31,9 @@ export class InventoryComponent implements OnInit {
 
   ngOnInit(): void {
       this.fetchData();
+      this.batchService.getTotalInventory().subscribe((number) => {
+        this.totalInventory = number;
+      })
   }
 
   fetchData(next: boolean = false, prev: boolean = false): void {

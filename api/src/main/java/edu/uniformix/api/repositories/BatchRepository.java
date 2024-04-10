@@ -16,4 +16,7 @@ public interface BatchRepository extends JpaRepository<Batch, Long> {
 
     @Query("SELECT b FROM Batch b WHERE LOWER(b.description) LIKE %:search% OR LOWER(b.batchCode) LIKE %:search%")
     Page<Batch> findByText(@Param("search") String search, Pageable pageable);
+
+    @Query("SELECT COUNT(b) FROM Batch b")
+    Long countTotalRows();
 }
