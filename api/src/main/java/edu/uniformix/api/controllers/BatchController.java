@@ -12,6 +12,7 @@ import edu.uniformix.api.repositories.CategoryRepository;
 import edu.uniformix.api.repositories.SupplierRepository;
 import edu.uniformix.api.repositories.UniformRepository;
 import edu.uniformix.api.services.CodeService;
+import edu.uniformix.api.services.CsvReportService;
 import edu.uniformix.api.services.UtilsService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -45,6 +47,8 @@ public class BatchController {
     UniformRepository uniformRepository;
     @Autowired
     CodeService codeService;
+    @Autowired
+    CsvReportService csvReportService;
 
     @PostMapping
     @Transactional
@@ -104,6 +108,24 @@ public class BatchController {
     public ResponseEntity<Long> countTotalInventory() {
         return ResponseEntity.ok(batchRepository.countTotalRows());
     }
+
+    @GetMapping("/report/fetchData")
+    public List<BatchListDto> fetchData() {
+        int pageSize = Integer.parseInt(String.valueOf(countTotalInventory().getBody()));
+
+        ResponseEntity<List<BatchListDto>> responseEntity = list(PageRequest.of(0, pageSize));
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            return responseEntity.getBody();
+        } else {
+            return Collections.emptyList();
+        }
+    }
+
+    @GetMapping("/report/save")
+    public void saveReport() {
+        csvReportService.writeCsv();
+    }
+
 //    @GetMapping("/{id}")
 //    public ResponseEntity<Object> get(@PathVariable Long id) {
 //        Batch batch = batchRepository.findById(id).orElse(null);
