@@ -14,22 +14,25 @@ import edu.uniformix.api.repositories.UniformRepository;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.CsvReportService;
 import edu.uniformix.api.services.UtilsService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
@@ -121,9 +124,34 @@ public class BatchController {
         }
     }
 
-    @GetMapping("/report/save")
+    @GetMapping("/report/generateCsv")
     public void saveReport() {
         csvReportService.writeCsv();
+    }
+
+    @GetMapping("/report/downloadFile/{fileName:.+}")
+    public ResponseEntity<Resource> downloadReport(@PathVariable String fileName, HttpServletRequest request) throws IOException {
+        final Path fileStorageLocation;
+
+        fileStorageLocation = Paths.get("src/main/java/tpm/").toAbsolutePath().normalize();
+        Path filePath = fileStorageLocation.resolve(fileName).normalize();
+
+        try {
+            Resource resource = new UrlResource((filePath.toUri()));
+            String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+
+            if (contentType == null) {
+                contentType = "application/octet-stream";
+            }
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() +"\"")
+                    .body(resource);
+
+        } catch (MalformedURLException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 //    @GetMapping("/{id}")

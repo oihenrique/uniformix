@@ -53,6 +53,11 @@ export class InventoryComponent implements OnInit {
     this.batchCode = infos.codigo;
   }
 
+  exportBatchInfo() {
+    this.batchService.downloadBatchReport().subscribe();
+    console.log("Executado");
+  }
+
   onSearchSubmit(text: string): void {
     this.batchService.getBatchByText(text).subscribe((result) => {
       this.searchResult$ = result;

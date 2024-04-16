@@ -54,8 +54,22 @@ export class BatchServiceService {
     const url = `http://localhost:8080/batch/search/${text}`;
 
     return this.http.get<tableInfoInterface[]>(url);
-
   }
+
+  downloadBatchReport() {
+    const url = 'http://localhost:8080/batch/report/downloadFile/batch_report.csv';
+  
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'text/csv',
+        'Accept': 'text/csv'
+      }),
+      responseType: 'blob' as 'json'  // Define o tipo de resposta como blob
+    };
+  
+    return this.http.get(url, httpOptions);
+  }
+  
 
   delete(code: string): void{
     const url = `http://localhost:8080/batch/${code}`;

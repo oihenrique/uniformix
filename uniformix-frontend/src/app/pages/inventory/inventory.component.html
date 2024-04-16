@@ -23,7 +23,9 @@
         ></app-input>
         <app-grayButton buttonText="pesquisar" [icon]="searchIcon" type="submit"></app-grayButton>
     </form>
-    <app-grayButton buttonText="exportar" [icon]="exportIcon"></app-grayButton>
+    <app-grayButton buttonText="exportar" [icon]="exportIcon"
+      (click)="exportBatchInfo()"
+    ></app-grayButton>
   </div>
   <div class="table-container">
     <app-table [info]="info" [columns]="columns" (onRowClick)="getBatchCodeFromRow($event)"></app-table>
