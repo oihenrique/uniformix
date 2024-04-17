@@ -15,7 +15,7 @@ public class CorsConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 CorsRegistration cors = registry.addMapping("/**");
-                cors.allowedOrigins("http://localhost:4200");
+                cors.allowedOrigins("http://localhost:4200", "https://uniformix-app.web.app/");
                 cors.allowedMethods("GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS");
                 cors.allowedHeaders("Origin", "Accept", "X-Requested-With", "Content-Type", "Access-Control-Allow-Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization");
                 cors.allowCredentials(true);

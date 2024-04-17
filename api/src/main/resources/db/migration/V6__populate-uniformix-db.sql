@@ -1,3 +1,9 @@
+-- Migration para popular a tabela users
+INSERT INTO users (name, email, password, role) VALUES
+('João Silva', 'joao@teste.com', '$2a$10$P.0paKjYZJ2VK1ZOch0Iuukoclgue1cfUXEM.Bu4XY2JJ.y24w7Oy', 'USERS'), -- senha123
+('Maria Oliveira', 'maria@teste.com', '$2a$10$3Z84CrvoMSdx/mrqD2GbiOC9s68Q28Aw9KkjbXlOJp9wXAbWN.Hd6', 'ADMIN'), -- senha456
+('Carlos Santos', 'carlos@teste.com', '$2a$10$CWuk8ftCCymLY0YqaXIcNOVeFOWhjaK0fdKBxRlFYXT7lgWIyjDsu', 'USERS'); -- senha789
+
 -- Migration para popular a tabela supplier
 INSERT INTO supplier (code, name, state) VALUES
 ('S12345', 'Suprimentos Express', true),
@@ -81,11 +87,3 @@ INSERT INTO uniform (name, quantity, sex, size, id_batch) VALUES
 ('Uniforme Estoque Azul P', 7, 'M', 'P', 8),
 ('Uniforme Esportivo Amarelo G', 20, 'F', 'G', 9),
 ('Calça Casual P', 30, 'F', 'P', 10);
-
-
--- Migration para popular a tabela users
-INSERT INTO users (name, email, password, role)
-VALUES
-('João Silva', 'joao@teste.com', '$2a$10$P.0paKjYZJ2VK1ZOch0Iuukoclgue1cfUXEM.Bu4XY2JJ.y24w7Oy', 'USERS'), -- senha123
-('Maria Oliveira', 'maria@teste.com', '$2a$10$3Z84CrvoMSdx/mrqD2GbiOC9s68Q28Aw9KkjbXlOJp9wXAbWN.Hd6', 'ADMIN'), -- senha456
-('Carlos Santos', 'carlos@teste.com', '$2a$10$CWuk8ftCCymLY0YqaXIcNOVeFOWhjaK0fdKBxRlFYXT7lgWIyjDsu', 'USERS'); -- senha789
