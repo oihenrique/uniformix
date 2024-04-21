@@ -8,14 +8,15 @@ import { uniformInterface } from '../interfaces/uniformInterface';
   providedIn: 'root'
 })
 export class UniformServiceService {
-  private url = 'http://localhost:8080/uniform';
+  //private url = 'http://localhost:8080/uniform';
+  private url = 'https://uniformix-repository.onrender.com/uniform';
 
   constructor(private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzA5NjA3NjU4fQ.A8vLPWbUr-CJOlLGs6X0H2cjD3IY6i7VKaxoTdP0GTI'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEzNDk3NjMwfQ.hs1iNm3X72juSkXy_5wPstCZZ0LxpEmphnsU4No-nto'
     })
   };
 

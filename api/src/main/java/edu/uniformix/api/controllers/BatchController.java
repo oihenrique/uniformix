@@ -33,6 +33,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -144,9 +147,11 @@ public class BatchController {
                 contentType = "application/octet-stream";
             }
 
+            String downloadName = UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + "-relatorio-estoque";
+
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(contentType))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() +"\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + downloadName +"\"")
                     .body(resource);
 
         } catch (MalformedURLException e) {

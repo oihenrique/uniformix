@@ -54,8 +54,7 @@ export class InventoryComponent implements OnInit {
   }
 
   exportBatchInfo() {
-    this.batchService.downloadBatchReport().subscribe();
-    console.log("Executado");
+    this.batchService.downloadBatchReport();
   }
 
   onSearchSubmit(text: string): void {
@@ -71,10 +70,9 @@ export class InventoryComponent implements OnInit {
     }).subscribe()
   }
 
-  delete(info: tableInfoInterface[], code: string): void {
+  async delete(info: tableInfoInterface[], code: string): Promise<void> {
     this.tableService.deleteBatch(info, code).subscribe();
-    setTimeout(() => {
-      this.routerService.resetPage();
-    }, 1500)
+    
+    this.routerService.resetPage();
   }
 }

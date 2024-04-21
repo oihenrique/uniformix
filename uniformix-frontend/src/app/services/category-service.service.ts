@@ -11,7 +11,9 @@ export class CategoryServiceService {
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<categoryInterface[]> {
-    const url = 'http://localhost:8080/category';
+    //const url = 'http://localhost:8080/category';
+    const url = 'https://uniformix-repository.onrender.com/category';
+
     return this.http.get<categoryInterface[]>(url);
   }
   

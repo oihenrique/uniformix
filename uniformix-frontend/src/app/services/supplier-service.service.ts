@@ -11,7 +11,9 @@ export class SupplierServiceService {
   constructor(private http: HttpClient) { }
 
   getSuppliers(): Observable<supplierInterface[]> {
-    const url = 'http://localhost:8080/supplier';
+    //const url = 'http://localhost:8080/supplier';
+    const url = 'https://uniformix-repository.onrender.com/supplier';
+
     return this.http.get<supplierInterface[]>(url);
   }
 }

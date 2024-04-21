@@ -16,7 +16,9 @@ export class TableInfoServiceService {
   ) {}
 
   getInfo(pageNumber: Number): Observable<tableInfoInterface[]> {
-    const url = `http://localhost:8080/batch?page=${pageNumber}`;
+    //const url = `http://localhost:8080/batch?page=${pageNumber}`;
+    const url = `https://uniformix-repository.onrender.com/batch?page=${pageNumber}`;
+
     return this.httpClient.get<tableInfoInterface[]>(url);
   }
 

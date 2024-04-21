@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { batchInterface } from '../interfaces/batchInterface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, generate } from 'rxjs';
 import { tableInfoInterface } from '../interfaces/tableInfoInterface';
 
 
@@ -9,14 +9,15 @@ import { tableInfoInterface } from '../interfaces/tableInfoInterface';
   providedIn: 'root'
 })
 export class BatchServiceService {
-  private apiUrl = 'http://localhost:8080/batch';
+  //private apiUrl = 'http://localhost:8080/batch';
+  private apiUrl = 'https://uniformix-repository.onrender.com/batch';
 
   constructor(private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEyNzE2MDU5fQ.al1AB4Titfa0UIXzf9KLGYIESq2AeABVB0l_hGLImHQ'
+      Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImpvYW9AdGVzdGUuY29tIiwiZXhwIjoxNzEzNDk3NjMwfQ.hs1iNm3X72juSkXy_5wPstCZZ0LxpEmphnsU4No-nto'
     })
   };
 
@@ -45,34 +46,57 @@ export class BatchServiceService {
   }
 
   getTotalInventory() {
-    const url = 'http://localhost:8080/batch/info/totalInventory';
+    //const url = 'http://localhost:8080/batch/info/totalInventory';
+    const url = 'https://uniformix-repository.onrender.com/batch/info/totalInventory';
 
     return this.http.get<number>(url);
   }
 
   getBatchByText(text: string): Observable<tableInfoInterface[]> {
-    const url = `http://localhost:8080/batch/search/${text}`;
+    //const url = `http://localhost:8080/batch/search/${text}`;
+    const url = `https://uniformix-repository.onrender.com/batch/search/${text}`;
 
     return this.http.get<tableInfoInterface[]>(url);
   }
 
-  downloadBatchReport() {
+  async generateBatchReport() {
+
+  }
+
+  async downloadBatchReport() {
     const url = 'http://localhost:8080/batch/report/downloadFile/batch_report.csv';
-  
+    //const url = 'https://uniformix-repository.onrender.com/batch/report/downloadFile/batch_report.csv';
+
+    const generateFileUrl = 'http://localhost:8080/batch/report/generateCsv';
+    //const generateFileUrl = 'https://uniformix-repository.onrender.com/batch/report/generateCsv';
+
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'text/csv',
-        'Accept': 'text/csv'
+        'Content-Type': 'application/csv',
+        'Accept': 'application/csv'
       }),
-      responseType: 'blob' as 'json'  // Define o tipo de resposta como blob
+      responseType: 'blob' as 'json'
     };
-  
-    return this.http.get(url, httpOptions);
+
+
+    await this.http.get(generateFileUrl).toPromise();
+
+    this.http.get(url, httpOptions).subscribe(
+      (response: any) => {
+        const blob = new Blob([response], { type: 'application/csv' });
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        console.error('Erro ao baixar o arquivo:', error);
+      }
+    );
   }
   
 
   delete(code: string): void{
-    const url = `http://localhost:8080/batch/${code}`;
+    //const url = `http://localhost:8080/batch/${code}`;
+    const url = `https://uniformix-repository.onrender.com/batch/${code}`;
 
     this.http.delete(url, this.httpOptions).subscribe();
   }
