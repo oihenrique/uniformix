@@ -1,5 +1,6 @@
 package edu.uniformix.api.controllers;
 
+import edu.uniformix.api.FileStorageProperties;
 import edu.uniformix.api.domain.Batch;
 import edu.uniformix.api.domain.Category;
 import edu.uniformix.api.domain.Supplier;
@@ -34,7 +35,6 @@ import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -55,6 +55,12 @@ public class BatchController {
     CodeService codeService;
     @Autowired
     CsvReportService csvReportService;
+
+    private final Path fileStorageLocation;
+
+    public BatchController(FileStorageProperties fileStorageProperties) {
+        this.fileStorageLocation = Paths.get(fileStorageProperties.getDownload()).toAbsolutePath().normalize();
+    }
 
     @PostMapping
     @Transactional
@@ -134,9 +140,6 @@ public class BatchController {
 
     @GetMapping("/report/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadReport(@PathVariable String fileName, HttpServletRequest request) throws IOException {
-        final Path fileStorageLocation;
-
-        fileStorageLocation = Paths.get("src/main/java/tpm/").toAbsolutePath().normalize();
         Path filePath = fileStorageLocation.resolve(fileName).normalize();
 
         try {
@@ -147,11 +150,11 @@ public class BatchController {
                 contentType = "application/octet-stream";
             }
 
-            String downloadName = UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + "-relatorio-estoque";
+            String downloadName = UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + "-relatorio-estoque.csv";
 
             return ResponseEntity.ok()
                     .contentType(MediaType.parseMediaType(contentType))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + downloadName +"\"")
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + downloadName + "\"")
                     .body(resource);
 
         } catch (MalformedURLException e) {
