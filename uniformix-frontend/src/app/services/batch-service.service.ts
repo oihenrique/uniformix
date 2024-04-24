@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { batchInterface } from '../interfaces/batchInterface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, generate } from 'rxjs';
 import { tableInfoInterface } from '../interfaces/tableInfoInterface';
 
@@ -64,39 +64,41 @@ export class BatchServiceService {
   }
 
   async downloadBatchReport() {
-    const url = 'http://localhost:8080/batch/report/downloadFile/batch_report.csv';
-    //const url = 'https://uniformix-repository.onrender.com/batch/report/downloadFile/batch_report.csv';
+    //const url = 'http://localhost:8080/batch/report/downloadFile/batch_report.csv';
+    const url = 'https://uniformix-repository.onrender.com/batch/report/downloadFile/batch_report.csv';
 
-    const generateFileUrl = 'http://localhost:8080/batch/report/generateCsv';
-    //const generateFileUrl = 'https://uniformix-repository.onrender.com/batch/report/generateCsv';
+    //const generateFileUrl = 'http://localhost:8080/batch/report/generateCsv';
+    const generateFileUrl = 'https://uniformix-repository.onrender.com/batch/report/generateCsv';
 
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/csv',
-        'Accept': 'application/csv'
+        'Accept': 'application/csv',
       }),
+      observe: 'response' as 'response',
       responseType: 'blob' as 'json'
     };
 
-
     await this.http.get(generateFileUrl).toPromise();
 
-    this.http.get(url, httpOptions).subscribe(
-      (response: any) => {
-        const blob = new Blob([response], { type: 'application/csv' });
-        const url = window.URL.createObjectURL(blob);
-        window.open(url);
+    this.http.get<Blob>(url, httpOptions).subscribe(
+      (response: HttpResponse<Blob>) => {
+        const filename = response.headers.get('Content-Disposition')?.split(";")[1].split('=')[1];
+          const blob: Blob = response.body as Blob;
+          const a = document.createElement('a');
+          a.download = filename ? filename : "";
+          a.href = window.URL.createObjectURL(blob);
+          a.click();
       },
       (error) => {
         console.error('Erro ao baixar o arquivo:', error);
       }
-    );
+    );    
   }
-  
 
   delete(code: string): void{
-    //const url = `http://localhost:8080/batch/${code}`;
-    const url = `https://uniformix-repository.onrender.com/batch/${code}`;
+    const url = `http://localhost:8080/batch/${code}`;
+    //const url = `https://uniformix-repository.onrender.com/batch/${code}`;
 
     this.http.delete(url, this.httpOptions).subscribe();
   }
