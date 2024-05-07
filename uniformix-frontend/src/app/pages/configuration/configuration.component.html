@@ -1,0 +1,53 @@
+<div class="container">
+  <h1 class="title">Configurações</h1>
+  <div class="sub-container">
+    <div class="config-box">
+        <h3>Unidades</h3>
+        <div class="unit-buttons">
+          <app-orangeButton buttonText="adicionar"></app-orangeButton>
+          <app-orangeButton buttonText="inativar"></app-orangeButton>
+        </div>
+        <div class="stack">
+          <table class="table">
+            <tbody class="table-body">
+              <tr *ngFor="let unit of unit$" class="table-body-row">
+                <td> {{ unit.name }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="config-box">
+        <h3>Categorias</h3>
+        <div class="unit-buttons">
+          <app-orangeButton buttonText="adicionar"></app-orangeButton>
+          <app-orangeButton buttonText="inativar"></app-orangeButton>
+        </div>
+        <div class="stack">
+          <table class="table">
+            <tbody class="table-body">
+              <tr *ngFor="let categories of categorie$" class="table-body-row">
+                <td> {{ categories.name }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="config-box">
+        <h3>Fornecedores</h3>
+        <div class="unit-buttons">
+          <app-orangeButton buttonText="adicionar"></app-orangeButton>
+          <app-orangeButton buttonText="inativar"></app-orangeButton>
+        </div>
+        <div class="stack">
+          <table class="table">
+            <tbody class="table-body">
+              <tr *ngFor="let supplier of supplier$" class="table-body-row">
+                <td> {{ supplier.name }} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+</div>

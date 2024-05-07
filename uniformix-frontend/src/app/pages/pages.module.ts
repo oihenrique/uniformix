@@ -14,13 +14,15 @@ import { CategoryServiceService } from '../services/category-service.service';
 import { UniformServiceService } from '../services/uniform-service.service';
 import { RouterServiceService } from '../services/router-service.service';
 import { AlertServiceService } from '../services/alert-service.service';
+import { ConfigurationComponent } from './configuration/configuration.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     InventoryComponent,
-    AddBatchComponent
+    AddBatchComponent,
+    ConfigurationComponent
   ],
   imports: [
     BrowserModule,
