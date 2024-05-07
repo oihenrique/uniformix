@@ -1,0 +1,80 @@
+.container {
+    box-sizing: border-box;
+    align-items: center;
+    padding: 5.5rem 4rem 0 4rem;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+}
+
+.sub-container {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4.5rem;
+}
+
+.container h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #373737;
+    padding-bottom: 0.9rem;
+}
+
+.config-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 25rem;
+}
+
+.unit-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* TABLE CSS */
+
+.stack {
+    margin-top: 1.2rem;
+    width: 15rem;
+    height: 20rem;
+    background-color: white;
+    border: 2px solid #666666;
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+}
+
+.table-head-row td {
+    font-size: 14px;
+    color: white;
+    font-weight: 600;
+    padding: 6px 0;
+}
+
+.table-head-row {
+    text-align: center;
+    background-color: #838383;
+}
+
+.table-body-row td {
+    padding: 8px 8px;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: center;
+    color: #373737;
+}
+
+.table-body-row:nth-child(even) {
+    background-color: rgba(109, 144, 166, 0.15);
+}
+
+/* END OF TABLE CSS */
