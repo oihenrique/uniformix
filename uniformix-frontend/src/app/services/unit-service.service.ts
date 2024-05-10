@@ -22,4 +22,16 @@ export class UnitServiceService {
 
     return this.http.get<unitInterface[]>(url);
   }
+
+  public post(unit: unitInterface): Observable<unitInterface> {
+    const url = 'http://localhost:8080/unit';
+
+    return this.http.post<unitInterface>(url, unit); // colocar o options depois
+  }
+
+  public inativate(name: string): void {
+    const url = `http://localhost:8080/unit/${name}`;
+
+    this.http.delete(url).subscribe();
+  }
 }
