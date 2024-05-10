@@ -1,4 +1,8 @@
-<button class="button" type={{type}}>
+<button
+  class="button"
+  type="{{ type }}"
+  [ngStyle]="{ width: fullWidth ? '100%' : '110px' }"
+>
   <img *ngIf="icon != ''" src="{{ icon }}" />
   {{ buttonText }}
 </button>

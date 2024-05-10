@@ -9,6 +9,7 @@ export class OrangeButtonComponent implements OnInit {
   @Input() buttonText: string = '';
   @Input() icon: string = '';
   @Input() type: string = 'button';
+  @Input() fullWidth: boolean = false;
 
   constructor() {}
   ngOnInit(): void {}
