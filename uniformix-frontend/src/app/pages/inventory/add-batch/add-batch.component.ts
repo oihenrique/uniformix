@@ -71,7 +71,7 @@ export class AddBatchComponent implements OnInit {
 
     if (!this.batchService.hasEmptyFields(batch)) {
       this.batchService.post(batch).subscribe();
-      this.alertService.showAlert(this.alertTypes.sucess, 'Lote Cadastrado!');
+      this.alertService.showAlert(this.alertTypes.success, 'Lote Cadastrado!');
 
       setTimeout(() => {
         this.routerService.redirectToInventoryRoute();
