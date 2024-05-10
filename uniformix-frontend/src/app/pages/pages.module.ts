@@ -15,6 +15,7 @@ import { UniformServiceService } from '../services/uniform-service.service';
 import { RouterServiceService } from '../services/router-service.service';
 import { AlertServiceService } from '../services/alert-service.service';
 import { ConfigurationComponent } from './configuration/configuration.component';
+import { AddUnitComponent } from './configuration/add-unit/add-unit.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ConfigurationComponent } from './configuration/configuration.component'
     HomeComponent,
     InventoryComponent,
     AddBatchComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    AddUnitComponent
   ],
   imports: [
     BrowserModule,
