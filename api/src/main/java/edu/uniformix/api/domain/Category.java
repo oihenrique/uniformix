@@ -18,6 +18,6 @@ public class Category {
 
     public Category(CategoryDto categoryDto) {
         this.name = categoryDto.name();
-        this.state = categoryDto.state();
+        this.state = true;
     }
 }

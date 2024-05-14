@@ -7,5 +7,5 @@ public record CategoryDto(
         @NotBlank
         String name,
         @NotNull
-        Boolean state) {
+        boolean state) {
 }

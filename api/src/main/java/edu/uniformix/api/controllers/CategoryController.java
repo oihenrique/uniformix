@@ -1,8 +1,10 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Category;
+import edu.uniformix.api.domain.Unit;
 import edu.uniformix.api.domain.dtos.category.CategoryDto;
 import edu.uniformix.api.domain.dtos.category.CategoryListDto;
+import edu.uniformix.api.domain.dtos.unit.UnitDto;
 import edu.uniformix.api.repositories.CategoryRepository;
 import edu.uniformix.api.services.UtilsService;
 import jakarta.validation.Valid;
@@ -67,10 +69,10 @@ public class CategoryController {
         return ResponseEntity.ok().body(categoryRepository.save(category));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{name}")
     @Transactional
-    public ResponseEntity<Object> inactivate(@PathVariable Long id) {
-        Category category = categoryRepository.findById(id).orElse(null);
+    public ResponseEntity<Object> inactivate(@PathVariable String name) {
+        Category category = categoryRepository.findByName(name);
 
         if (category == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category not found");
@@ -94,5 +96,26 @@ public class CategoryController {
         categoryRepository.delete(category);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{name}")
+    public ResponseEntity<Object> updateCategoryState(@RequestBody @Valid CategoryDto categoryDto, @PathVariable String name) {
+        Category category = categoryRepository.findByName(name);
+
+        if (category == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
+        }
+
+        if (category.isState() == categoryDto.state()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category already in the requested state");
+        }
+
+        try {
+            category.setState(categoryDto.state());
+            categoryRepository.save(category);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update category state");
+        }
     }
 }
