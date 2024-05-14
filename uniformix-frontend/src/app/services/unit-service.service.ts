@@ -29,9 +29,11 @@ export class UnitServiceService {
     return this.http.post<unitInterface>(url, unit); // colocar o options depois
   }
 
-  public inativate(name: string): void {
+  public setState(name: string, state: boolean): void {
     const url = `http://localhost:8080/unit/${name}`;
 
-    this.http.delete(url).subscribe();
+    var body = { 'name': name, 'active': state }
+
+    this.http.patch<unitInterface>(url, body).subscribe();
   }
 }

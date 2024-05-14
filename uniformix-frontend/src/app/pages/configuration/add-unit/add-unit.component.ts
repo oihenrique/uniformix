@@ -45,18 +45,19 @@ export class AddUnitComponent implements OnInit {
     } else {
       try {
         await this.unitService.post(unit).toPromise();
-        this.alertService.showAlert(this.alertTypes.success, 'Lote Cadastrado!');
+        this.alertService.showAlert(this.alertTypes.success, `Unidade ${this.unitName} Cadastrado!`);
         this.routerService.resetPage();
       } catch (error) {
         console.error('Erro ao cadastrar:', error);
-        this.alertService.showAlert(this.alertTypes.error, 'Erro ao cadastrar o lote. Por favor, tente novamente.');
+        this.alertService.showAlert(this.alertTypes.error, 'Erro ao cadastrar a unidade. Por favor, tente novamente.');
       }
     }
   }
 
-  async inativateUnit(): Promise<void> {
+  async setUnitState(state: boolean): Promise<void> {
     try {
-      await this.unitService.inativate(this.unitName);
+      await this.unitService.setState(this.unitName, state);
+      console.log(this.unitName, state)
       this.alertService.showAlert(this.alertTypes.success, `Unidade ${this.unitName} foi inativada!`);
     } catch (error) {
       this.alertService.showAlert(this.alertTypes.error, `Erro ao inativar a unidade ${this.unitName}`);

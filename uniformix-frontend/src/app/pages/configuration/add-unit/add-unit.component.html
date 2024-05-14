@@ -26,8 +26,8 @@
               ></app-input>
                 <app-orangeButton buttonText="adicionar" type="submit" [fullWidth]="true"></app-orangeButton>
               <div class="buttons">
-                <app-grayButton buttonText="ativar"></app-grayButton>
-                <app-grayButton buttonText="inativar" (click)="inativateUnit()"></app-grayButton>
+                <app-grayButton buttonText="ativar" (click)="setUnitState(true)"></app-grayButton>
+                <app-grayButton buttonText="inativar" (click)="setUnitState(false)"></app-grayButton>
               </div>
           </form>
         </div>

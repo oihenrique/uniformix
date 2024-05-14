@@ -57,4 +57,25 @@ public class UnitController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{name}")
+    public ResponseEntity<Object> updateUnitState(@RequestBody @Valid UnitDto unitDto, @PathVariable String name) {
+        Unit unit = unitRepository.findByName(name);
+
+        if (unit == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unit not found");
+        }
+
+        if (unit.isActive() == unitDto.active()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unit already in the requested state");
+        }
+
+        try {
+            unit.setActive(unitDto.active());
+            unitRepository.save(unit);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update unit state");
+        }
+    }
 }
