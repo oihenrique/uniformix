@@ -10,7 +10,7 @@ INSERT INTO supplier (code, name, state) VALUES
 ('S54321', 'Global Materials', false),
 ('S98765', 'Quality Merchants', true),
 ('S45678', 'Infinite Supplies', false),
-('S87654', 'Trade Connect', true),
+('S87655', 'Trade Connect', true),
 ('S23456', 'Pinnacle Resources', false),
 ('S78901', 'Eco Ventures', true),
 ('S34567', 'Elite Procure', false),
