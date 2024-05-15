@@ -18,9 +18,15 @@ public class Supplier {
     //private List<Object> batchList;
     private boolean state;
 
-    public Supplier(SupplierDto supplierDto, String code) {
+    public Supplier(String code, String name, boolean state) {
         this.code = code;
-        this.name = supplierDto.name();
-        this.state = supplierDto.state();
+        this.name = name;
+        this.state = state;
+    }
+
+    public Supplier(String code, String name) {
+        this.code = code;
+        this.name = name;
+        this.state = true;
     }
 }

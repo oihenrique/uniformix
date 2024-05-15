@@ -1,8 +1,10 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Supplier;
+import edu.uniformix.api.domain.Unit;
 import edu.uniformix.api.domain.dtos.supplier.SupplierDto;
 import edu.uniformix.api.domain.dtos.supplier.SupplierListDto;
+import edu.uniformix.api.domain.dtos.unit.UnitDto;
 import edu.uniformix.api.repositories.SupplierRepository;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.UtilsService;
@@ -36,7 +38,7 @@ public class SupplierController {
             generatedCode = codeService.generateCode('S');
         }
 
-        Supplier supplier = new Supplier(supplierDto, generatedCode);
+        Supplier supplier = new Supplier(generatedCode, supplierDto.name());
         supplierRepository.save(supplier);
 
         var uri = uriBuilder.path("/{id}").buildAndExpand(supplier.getId()).toUri();
@@ -104,5 +106,26 @@ public class SupplierController {
         supplierRepository.delete(supplier);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{name}")
+    public ResponseEntity<Object> updateSupplierState(@RequestBody @Valid SupplierDto supplierDto, @PathVariable String name) {
+        Supplier supplier = supplierRepository.findByName(name);
+
+        if (supplier == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Supplier not found");
+        }
+
+        if (supplier.isState() == supplierDto.state()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Supplier already in the requested state");
+        }
+
+        try {
+            supplier.setState(supplierDto.state());
+            supplierRepository.save(supplier);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update supplier state");
+        }
     }
 }

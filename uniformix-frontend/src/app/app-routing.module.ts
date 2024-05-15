@@ -6,6 +6,7 @@ import { AddBatchComponent } from './pages/inventory/add-batch/add-batch.compone
 import { ConfigurationComponent } from './pages/configuration/configuration.component';
 import { AddUnitComponent } from './pages/configuration/add-unit/add-unit.component';
 import { AddCategoryComponent } from './pages/configuration/add-category/add-category.component';
+import { AddSupplierComponent } from './pages/configuration/add-supplier/add-supplier.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'inventory/add', component: AddBatchComponent},
   {path: 'settings', component: ConfigurationComponent},
   {path: 'settings/unit', component: AddUnitComponent},
-  {path: 'settings/category', component: AddCategoryComponent}
+  {path: 'settings/category', component: AddCategoryComponent},
+  {path: 'settings/supplier', component: AddSupplierComponent}
 ];
 
 @NgModule({

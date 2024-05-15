@@ -17,6 +17,7 @@ import { AlertServiceService } from '../services/alert-service.service';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { AddUnitComponent } from './configuration/add-unit/add-unit.component';
 import { AddCategoryComponent } from './configuration/add-category/add-category.component';
+import { AddSupplierComponent } from './configuration/add-supplier/add-supplier.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AddCategoryComponent } from './configuration/add-category/add-category.
     AddBatchComponent,
     ConfigurationComponent,
     AddUnitComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    AddSupplierComponent
   ],
   imports: [
     BrowserModule,

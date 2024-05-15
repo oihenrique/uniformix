@@ -7,5 +7,5 @@ public record SupplierDto(
         @NotBlank
         String name,
         @NotNull
-        Boolean state) {
+        boolean state) {
 }
