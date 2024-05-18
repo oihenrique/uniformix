@@ -13,10 +13,6 @@ import { UnitServiceService } from 'src/app/services/unit-service.service';
   styleUrls: ['./configuration.component.css']
 })
 export class ConfigurationComponent implements OnInit {
-
-  categorie$: categoryInterface[] = [];
-  supplier$: supplierInterface[] = [];
-  unit$: unitInterface[] = [];
   
   constructor(
     private categoryService: CategoryServiceService,
@@ -25,26 +21,5 @@ export class ConfigurationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchCategoryData();
-    this.fetchSupplierData();
-    this.fetchUnitData();
-  }
-
-  fetchCategoryData(): void {
-    this.categoryService.getCategories().subscribe((categories => {
-      this.categorie$ = categories;
-    }));
-  }
-
-  fetchSupplierData(): void {
-    this.supplierService.getSuppliers().subscribe((suppliers) => {
-      this.supplier$ = suppliers;
-    })
-  }
-
-  fetchUnitData(): void {
-    this.unitService.getUnitList().subscribe((units) => {
-      this.unit$ = units;
-    })
   }
 }
