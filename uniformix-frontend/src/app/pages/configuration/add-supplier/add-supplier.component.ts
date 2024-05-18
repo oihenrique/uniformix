@@ -63,7 +63,6 @@ export class AddSupplierComponent implements OnInit {
   async setSupplierState(state: boolean): Promise<void> {
     try {
       await this.supplierService.setState(this.supplierName, state);
-      console.log(this.supplierName, state);
       this.alertService.showAlert(
         this.alertTypes.success,
         `Fornecedor ${this.supplierName} foi inativado!`
