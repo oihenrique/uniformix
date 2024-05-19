@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 @Service
@@ -14,6 +17,22 @@ public class CodeService {
     private SupplierRepository supplierRepository;
     @Autowired
     private BatchRepository batchRepository;
+
+    public static String generateProtocolNumber() {
+        Random random = new Random();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
+        StringBuilder protocolNumber = new StringBuilder();
+
+        String date = LocalDateTime.now().format(formatter);
+        protocolNumber.append(date);
+
+        for (int i= 0; i < 4; i++) {
+            int digit = random.nextInt(10);
+            protocolNumber.append(digit);
+        }
+
+        return protocolNumber.toString();
+    }
 
     public String generateCode(char initialCodeCharacter) {
         Random random = new Random();
