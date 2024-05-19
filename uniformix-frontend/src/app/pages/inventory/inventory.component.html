@@ -9,9 +9,8 @@
       [icon]="addIcon"
     ></app-orangeButton>
     <app-orangeButton
-      buttonText="remover"
-      [icon]="removeIcon"
-      (click)="delete(info, batchCode)"
+      buttonText="movimentar"
+      routerLink="/transaction"
     ></app-orangeButton>
     <form #inventorySearchBar="ngForm" class="searchBar" (ngSubmit)="onSearchSubmit(inventorySearchBar.value.searchValue)">
         <app-input

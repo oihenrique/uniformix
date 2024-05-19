@@ -18,6 +18,7 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { AddUnitComponent } from './configuration/add-unit/add-unit.component';
 import { AddCategoryComponent } from './configuration/add-category/add-category.component';
 import { AddSupplierComponent } from './configuration/add-supplier/add-supplier.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AddSupplierComponent } from './configuration/add-supplier/add-supplier.
     ConfigurationComponent,
     AddUnitComponent,
     AddCategoryComponent,
-    AddSupplierComponent
+    AddSupplierComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,

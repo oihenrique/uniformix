@@ -1,0 +1,65 @@
+<div class="container">
+  <app-alert></app-alert>
+  <h1>Retirada/devolução</h1>
+  <h3>Uniformes</h3>
+  <div class="sub-container">
+    <div class="uniform-stack">
+      <table class="table">
+        <thead class="table-head">
+          <tr class="table-head-row">
+            <td *ngFor="let column of columns">{{ column }}</td>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr
+            *ngFor="let uniform of uniform$"
+            class="table-body-row"
+            (click)="getUniformName(uniform.name)"
+          >
+            <td *ngFor="let column of columns">{{ uniform[column] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="form-box">
+      <form
+        class="form"
+        #TransactionForm="ngForm"
+        (ngSubmit)="onSubmitTransaction(TransactionForm.value)"
+      >
+        <app-input
+          labelText="Nome do colaborador"
+          name="employeeName"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-combobox
+          sLabel="Unidade"
+          [cbList]="unitList"
+          name="unit"
+          ngDefaultControl
+          ngModel
+        ></app-combobox>
+        <app-input labelText="Quantidade" ngDefaultControl ngModel name="quantity" type="number"></app-input>
+        <div class="form-transaction-buttons">
+          <app-orangeButton
+            buttonText="retirar"
+            [icon]="removeIcon"
+            type="submit"
+            (click)="operationType = 'takeout'"
+          ></app-orangeButton>
+          <app-orangeButton
+            buttonText="devolver"
+            [icon]="addIcon"
+            type="submit"
+            (click)="operationType = 'putback'"
+          ></app-orangeButton>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="nav-buttons">
+    <app-small-button buttonText="anterior" (click)="fetchUniformData(false, true)"></app-small-button>
+    <app-small-button buttonText="próximo" (click)="fetchUniformData(true, false)"></app-small-button>
+  </div>
+</div>
