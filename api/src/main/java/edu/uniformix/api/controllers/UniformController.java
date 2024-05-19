@@ -1,6 +1,7 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Uniform;
+import edu.uniformix.api.domain.dtos.batch.BatchListDto;
 import edu.uniformix.api.domain.dtos.uniform.UniformDto;
 import edu.uniformix.api.domain.dtos.uniform.UniformListDto;
 import edu.uniformix.api.repositories.UniformRepository;
@@ -15,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("uniform")
@@ -34,8 +37,9 @@ public class UniformController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<UniformListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
-        Page<UniformListDto> uniformList = uniformRepository.findAll(paginate).map(UniformListDto::new);
+    public ResponseEntity<List<UniformListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
+        Page<UniformListDto> uniformPage = uniformRepository.findAll(paginate).map(UniformListDto::new);
+        List<UniformListDto> uniformList = uniformPage.getContent();
 
         return ResponseEntity.ok(uniformList);
     }
