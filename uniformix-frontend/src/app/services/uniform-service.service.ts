@@ -20,6 +20,12 @@ export class UniformServiceService {
     })
   };
 
+  getUniforms(pageNumber: Number): Observable<uniformInterface[]> {
+    const url = `http://localhost:8080/uniform?page=${pageNumber}`;
+
+    return this.http.get<uniformInterface[]>(url);
+  }
+
   generateUniformObject(uniform: uniformInterface): uniformInterface {
     return uniform;
   }
