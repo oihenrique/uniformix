@@ -16,4 +16,8 @@ export class TransactionServiceService {
   public post(transaction: transactionInterface): Observable<transactionInterface> {
     return this.http.post<transactionInterface>(this.baseUrl, transaction);
   }
+
+  public get(): Observable<transactionInterface[]> {
+    return this.http.get<transactionInterface[]>(this.baseUrl);
+  }
 }
