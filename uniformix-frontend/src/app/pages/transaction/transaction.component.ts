@@ -24,6 +24,14 @@ export class TransactionComponent implements OnInit {
   public lg = { width: '32rem' };
 
   columns: Array<keyof uniformInterface> = ['name', 'quantity', 'sex', 'size'];
+
+  columnNames: { [key in keyof uniformInterface]: string } = {
+    name: 'Nome',
+    quantity: 'Quant.',
+    sex: 'Gênero',
+    size: 'Tam.',
+  };
+
   uniform$: Array<uniformInterface> = [];
   unitList: Array<unitInterface> = [];
   uniformName: string = '';
@@ -68,7 +76,7 @@ export class TransactionComponent implements OnInit {
   async onSubmitTransaction(transaction: transactionInterface): Promise<void> {
     try {
       transaction.uniform = this.uniformName;
-      transaction.user = "joao@teste.com";
+      transaction.users = "joao@teste.com";
       transaction.operationType = this.operationType;
 
       await this.transactionService.post(transaction).subscribe();
