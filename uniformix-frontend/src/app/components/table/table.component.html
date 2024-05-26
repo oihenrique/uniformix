@@ -1,7 +1,7 @@
 <table datatable class="table">
   <thead class="table-head">
     <tr class="table-head-row">
-      <td *ngFor="let column of columns">{{ column }}</td>
+      <td *ngFor="let column of columns">{{ columnNames[column] }}</td>
     </tr>
   </thead>
   <tbody class="table-body">

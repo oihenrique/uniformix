@@ -38,6 +38,13 @@ export class AddBatchComponent implements OnInit {
   info: Array<uniformInterface> = [];
   columns: Array<keyof uniformInterface> = ['name', 'quantity', 'sex', 'size'];
 
+  columnNames: { [key in keyof uniformInterface]: string } = {
+    name: 'Nome',
+    quantity: 'Quant.',
+    sex: 'Gênero',
+    size: 'Tam.',
+  };
+
   sm = { width: '14rem' };
   md = { width: '20rem' };
   lg = { width: '32rem' };

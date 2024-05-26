@@ -18,6 +18,16 @@ export class InventoryComponent implements OnInit {
 
   info: tableInfoInterface[] = [];
   columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao']
+
+  columnNames: { [key in keyof tableInfoInterface]: string } = {
+    codigo: 'Cód.',
+    descricao: 'Descrição',
+    categoria: 'Categoria',
+    fornecedor: 'Fornecedor',
+    quantidade: 'Quant.',
+    aquisicao: 'Data',
+  };
+
   batchCode: string = "";
   searchResult$: any;
   tablePageNumber$: number = 0;

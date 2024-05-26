@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class TableComponent implements OnInit {
   @Input() info: any[] = [];
   @Input() columns: Array<any> = [];
+  @Input() columnNames: { [key: string]: string } = {};
   @Output() onRowClick: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}

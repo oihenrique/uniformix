@@ -27,7 +27,7 @@
     ></app-grayButton>
   </div>
   <div class="table-container">
-    <app-table [info]="info" [columns]="columns" (onRowClick)="getBatchCodeFromRow($event)"></app-table>
+    <app-table [info]="info" [columns]="columns" [columnNames]="columnNames" (onRowClick)="getBatchCodeFromRow($event)"></app-table>
   </div>
   <div class="table-nav-buttons">
     <app-small-button buttonText="anterior"
