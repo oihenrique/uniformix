@@ -1,6 +1,7 @@
 package edu.uniformix.api.domain;
 
 import edu.uniformix.api.domain.dtos.transactionHistory.TransactionHistoryDto;
+import edu.uniformix.api.services.UtilsService;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -37,12 +38,12 @@ public class TransactionHistory {
     @JoinColumn(name = "id_users", referencedColumnName = "id")
     private Users users;
 
-    private LocalDateTime date;
+    private String date;
 
     public TransactionHistory(TransactionHistoryDto transactionHistoryDto) {
         this.employeeName = transactionHistoryDto.employeeName();
         this.quantity = transactionHistoryDto.quantity();
         this.operationType = transactionHistoryDto.operationType();
-        this.date = LocalDateTime.now();
+        this.date = UtilsService.dateTimeFormatter(LocalDateTime.now());
     }
 }
