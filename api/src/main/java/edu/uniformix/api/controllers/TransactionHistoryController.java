@@ -53,7 +53,7 @@ public class TransactionHistoryController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        Users user = userRepository.findUserByEmail(transactionHistoryDto.user());
+        Users user = userRepository.findUserByEmail(transactionHistoryDto.users());
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
         }

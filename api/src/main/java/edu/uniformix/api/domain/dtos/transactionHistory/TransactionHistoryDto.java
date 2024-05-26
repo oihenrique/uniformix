@@ -1,5 +1,6 @@
 package edu.uniformix.api.domain.dtos.transactionHistory;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +15,7 @@ public record TransactionHistoryDto(
         String uniform,
         @NotBlank
         String operationType,
-        @NotBlank
-        String user
+        @Email
+        String users
 ) {
 }

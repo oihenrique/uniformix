@@ -5,7 +5,6 @@ import edu.uniformix.api.domain.TransactionHistory;
 import java.time.LocalDateTime;
 
 public record TransactionHistoryListDto(
-        String id,
         String protocolNumber,
         String uniform,
         String employeeName,
@@ -13,11 +12,10 @@ public record TransactionHistoryListDto(
         int quantity,
         String operationType,
         String users,
-        LocalDateTime timestamp
+        String dateTime
 ) {
     public TransactionHistoryListDto(TransactionHistory transactionHistory) {
-        this(transactionHistory.getId(),
-                transactionHistory.getProtocolNumber(),
+        this(transactionHistory.getProtocolNumber(),
                 transactionHistory.getUniform().getName(),
                 transactionHistory.getEmployeeName(),
                 transactionHistory.getUnit().getName(),
