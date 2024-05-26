@@ -40,6 +40,7 @@ public class TransactionHistoryController {
     @Transactional
     public ResponseEntity<TransactionHistoryListDto> post(@RequestBody @Valid TransactionHistoryDto transactionHistoryDto, UriComponentsBuilder uriBuilder) {
         TransactionHistory transaction = new TransactionHistory(transactionHistoryDto);
+        int updatedUniformQuantity;
 
         transaction.setProtocolNumber(CodeService.generateProtocolNumber());
 
@@ -57,6 +58,18 @@ public class TransactionHistoryController {
         if (user == null) {
             return ResponseEntity.badRequest().body(null);
         }
+
+        if ("retirada".equalsIgnoreCase(transactionHistoryDto.operationType())) {
+            updatedUniformQuantity = uniform.getQuantity() - transaction.getQuantity();
+            if (updatedUniformQuantity < 0) {
+                return ResponseEntity.badRequest().body(null);
+            }
+        } else {
+            updatedUniformQuantity = uniform.getQuantity() + transaction.getQuantity();
+        }
+
+        uniform.setQuantity(updatedUniformQuantity);
+        uniformRepository.save(uniform);
 
         transaction.setUniform(uniform);
         transaction.setUnit(unit);
