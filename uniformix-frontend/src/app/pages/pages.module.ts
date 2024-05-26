@@ -19,6 +19,7 @@ import { AddUnitComponent } from './configuration/add-unit/add-unit.component';
 import { AddCategoryComponent } from './configuration/add-category/add-category.component';
 import { AddSupplierComponent } from './configuration/add-supplier/add-supplier.component';
 import { TransactionComponent } from './transaction/transaction.component';
+import { HistoryComponent } from './history/history.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { TransactionComponent } from './transaction/transaction.component';
     AddUnitComponent,
     AddCategoryComponent,
     AddSupplierComponent,
-    TransactionComponent
+    TransactionComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,

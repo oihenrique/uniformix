@@ -8,12 +8,14 @@ import { AddUnitComponent } from './pages/configuration/add-unit/add-unit.compon
 import { AddCategoryComponent } from './pages/configuration/add-category/add-category.component';
 import { AddSupplierComponent } from './pages/configuration/add-supplier/add-supplier.component';
 import { TransactionComponent } from './pages/transaction/transaction.component';
+import { HistoryComponent } from './pages/history/history.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'inventory', component: InventoryComponent},
   {path: 'inventory/add', component: AddBatchComponent},
   {path: 'transaction', component: TransactionComponent},
+  {path: 'history', component: HistoryComponent},
   {path: 'settings', component: ConfigurationComponent},
   {path: 'settings/unit', component: AddUnitComponent},
   {path: 'settings/category', component: AddCategoryComponent},

@@ -1,0 +1,38 @@
+.dash-area1 {
+    padding: 5rem 4rem 0 4rem;
+}
+
+.dash-title {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.table-actions-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 1.5rem;
+}
+
+.searchBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    gap: 1.5rem;
+}
+
+
+.table-container {
+    margin-top: 2.5rem;
+    overflow-x: scroll;
+}
+
+.table-nav-buttons {
+    display: flex;
+    justify-content: right;
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+}

@@ -1,0 +1,23 @@
+<div class="dash-area1">
+  <app-alert></app-alert>
+  <h2 class="dash-title">Histórico</h2>
+  <div class="table-actions-bar">
+    <form #inventorySearchBar="ngForm" class="searchBar" (ngSubmit)="onSearchSubmit(inventorySearchBar.value.searchValue)">
+        <app-input
+        class="searchBarInput"
+        placeholder="Camisas da convenção 2024"
+        name="searchValue"
+        ngDefaultControl
+        ngModel
+        ></app-input>
+        <app-grayButton buttonText="pesquisar" [icon]="searchIcon" type="submit"></app-grayButton>
+    </form>
+  </div>
+  <div class="table-container">
+    <app-table [info]="info" [columns]="columns" [columnNames]="columnNames" (onRowClick)="getBatchCodeFromRow($event)"></app-table>
+  </div>
+  <div class="table-nav-buttons">
+    <app-small-button buttonText="anterior" (click)="fetchData(false, true)"></app-small-button>
+    <app-small-button buttonText="proxima" (click)="fetchData(true, false)"></app-small-button>
+  </div>
+</div>
