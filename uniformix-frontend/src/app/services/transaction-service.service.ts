@@ -20,4 +20,8 @@ export class TransactionServiceService {
   public get(): Observable<transactionInterface[]> {
     return this.http.get<transactionInterface[]>(this.baseUrl);
   }
+
+  public searchByName(name: String): Observable<transactionInterface[]> {
+    return this.http.get<transactionInterface[]>(this.baseUrl + `/search/${name}`);
+  }
 }
