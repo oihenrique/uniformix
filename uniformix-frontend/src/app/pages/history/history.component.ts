@@ -52,7 +52,6 @@ export class HistoryComponent implements OnInit {
     }
 
     this.transactionService.get().subscribe((transaction) => {
-      console.log(transaction);
       this.info = transaction;
       this.searchResult$ = of(this.info);
     });
@@ -60,7 +59,6 @@ export class HistoryComponent implements OnInit {
 
   getProtocolCodeFromRow(infos: any): void {
     this.protocolCode = infos.protocolNumber;
-    console.log(this.protocolCode);
   }
 
   onSearchSubmit(name: string): void {
