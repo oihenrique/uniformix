@@ -2,6 +2,7 @@ package edu.uniformix.api.services;
 
 
 import com.opencsv.CSVWriter;
+import edu.uniformix.api.FileStorageProperties;
 import edu.uniformix.api.controllers.BatchController;
 import edu.uniformix.api.domain.dtos.batch.BatchListDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,12 @@ import java.util.List;
 public class CsvReportService {
     @Autowired
     private BatchController batchController;
-    private final String FILE_PATH = "src/main/java/tpm/batch_report.csv";
+    private final String FILE_PATH;
+
+    public CsvReportService(FileStorageProperties fileStorageProperties) {
+        this.FILE_PATH = new StringBuilder().append(Paths.get(fileStorageProperties.getDownload()).toAbsolutePath()
+                .normalize().toString()).append("/batch_report.csv").toString();
+    }
 
     public void writeCsv() {
         try {
