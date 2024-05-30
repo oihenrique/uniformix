@@ -17,27 +17,15 @@
     </button>
     <button
       class="nav-button"
-      routerLink="/suppliers"
+      routerLink="/history"
       [ngClass]="{
         'nav-button': true,
-        'active-button': activeButton === 'Fornecedores'
+        'active-button': activeButton === 'Histórico'
       }"
-      (click)="markAsActive('Fornecedores')"
+      (click)="markAsActive('Histórico')"
     >
-      <img src="../../../assets/icons/Supplier icon.svg" alt="Suppliers icon" />
-      Fornecedores
-    </button>
-    <button
-      class="nav-button"
-      routerLink="/categories"
-      [ngClass]="{
-        'nav-button': true,
-        'active-button': activeButton === 'Categorias'
-      }"
-      (click)="markAsActive('Categorias')"
-    >
-      <img src="../../../assets/icons/Tag icon.svg" alt="Tag icon" />
-      Categorias
+      <img src="../../../assets/icons/Supplier icon.svg" alt="Box icon" />
+      Histórico
     </button>
     <button
       class="nav-button"
