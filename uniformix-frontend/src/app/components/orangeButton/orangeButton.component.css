@@ -8,13 +8,19 @@
   font-size: .8rem;
   font-weight: 700;
   color: white;
-  background-color: #F27516;
-  border: 2px solid #666666;
+  background-color: var(--primary-color);
+  border: 2px solid var(--line-color);
   border-radius: 10px;
   cursor: pointer;
+  transition: .25s;
 }
 
-.button img {
+.button:hover {
+  color: var(--line-color);
+  background-color: var(--secondary-color);
+}
+
+.button-img {
   width: 20px;
   height: 20px;
 }

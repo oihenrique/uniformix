@@ -8,12 +8,22 @@
     top: 5%
 }
 
+.info {
+    color: var(--info-text-color);
+    background: var(--info-bg-color);
+}
+
 .sucess {
-    color: #0f5132;
-    background: #d1e7dd;
+    color: var(--success-text-color);
+    background: var(--success-bg-color);
+}
+
+.warning {
+    color: var(--warning-text-color);
+    background: var(--warning-bg-color);
 }
 
 .error {
-    color: #842029;
-    background: #f8d7da;
+    color: var(--error-text-color);
+    background: var(--error-bg-color);
 }

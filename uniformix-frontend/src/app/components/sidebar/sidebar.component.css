@@ -15,7 +15,7 @@
 }
 
 .logo span {
-  color: #F27516;
+  color: var(--primary-color);
   margin: 0;
 }
 
@@ -48,9 +48,9 @@
 }
 
 .nav-button:hover {
-  color: #F27516;
+  color: var(--primary-color);
 }
 
 .active-button {
-  color: #F27516;
+  color: var(--primary-color);
 }

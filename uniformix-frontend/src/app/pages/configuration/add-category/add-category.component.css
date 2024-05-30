@@ -22,7 +22,7 @@
 .container h3 {
     font-size: 20px;
     font-weight: 700;
-    color: #373737;
+    color: var(--text-color-400);
     padding-bottom: 0.9rem;
 }
 
@@ -50,7 +50,7 @@
     width: 15rem;
     height: 20rem;
     background-color: white;
-    border: 2px solid #666666;
+    border: 2px solid var(--line-color);
     overflow-y: auto;
 }
 
@@ -67,7 +67,7 @@
 
 .table-head-row {
     text-align: center;
-    background-color: #838383;
+    background-color: var(--text-color-500);
 }
 
 .table-body-row td {
@@ -75,11 +75,11 @@
     font-size: 12px;
     font-weight: 400;
     text-align: center;
-    color: #373737;
+    color: var(--text-color-500);
 }
 
 .table-body-row:nth-child(even) {
-    background-color: rgba(109, 144, 166, 0.15);
+    background-color: var(--table-blue-line-color);
 }
 
 /* END OF TABLE CSS */

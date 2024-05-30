@@ -5,18 +5,23 @@
 }
 
 .label-text {
-    color:#3f3f3f;
+    color: var(--text-color);
     font-weight: 600;
 }
 
 select {
-    background: rgba(236, 236, 236, .4);
-    border: 2px solid #7a7a7a;
+    background: var(--line-color-200);
+    border: 2px solid var(--line-color);
     border-radius: 5px;
     padding: 4px;
 }
 
+option {
+    color: var(--primary-color);
+    background-color: var(--primary-color);
+}
+
 select:focus-within {
-    outline: 1px solid #F27516;
+    outline: 1px solid var(--focus-color);
     opacity: .9;
 }

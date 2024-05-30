@@ -3,14 +3,14 @@
   height: 32px;
   font-size: 12px;
   font-weight: 600;
-  border: 2px solid #666666;
+  border: 2px solid var(--line-color);
   border-radius: 10px;
-  background: #D9D9D9;
+  color: var(--text-color-500);
+  background: var(--line-light-color);
   cursor: pointer;
 }
 
 .smallbutton:hover {
-  color: white;
-  background-color: #F27516;
+  background-color: var(--secondary-color);
   transition: 0.3s;
 }

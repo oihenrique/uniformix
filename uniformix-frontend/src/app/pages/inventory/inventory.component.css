@@ -10,7 +10,7 @@
 
 .count-itens-title {
     margin-top: 8px;
-    color: #888;
+    color: var(--line-color);
     font-size: 18px;
     font-style: normal;
     font-weight: 600; 

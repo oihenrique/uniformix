@@ -11,17 +11,17 @@ input {
 }
 
 .input-box {
-    border: 2px solid #7a7a7a;
+    border: 2px solid var(--line-color);
     border-radius: 4px;
     padding: 4px;
 }
 
 .input-box:focus-within {
-    outline: 2px solid #F27516;
+    outline: 2px solid var(--focus-color);
     opacity: .9;
 }
 
 .label-text {
-    color:#3f3f3f;
+    color: var(--text-color-400);
     font-weight: 600;
 }

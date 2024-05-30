@@ -39,7 +39,7 @@
 
 .add-uniform-form {
     padding: 1.5rem;
-    background-color: #f3f3f3;
+    background-color: var(--line-color-200);
     border-radius: 6px;
 }
 
@@ -47,13 +47,14 @@
     margin-top: 2rem;
     height: 10rem;
     background-color: white;
-    border: 2px solid #666666;
+    border: 2px solid var(--line-color);
     overflow-y: auto;
 }
 
 .table {
     width: 100%;
 }
+
 .table-head-row td {
     font-size: 14px;
     color: white;
@@ -63,7 +64,7 @@
 
 .table-head-row {
     text-align: center;
-    background-color: #838383;
+    background-color: var(--text-color-400);
 }
 
 .table-body-row td {
@@ -71,9 +72,9 @@
     font-size: 12px;
     font-weight: 400;
     text-align: center;
-    color: #373737;
+    color: var(--text-color-400);
 }
 
 .table-body-row:nth-child(even) {
-    background-color: rgba(109, 144, 166, 0.15);
+    background-color: var(--table-blue-line-color);
 }

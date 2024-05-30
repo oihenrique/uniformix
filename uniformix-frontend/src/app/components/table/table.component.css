@@ -5,7 +5,7 @@
 .table-head {
   height: fit-content;
   opacity: 0.9;
-  background: #292929;
+  background: var(--text-color-500);
 }
 
 .table-head-row td {
@@ -25,16 +25,16 @@
   font-size: 12px;
   font-weight: 400;
   text-align: center;
-  color: #373737;
+  color: var(--text-color-500);
   cursor: pointer;
 }
 
 .table-body-row:nth-child(even) {
-  background-color: rgba(109, 144, 166, 0.15);
+  background-color: var(--table-blue-line-color);
 }
 
 .table-body-row:hover {
-  background-color: #eb8f6b;
+  background-color: var(--focus-color-400);
 }
 
 button {
