@@ -8,7 +8,8 @@ import { supplierInterface } from '../interfaces/supplierInterface';
 })
 
 export class SupplierServiceService {
-  
+  private baseUrl: string = 'https://uniformix-repository.onrender.com/supplier';
+
   constructor(private http: HttpClient) { }
 
   getSuppliers(): Observable<supplierInterface[]> {
@@ -22,7 +23,7 @@ export class SupplierServiceService {
     const url = 'http://localhost:8080/supplier';
     //const url = 'https://uniformix-repository.onrender.com/supplier'
 
-    return this.http.post<supplierInterface>(url, supplier);
+    return this.http.post<supplierInterface>(this.baseUrl, supplier);
   }
   
   public setState(name: string, state: boolean): void {
@@ -30,6 +31,6 @@ export class SupplierServiceService {
 
     var body = { 'name': name, 'state': state }
 
-    this.http.patch<supplierInterface>(url, body).subscribe();
+    this.http.patch<supplierInterface>(this.baseUrl + `/${name}`, body).subscribe();
   }
 }

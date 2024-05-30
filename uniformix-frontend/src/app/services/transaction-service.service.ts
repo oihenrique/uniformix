@@ -7,7 +7,8 @@ import { transactionInterface } from '../interfaces/transactionInterface';
   providedIn: 'root'
 })
 export class TransactionServiceService {
-  private baseUrl: string = 'http://localhost:8080/transaction';
+  //private baseUrl: string = 'http://localhost:8080/transaction';
+  private baseUrl: string = 'https://uniformix-repository.onrender.com/transaction';
 
   constructor(
     private http: HttpClient

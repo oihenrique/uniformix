@@ -10,6 +10,7 @@ import { uniformInterface } from '../interfaces/uniformInterface';
 export class UniformServiceService {
   //private url = 'http://localhost:8080/uniform';
   private url = 'https://uniformix-repository.onrender.com/uniform';
+  private baseUrl: string = 'https://uniformix-repository.onrender.com/uniform'
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +24,7 @@ export class UniformServiceService {
   getUniforms(pageNumber: Number): Observable<uniformInterface[]> {
     const url = `http://localhost:8080/uniform?page=${pageNumber}`;
 
-    return this.http.get<uniformInterface[]>(url);
+    return this.http.get<uniformInterface[]>(this.baseUrl + `?page=${pageNumber}`);
   }
 
   generateUniformObject(uniform: uniformInterface): uniformInterface {
@@ -31,7 +32,7 @@ export class UniformServiceService {
   }
 
   post(uniform: uniformInterface): Observable<HttpResponse<any>> {
-    return this.http.post(this.url, uniform, { observe: 'response', headers:this.httpOptions.headers}).pipe(
+    return this.http.post(this.baseUrl, uniform, { observe: 'response', headers:this.httpOptions.headers}).pipe(
       map((response: HttpResponse<any>) => response)
     );
   }

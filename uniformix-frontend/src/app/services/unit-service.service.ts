@@ -7,6 +7,7 @@ import { unitInterface } from '../interfaces/unitInterface';
   providedIn: 'root'
 })
 export class UnitServiceService {
+  private baseUrl: string = 'https://uniformix-repository.onrender.com/unit'
 
   constructor(private http: HttpClient) { }
 
@@ -20,13 +21,13 @@ export class UnitServiceService {
   public getUnitList(): Observable<unitInterface[]> {
     const url = 'http://localhost:8080/unit';
 
-    return this.http.get<unitInterface[]>(url);
+    return this.http.get<unitInterface[]>(this.baseUrl);
   }
 
   public post(unit: unitInterface): Observable<unitInterface> {
     const url = 'http://localhost:8080/unit';
 
-    return this.http.post<unitInterface>(url, unit); // colocar o options depois
+    return this.http.post<unitInterface>(this.baseUrl, unit); // colocar o options depois
   }
 
   public setState(name: string, state: boolean): void {
@@ -34,6 +35,6 @@ export class UnitServiceService {
 
     var body = { 'name': name, 'active': state }
 
-    this.http.patch<unitInterface>(url, body).subscribe();
+    this.http.patch<unitInterface>(this.baseUrl + `/${name}`, body).subscribe();
   }
 }
