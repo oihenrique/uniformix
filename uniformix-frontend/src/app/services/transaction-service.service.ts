@@ -13,8 +13,10 @@ export class TransactionServiceService {
     private http: HttpClient
   ) { }
 
-  public post(transaction: transactionInterface): Observable<transactionInterface> {
-    return this.http.post<transactionInterface>(this.baseUrl, transaction);
+  public post(transaction: transactionInterface): Observable<Blob> {
+    return this.http.post<Blob>(this.baseUrl, transaction, {
+      responseType: 'blob' as 'json',
+    });
   }
 
   public get(): Observable<transactionInterface[]> {

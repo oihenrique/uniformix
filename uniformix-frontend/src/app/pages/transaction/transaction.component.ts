@@ -79,15 +79,32 @@ export class TransactionComponent implements OnInit {
       transaction.users = "joao@teste.com";
       transaction.operationType = this.operationType;
 
-      await this.transactionService.post(transaction).subscribe();
-      this.alertService.showAlert(
-        this.alertTypes.success,
-        'Transação realizada!'
-      );
+      this.transactionService.post(transaction).subscribe((response: Blob) => {
+        if (this.operationType === "retirada") {
+          const url = window.URL.createObjectURL(response);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `${transaction.employeeName} - protocolo.pdf`;
+          link.click();
+          window.URL.revokeObjectURL(url);
+        }
 
-      setTimeout(() => {
-        this.routerService.resetPage();
-      }, 1500);
+        this.alertService.showAlert(
+          this.alertTypes.success,
+          'Transação realizada!'
+        );
+
+        setTimeout(() => {
+          this.routerService.resetPage();
+        }, 1500);
+
+      }, error => {
+        console.error(error);
+        this.alertService.showAlert(
+          this.alertTypes.error,
+          'Erro ao realizar transação!'
+        );
+      });
 
     } catch (error) {
       console.error(error);
