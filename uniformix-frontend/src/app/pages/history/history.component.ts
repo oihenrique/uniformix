@@ -46,12 +46,12 @@ export class HistoryComponent implements OnInit {
 
   fetchData(next: boolean = false, prev: boolean = false): void {
     if (next) {
-      this.tablePageNumber$ = +1;
+      this.tablePageNumber$ += 1;
     } else if (prev && this.tablePageNumber$ > 0) {
-      this.tablePageNumber$ = -1;
+      this.tablePageNumber$ -= 1;
     }
 
-    this.transactionService.get().subscribe((transaction) => {
+    this.transactionService.get(this.tablePageNumber$).subscribe((transaction) => {
       this.info = transaction;
       this.searchResult$ = of(this.info);
     });

@@ -49,9 +49,9 @@ export class InventoryComponent implements OnInit {
 
   fetchData(next: boolean = false, prev: boolean = false): void {
     if (next) {
-      this.tablePageNumber$ =+ 1;
+      this.tablePageNumber$ += 1;
     } else if (prev && this.tablePageNumber$ > 0) {
-      this.tablePageNumber$ =- 1;
+      this.tablePageNumber$ -= 1;
     }
 
     this.tableService.getInfo(this.tablePageNumber$).subscribe((info) => {
