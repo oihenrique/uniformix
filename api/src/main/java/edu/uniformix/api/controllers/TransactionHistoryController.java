@@ -11,6 +11,8 @@ import edu.uniformix.api.repositories.UniformRepository;
 import edu.uniformix.api.repositories.UnitRepository;
 import edu.uniformix.api.repositories.UserRepository;
 import edu.uniformix.api.services.CodeService;
+import edu.uniformix.api.services.ProtocolPdfService;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -36,9 +39,13 @@ public class TransactionHistoryController {
     @Autowired
     UniformRepository uniformRepository;
 
+    ProtocolPdfService protocolPdfService = new ProtocolPdfService();
+
     @PostMapping
     @Transactional
-    public ResponseEntity<TransactionHistoryListDto> post(@RequestBody @Valid TransactionHistoryDto transactionHistoryDto, UriComponentsBuilder uriBuilder) {
+    public void post(@RequestBody @Valid TransactionHistoryDto transactionHistoryDto,
+                     UriComponentsBuilder uriBuilder,
+                     HttpServletResponse response) throws IOException {
         TransactionHistory transaction = new TransactionHistory(transactionHistoryDto);
         int updatedUniformQuantity;
 
@@ -46,23 +53,27 @@ public class TransactionHistoryController {
 
         Uniform uniform = uniformRepository.findByName(transactionHistoryDto.uniform());
         if (uniform == null) {
-            return ResponseEntity.badRequest().body(null);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Uniform not found");
+            return;
         }
 
         Unit unit = unitRepository.findByName(transactionHistoryDto.unit());
         if (unit == null) {
-            return ResponseEntity.badRequest().body(null);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Unit not found");
+            return;
         }
 
         Users user = userRepository.findUserByEmail(transactionHistoryDto.users());
         if (user == null) {
-            return ResponseEntity.badRequest().body(null);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "User not found");
+            return;
         }
 
         if ("retirada".equalsIgnoreCase(transactionHistoryDto.operationType())) {
             updatedUniformQuantity = uniform.getQuantity() - transaction.getQuantity();
             if (updatedUniformQuantity < 0) {
-                return ResponseEntity.badRequest().body(null);
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Insufficient uniform quantity");
+                return;
             }
         } else {
             updatedUniformQuantity = uniform.getQuantity() + transaction.getQuantity();
@@ -77,9 +88,19 @@ public class TransactionHistoryController {
 
         transactionHistoryRepository.save(transaction);
 
-        var uri = uriBuilder.path("/transaction/{id}").buildAndExpand(transaction.getId()).toUri();
+        if ("retirada".equalsIgnoreCase(transactionHistoryDto.operationType())) {
+            byte[] pdfBytes = protocolPdfService.generateTransactionPDF(
+                    transactionHistoryDto.employeeName(),
+                    transactionHistoryDto.unit(),
+                    transaction.getProtocolNumber(),
+                    transactionHistoryDto.uniform(),
+                    transactionHistoryDto.quantity()
+            );
 
-        return ResponseEntity.created(uri).body(new TransactionHistoryListDto(transaction));
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=" + transactionHistoryDto.employeeName() + " - protocolo.pdf");
+            response.getOutputStream().write(pdfBytes);
+        }
     }
 
 
