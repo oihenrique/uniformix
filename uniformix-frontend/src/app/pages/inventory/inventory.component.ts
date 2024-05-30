@@ -12,9 +12,10 @@ import { Observable, of } from 'rxjs'
 })
 export class InventoryComponent implements OnInit {
   addIcon = '../../assets/icons/Add icon.svg';
-  removeIcon = '../../assets/icons/Remove button.svg';
+  transactionIcon = '../../assets/icons/transaction.svg';
   searchIcon = '../../assets/icons/Search icon.svg';
   exportIcon = '../../assets/icons/Export icon.svg';
+
 
   info: tableInfoInterface[] = [];
   columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao']
