@@ -74,10 +74,12 @@
             <artifactId>opencsv</artifactId>
             <version>5.9</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.itextpdf/itext-core -->
         <dependency>
             <groupId>com.itextpdf</groupId>
-            <artifactId>itext7-core</artifactId>
-            <version>7.1.7</version>
+            <artifactId>itext-core</artifactId>
+            <version>8.0.4</version>
+            <type>pom</type>
         </dependency>
     </dependencies>
     <build>
