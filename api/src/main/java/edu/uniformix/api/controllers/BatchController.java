@@ -15,12 +15,9 @@ import edu.uniformix.api.repositories.UniformRepository;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.CsvReportService;
 import edu.uniformix.api.services.UtilsService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,8 +27,6 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
@@ -133,33 +128,19 @@ public class BatchController {
         }
     }
 
-    @GetMapping("/report/generateCsv")
-    public void saveReport() {
-        csvReportService.writeCsv();
-    }
-
     @GetMapping("/report/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadReport(@PathVariable String fileName, HttpServletRequest request) throws IOException {
-        Path filePath = fileStorageLocation.resolve(fileName).normalize();
+    public ResponseEntity<byte[]> downloadReport(@PathVariable String fileName) {
+        String contentType = "application/octet-stream";
 
-        try {
-            Resource resource = new UrlResource((filePath.toUri()));
-            String contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        String downloadName = UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + "-relatorio-estoque.csv";
 
-            if (contentType == null) {
-                contentType = "application/octet-stream";
-            }
+        byte[] batchReport = csvReportService.writeCsv();
 
-            String downloadName = UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + "-relatorio-estoque.csv";
-
-            return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(contentType))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + downloadName + "\"")
-                    .body(resource);
-
-        } catch (MalformedURLException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + downloadName + "\"")
+                .header("Access-Control-Expose-Headers", "Content-Disposition")
+                .body(batchReport);
     }
 
 //    @GetMapping("/{id}")
