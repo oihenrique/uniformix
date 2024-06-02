@@ -3,12 +3,12 @@ import { tableInfoInterface } from 'src/app/interfaces/tableInfoInterface';
 import { BatchServiceService } from 'src/app/services/batch-service.service';
 import { RouterServiceService } from 'src/app/services/router-service.service';
 import { TableInfoServiceService } from 'src/app/services/tableInfoService.service';
-import { Observable, of } from 'rxjs'
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-inventory',
   templateUrl: './inventory.component.html',
-  styleUrls: ['./inventory.component.css']
+  styleUrls: ['./inventory.component.css'],
 })
 export class InventoryComponent implements OnInit {
   addIcon = '../../assets/icons/Add icon.svg';
@@ -16,9 +16,15 @@ export class InventoryComponent implements OnInit {
   searchIcon = '../../assets/icons/Search icon.svg';
   exportIcon = '../../assets/icons/Export icon.svg';
 
-
   info: tableInfoInterface[] = [];
-  columns: Array<keyof tableInfoInterface> = ['codigo', 'descricao', 'quantidade', 'categoria', 'fornecedor', 'aquisicao']
+  columns: Array<keyof tableInfoInterface> = [
+    'codigo',
+    'descricao',
+    'quantidade',
+    'categoria',
+    'fornecedor',
+    'aquisicao',
+  ];
 
   columnNames: { [key in keyof tableInfoInterface]: string } = {
     codigo: 'Cód.',
@@ -29,8 +35,8 @@ export class InventoryComponent implements OnInit {
     aquisicao: 'Data',
   };
 
-  batchCode: string = "";
-  searchResult$: any;
+  batchCode: string = '';
+  searchResult$ = new BehaviorSubject<tableInfoInterface[]>([]);
   tablePageNumber$: number = 0;
   totalInventory: number = 0;
 
@@ -38,13 +44,13 @@ export class InventoryComponent implements OnInit {
     private tableService: TableInfoServiceService,
     private routerService: RouterServiceService,
     private batchService: BatchServiceService
-    ) {}
+  ) {}
 
   ngOnInit(): void {
-      this.fetchData();
-      this.batchService.getTotalInventory().subscribe((number) => {
-        this.totalInventory = number;
-      })
+    this.fetchData();
+    this.batchService.getTotalInventory().subscribe((number) => {
+      this.totalInventory = number;
+    });
   }
 
   fetchData(next: boolean = false, prev: boolean = false): void {
@@ -56,7 +62,7 @@ export class InventoryComponent implements OnInit {
 
     this.tableService.getInfo(this.tablePageNumber$).subscribe((info) => {
       this.info = info;
-      this.searchResult$ = of(this.info);
+      this.searchResult$.next(this.info);
     });
   }
 
@@ -70,20 +76,17 @@ export class InventoryComponent implements OnInit {
 
   onSearchSubmit(text: string): void {
     this.batchService.getBatchByText(text).subscribe((result) => {
-      this.searchResult$ = result;
-    })
+      this.searchResult$.next(result);
+    });
 
-    new Observable(item => {
-      setTimeout(() => {
-        item.next(this.info = this.searchResult$);
-
-      }, 1500);
-    }).subscribe()
+    this.searchResult$.subscribe((result) => {
+      this.info = result;
+    });
   }
 
   async delete(info: tableInfoInterface[], code: string): Promise<void> {
     this.tableService.deleteBatch(info, code).subscribe();
-    
+
     this.routerService.resetPage();
   }
 }
