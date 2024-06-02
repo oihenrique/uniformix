@@ -1,36 +1,53 @@
 <div class="container">
-    <app-alert></app-alert>
-    <h1 class="title">Configurações</h1>
-    <div class="sub-container">
-        <h3>Unidades</h3>
-      <div class="config-box">
-          <div class="stack">
-            <table class="table">
-              <tbody class="table-body">
-                <tr *ngFor="let unit of unit$" class="table-body-row" (click)="getUnitName(unit.name)">
-                  <td> {{ unit.name }} </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <form class="add-unit"
-            #addUnitForm="ngForm"
-            (ngSubmit)="onSubmit(addUnitForm.value)"
-          >
-              <app-input labelText="Nome" 
-              placeholder="Loja 01" 
-              [size]="sm"
-              name="name"
-              ngDefaultControl
-              ngModel
-              ></app-input>
-                <app-orangeButton buttonText="adicionar" type="submit" [fullWidth]="true"></app-orangeButton>
-              <div class="buttons">
-                <app-grayButton buttonText="ativar" (click)="setUnitState(true)"></app-grayButton>
-                <app-grayButton buttonText="inativar" (click)="setUnitState(false)"></app-grayButton>
-              </div>
-          </form>
+  <app-alert></app-alert>
+  <h1 class="title">Configurações</h1>
+  <div class="sub-container">
+    <h3>Unidades</h3>
+    <div class="config-box">
+      <div class="stack">
+        <table class="table">
+          <tbody class="table-body">
+            <tr
+              *ngFor="let unit of unit$"
+              class="table-body-row"
+              [ngClass]="{ 'selected ': unit === selectedUnit }"
+              (click)="getUnitName(unit.name)"
+              (click)="selectUnit(unit)"
+            >
+              <td>{{ unit.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <form
+        class="add-unit"
+        #addUnitForm="ngForm"
+        (ngSubmit)="onSubmit(addUnitForm.value)"
+      >
+        <app-input
+          labelText="Nome"
+          placeholder="Loja 01"
+          [size]="sm"
+          name="name"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-orangeButton
+          buttonText="adicionar"
+          type="submit"
+          [fullWidth]="true"
+        ></app-orangeButton>
+        <div class="buttons">
+          <app-grayButton
+            buttonText="ativar"
+            (click)="setUnitState(true)"
+          ></app-grayButton>
+          <app-grayButton
+            buttonText="inativar"
+            (click)="setUnitState(false)"
+          ></app-grayButton>
         </div>
+      </form>
     </div>
   </div>
-  
+</div>

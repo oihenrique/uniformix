@@ -1,36 +1,53 @@
 <div class="container">
-    <app-alert></app-alert>
-    <h1 class="title">Configurações</h1>
-    <div class="sub-container">
-        <h3>Categorias</h3>
-      <div class="config-box">
-          <div class="stack">
-            <table class="table">
-              <tbody class="table-body">
-                <tr *ngFor="let category of categorie$" class="table-body-row" (click)="getCategoryName(category.name)">
-                  <td> {{ category.name }} </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <form class="add-unit"
-            #addCategoryForm="ngForm"
-            (ngSubmit)="onSubmit(addCategoryForm.value)"
-          >
-              <app-input labelText="Nome" 
-              placeholder="Jalecos" 
-              [size]="sm"
-              name="name"
-              ngDefaultControl
-              ngModel
-              ></app-input>
-                <app-orangeButton buttonText="adicionar" type="submit" [fullWidth]="true"></app-orangeButton>
-              <div class="buttons">
-                <app-grayButton buttonText="ativar" (click)="setCategoryState(true)"></app-grayButton>
-                <app-grayButton buttonText="inativar" (click)="setCategoryState(false)"></app-grayButton>
-              </div>
-          </form>
+  <app-alert></app-alert>
+  <h1 class="title">Configurações</h1>
+  <div class="sub-container">
+    <h3>Categorias</h3>
+    <div class="config-box">
+      <div class="stack">
+        <table class="table">
+          <tbody class="table-body">
+            <tr
+              *ngFor="let category of categorie$"
+              class="table-body-row"
+              [ngClass]="{'selected': category === selectedCategory}"
+              (click)="getCategoryName(category.name)"
+              (click)="selectCategory(category)"
+            >
+              <td>{{ category.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <form
+        class="add-unit"
+        #addCategoryForm="ngForm"
+        (ngSubmit)="onSubmit(addCategoryForm.value)"
+      >
+        <app-input
+          labelText="Nome"
+          placeholder="Jalecos"
+          [size]="sm"
+          name="name"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-orangeButton
+          buttonText="adicionar"
+          type="submit"
+          [fullWidth]="true"
+        ></app-orangeButton>
+        <div class="buttons">
+          <app-grayButton
+            buttonText="ativar"
+            (click)="setCategoryState(true)"
+          ></app-grayButton>
+          <app-grayButton
+            buttonText="inativar"
+            (click)="setCategoryState(false)"
+          ></app-grayButton>
         </div>
+      </form>
     </div>
   </div>
-  
+</div>

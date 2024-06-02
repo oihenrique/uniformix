@@ -1,35 +1,53 @@
 <div class="container">
-    <app-alert></app-alert>
-    <h1 class="title">Configurações</h1>
-    <div class="sub-container">
-        <h3>Fornecedores</h3>
-      <div class="config-box">
-          <div class="stack">
-            <table class="table">
-              <tbody class="table-body">
-                <tr *ngFor="let unit of supplier$" class="table-body-row" (click)="getSupplierName(unit.name)">
-                  <td> {{ unit.name }} </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <form class="add-supplier"
-            #addSupplierForm="ngForm"
-            (ngSubmit)="onSubmit(addSupplierForm.value)"
-          >
-              <app-input labelText="Nome" 
-              placeholder="Nome do fornecedor" 
-              [size]="sm"
-              name="name"
-              ngDefaultControl
-              ngModel
-              ></app-input>
-                <app-orangeButton buttonText="adicionar" type="submit" [fullWidth]="true"></app-orangeButton>
-              <div class="buttons">
-                <app-grayButton buttonText="ativar" (click)="setSupplierState(true)"></app-grayButton>
-                <app-grayButton buttonText="inativar" (click)="setSupplierState(false)"></app-grayButton>
-              </div>
-          </form>
+  <app-alert></app-alert>
+  <h1 class="title">Configurações</h1>
+  <div class="sub-container">
+    <h3>Fornecedores</h3>
+    <div class="config-box">
+      <div class="stack">
+        <table class="table">
+          <tbody class="table-body">
+            <tr
+              *ngFor="let supplier of supplier$"
+              class="table-body-row"
+              [ngClass]="{ selected: supplier === selectedSupplier }"
+              (click)="getSupplierName(supplier.name)"
+              (click)="selectSupplier(supplier)"
+            >
+              <td>{{ supplier.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <form
+        class="add-supplier"
+        #addSupplierForm="ngForm"
+        (ngSubmit)="onSubmit(addSupplierForm.value)"
+      >
+        <app-input
+          labelText="Nome"
+          placeholder="Nome do fornecedor"
+          [size]="sm"
+          name="name"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-orangeButton
+          buttonText="adicionar"
+          type="submit"
+          [fullWidth]="true"
+        ></app-orangeButton>
+        <div class="buttons">
+          <app-grayButton
+            buttonText="ativar"
+            (click)="setSupplierState(true)"
+          ></app-grayButton>
+          <app-grayButton
+            buttonText="inativar"
+            (click)="setSupplierState(false)"
+          ></app-grayButton>
         </div>
+      </form>
     </div>
   </div>
+</div>

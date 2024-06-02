@@ -17,7 +17,8 @@ export class AddUnitComponent implements OnInit {
 
   alertTypes = AlertTypeEnum;
   unit$: unitInterface[] = [];
-  unitName: string = "";
+  unitName: string = '';
+  selectedUnit: unitInterface | null = null;
 
   constructor(
     private unitService: UnitServiceService,
@@ -39,17 +40,27 @@ export class AddUnitComponent implements OnInit {
     this.unitName = name;
   }
 
+  selectUnit(unit: unitInterface) {
+    this.selectedUnit = unit;
+  }
+
   async onSubmit(unit: unitInterface): Promise<void> {
     if (unit.name === '' || unit.name === undefined) {
       this.alertService.showAlert(this.alertTypes.error, 'Preencha o campo!');
     } else {
       try {
         await this.unitService.post(unit).toPromise();
-        this.alertService.showAlert(this.alertTypes.success, `Unidade ${this.unitName} Cadastrado!`);
+        this.alertService.showAlert(
+          this.alertTypes.success,
+          `Unidade ${this.unitName} Cadastrado!`
+        );
         this.routerService.resetPage();
       } catch (error) {
         console.error('Erro ao cadastrar:', error);
-        this.alertService.showAlert(this.alertTypes.error, 'Erro ao cadastrar a unidade. Por favor, tente novamente.');
+        this.alertService.showAlert(
+          this.alertTypes.error,
+          'Erro ao cadastrar a unidade. Por favor, tente novamente.'
+        );
       }
     }
   }
@@ -57,10 +68,16 @@ export class AddUnitComponent implements OnInit {
   async setUnitState(state: boolean): Promise<void> {
     try {
       await this.unitService.setState(this.unitName, state);
-      console.log(this.unitName, state)
-      this.alertService.showAlert(this.alertTypes.success, `Unidade ${this.unitName} foi inativada!`);
+      console.log(this.unitName, state);
+      this.alertService.showAlert(
+        this.alertTypes.success,
+        `Unidade ${this.unitName} foi inativada!`
+      );
     } catch (error) {
-      this.alertService.showAlert(this.alertTypes.error, `Erro ao inativar a unidade ${this.unitName}`);
+      this.alertService.showAlert(
+        this.alertTypes.error,
+        `Erro ao inativar a unidade ${this.unitName}`
+      );
     }
   }
 }

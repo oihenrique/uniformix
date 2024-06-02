@@ -5,7 +5,13 @@
     </tr>
   </thead>
   <tbody class="table-body">
-    <tr *ngFor="let infos of info" class="table-body-row" (click)="handleRowClick(infos)">
+    <tr
+      *ngFor="let infos of info"
+      class="table-body-row"
+      [ngClass]="{ 'selected': infos === selectedInfo }"
+      (click)="handleRowClick(infos)"
+      (click)="selectLine(infos)"
+    >
       <td *ngFor="let column of columns">{{ infos[column] }}</td>
     </tr>
   </tbody>

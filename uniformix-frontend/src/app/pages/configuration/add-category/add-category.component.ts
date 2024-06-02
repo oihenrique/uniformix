@@ -8,7 +8,7 @@ import { RouterServiceService } from 'src/app/services/router-service.service';
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
-  styleUrls: ['./add-category.component.css']
+  styleUrls: ['./add-category.component.css'],
 })
 export class AddCategoryComponent implements OnInit {
   public sm = { width: '14rem' };
@@ -17,7 +17,8 @@ export class AddCategoryComponent implements OnInit {
 
   alertTypes = AlertTypeEnum;
   categorie$: categoryInterface[] = [];
-  categoryName: string = "";
+  categoryName: string = '';
+  selectedCategory: categoryInterface | null = null;
 
   constructor(
     private categoryService: CategoryServiceService,
@@ -39,17 +40,27 @@ export class AddCategoryComponent implements OnInit {
     this.categoryName = name;
   }
 
+  selectCategory(category: categoryInterface) {
+    this.selectedCategory = category;
+  }
+
   async onSubmit(category: categoryInterface): Promise<void> {
     if (category.name === '' || category.name === undefined) {
       this.alertService.showAlert(this.alertTypes.error, 'Preencha o campo!');
     } else {
       try {
         await this.categoryService.post(category).toPromise();
-        this.alertService.showAlert(this.alertTypes.success, `Categoria ${this.categoryName} cadastrada!`);
+        this.alertService.showAlert(
+          this.alertTypes.success,
+          `Categoria ${this.categoryName} cadastrada!`
+        );
         this.routerService.resetPage();
       } catch (error) {
         console.error('Erro ao cadastrar:', error);
-        this.alertService.showAlert(this.alertTypes.error, 'Erro ao cadastrar a categoria. Por favor, tente novamente.');
+        this.alertService.showAlert(
+          this.alertTypes.error,
+          'Erro ao cadastrar a categoria. Por favor, tente novamente.'
+        );
       }
     }
   }
@@ -57,9 +68,15 @@ export class AddCategoryComponent implements OnInit {
   async setCategoryState(state: boolean): Promise<void> {
     try {
       await this.categoryService.setState(this.categoryName, state);
-      this.alertService.showAlert(this.alertTypes.success, `Categoria ${this.categoryName} foi inativada!`);
+      this.alertService.showAlert(
+        this.alertTypes.success,
+        `Categoria ${this.categoryName} foi inativada!`
+      );
     } catch (error) {
-      this.alertService.showAlert(this.alertTypes.error, `Erro ao inativar a categoria ${this.categoryName}`);
+      this.alertService.showAlert(
+        this.alertTypes.error,
+        `Erro ao inativar a categoria ${this.categoryName}`
+      );
     }
   }
 }

@@ -20,13 +20,16 @@
   height: fit-content;
 }
 
+.table-body-row {
+  cursor: pointer;
+}
+
 .table-body-row td {
   padding: 12px 14px;
   font-size: 12px;
   font-weight: 400;
   text-align: center;
   color: var(--text-color-500);
-  cursor: pointer;
 }
 
 .table-body-row:nth-child(even) {
@@ -34,6 +37,10 @@
 }
 
 .table-body-row:hover {
+  background-color: var(--focus-color-400);
+}
+
+.table-body-row.selected {
   background-color: var(--focus-color-400);
 }
 

@@ -37,6 +37,7 @@ export class TransactionComponent implements OnInit {
   uniformName: string = '';
   operationType: string = '';
   tablePageNumber$: number = 0;
+  selectedUniform: uniformInterface | null = null;
 
   constructor(
     private uniformService: UniformServiceService,
@@ -58,9 +59,11 @@ export class TransactionComponent implements OnInit {
       this.tablePageNumber$ -= 1;
     }
 
-    this.uniformService.getUniforms(this.tablePageNumber$).subscribe((uniform) => {
-      this.uniform$ = uniform;
-    });
+    this.uniformService
+      .getUniforms(this.tablePageNumber$)
+      .subscribe((uniform) => {
+        this.uniform$ = uniform;
+      });
   }
 
   fetchUnitData(): void {
@@ -73,39 +76,44 @@ export class TransactionComponent implements OnInit {
     this.uniformName = name;
   }
 
+  selectUniform(uniform: uniformInterface) {
+    this.selectedUniform = uniform;
+  }
+
   async onSubmitTransaction(transaction: transactionInterface): Promise<void> {
     try {
       transaction.uniform = this.uniformName;
-      transaction.users = "joao@teste.com";
+      transaction.users = 'joao@teste.com';
       transaction.operationType = this.operationType;
 
-      this.transactionService.post(transaction).subscribe((response: Blob) => {
-        if (this.operationType === "retirada") {
-          const url = window.URL.createObjectURL(response);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `${transaction.employeeName} - protocolo.pdf`;
-          link.click();
-          window.URL.revokeObjectURL(url);
+      this.transactionService.post(transaction).subscribe(
+        (response: Blob) => {
+          if (this.operationType === 'retirada') {
+            const url = window.URL.createObjectURL(response);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${transaction.employeeName} - protocolo.pdf`;
+            link.click();
+            window.URL.revokeObjectURL(url);
+          }
+
+          this.alertService.showAlert(
+            this.alertTypes.success,
+            'Transação realizada!'
+          );
+
+          setTimeout(() => {
+            this.routerService.resetPage();
+          }, 1500);
+        },
+        (error) => {
+          console.error(error);
+          this.alertService.showAlert(
+            this.alertTypes.error,
+            'Erro ao realizar transação!'
+          );
         }
-
-        this.alertService.showAlert(
-          this.alertTypes.success,
-          'Transação realizada!'
-        );
-
-        setTimeout(() => {
-          this.routerService.resetPage();
-        }, 1500);
-
-      }, error => {
-        console.error(error);
-        this.alertService.showAlert(
-          this.alertTypes.error,
-          'Erro ao realizar transação!'
-        );
-      });
-
+      );
     } catch (error) {
       console.error(error);
       this.alertService.showAlert(

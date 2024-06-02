@@ -18,6 +18,7 @@ export class AddSupplierComponent implements OnInit {
   alertTypes = AlertTypeEnum;
   supplier$: supplierInterface[] = [];
   supplierName: string = '';
+  selectedSupplier: supplierInterface | null = null;
 
   constructor(
     private supplierService: SupplierServiceService,
@@ -37,6 +38,10 @@ export class AddSupplierComponent implements OnInit {
 
   getSupplierName(name: string): void {
     this.supplierName = name;
+  }
+
+  selectSupplier(supplier: supplierInterface) {
+    this.selectedSupplier = supplier;
   }
 
   async onSubmit(supplier: supplierInterface): Promise<void> {
