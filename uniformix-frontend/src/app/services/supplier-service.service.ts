@@ -4,33 +4,29 @@ import { Observable } from 'rxjs';
 import { supplierInterface } from '../interfaces/supplierInterface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class SupplierServiceService {
-  private baseUrl: string = 'https://uniformix-repository.onrender.com/supplier';
+  private baseUrl: string =
+    'https://uniformix-repository.onrender.com/supplier';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getSuppliers(): Observable<supplierInterface[]> {
-    //const url = 'http://localhost:8080/supplier';
-    const url = 'https://uniformix-repository.onrender.com/supplier';
-
-    return this.http.get<supplierInterface[]>(url);
+    return this.http.get<supplierInterface[]>(this.baseUrl);
   }
 
   public post(supplier: supplierInterface): Observable<supplierInterface> {
-    const url = 'http://localhost:8080/supplier';
-    //const url = 'https://uniformix-repository.onrender.com/supplier'
-
     return this.http.post<supplierInterface>(this.baseUrl, supplier);
   }
-  
+
   public setState(name: string, state: boolean): void {
     const url = `http://localhost:8080/supplier/${name}`;
 
-    var body = { 'name': name, 'state': state }
+    var body = { name: name, state: state };
 
-    this.http.patch<supplierInterface>(this.baseUrl + `/${name}`, body).subscribe();
+    this.http
+      .patch<supplierInterface>(this.baseUrl + `/${name}`, body)
+      .subscribe();
   }
 }

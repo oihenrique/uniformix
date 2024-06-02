@@ -19,19 +19,16 @@ export class UnitServiceService {
   };
 
   public getUnitList(): Observable<unitInterface[]> {
-    const url = 'http://localhost:8080/unit';
 
     return this.http.get<unitInterface[]>(this.baseUrl);
   }
 
   public post(unit: unitInterface): Observable<unitInterface> {
-    const url = 'http://localhost:8080/unit';
 
     return this.http.post<unitInterface>(this.baseUrl, unit); // colocar o options depois
   }
 
   public setState(name: string, state: boolean): void {
-    const url = `http://localhost:8080/unit/${name}`;
 
     var body = { 'name': name, 'active': state }
 
