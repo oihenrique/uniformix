@@ -10,7 +10,7 @@
             <tr
               *ngFor="let supplier of supplier$"
               class="table-body-row"
-              [ngClass]="{ selected: supplier === selectedSupplier }"
+              [ngClass]="{ 'selected': supplier === selectedSupplier }"
               (click)="getSupplierName(supplier.name)"
               (click)="selectSupplier(supplier)"
             >
