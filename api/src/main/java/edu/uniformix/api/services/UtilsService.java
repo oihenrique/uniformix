@@ -38,7 +38,7 @@ public class UtilsService {
     }
 
     public static String dateFormatter(Timestamp date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(date);
     }
 
