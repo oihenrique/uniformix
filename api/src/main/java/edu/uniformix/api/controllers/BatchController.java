@@ -1,6 +1,5 @@
 package edu.uniformix.api.controllers;
 
-import edu.uniformix.api.FileStorageProperties;
 import edu.uniformix.api.domain.Batch;
 import edu.uniformix.api.domain.Category;
 import edu.uniformix.api.domain.Supplier;
@@ -27,8 +26,6 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -51,11 +48,6 @@ public class BatchController {
     @Autowired
     CsvReportService csvReportService;
 
-    private final Path fileStorageLocation;
-
-    public BatchController(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getDownload()).toAbsolutePath().normalize();
-    }
 
     @PostMapping
     @Transactional
