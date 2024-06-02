@@ -12,10 +12,12 @@ import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.properties.UnitValue;
 
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ProtocolPdfService {
     public byte[] generateTransactionPDF(String employeeName, String storeName, String protocolNumber, String uniformName, int quantity) {
@@ -33,17 +35,28 @@ public class ProtocolPdfService {
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            document.setMargins(45, 70,60,70);
+            document.setMargins(45, 70, 60, 70);
 
             PdfFont font = PdfFontFactory.createFont(StandardFonts.TIMES_ROMAN);
             PdfFont boldFont = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
 
-            String imagePath = "src/main/resources/static/generic_logo.png";
-            ImageData imageData = ImageDataFactory.create(imagePath);
-            Image image = new Image(imageData);
-            image.setWidth(100);
-            image.setMarginBottom(40);
-            image.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            try (InputStream is = getClass().getClassLoader().getResourceAsStream("static/generic_logo.png")) {
+                if (is == null) {
+                    throw new IOException("Resource not found: static/generic_logo.png");
+                }
+
+                ImageData imageData = ImageDataFactory.create(is.readAllBytes());
+                Image image = new Image(imageData);
+
+                image.setWidth(UnitValue.createPercentValue(20));
+                image.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
+                image.setWidth(100);
+                image.setMarginBottom(40);
+                image.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
+                document.add(image);
+            }
 
             Paragraph title = new Paragraph("PROTOCOLO DE FARDAMENTO")
                     .setFont(boldFont)
@@ -66,12 +79,11 @@ public class ProtocolPdfService {
 
             Paragraph signature = new Paragraph(
                     "Assinatura: ______________________________________________________________\n" +
-                    "Data: ___/___/_____\n"
+                            "Data: ___/___/_____\n"
             ).setFont(font)
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
 
-            document.add(image);
             document.add(title);
             document.add(protocolParagraph);
             document.add(termsParagraph);
