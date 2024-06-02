@@ -83,7 +83,7 @@
 }
 
 .table-body-row:nth-child(even) {
-  background-color: var(--line-colortable-blue-line-color);
+  background-color: var(--line-color-blue-line-color);
 }
 
 .table-body-row:hover {
