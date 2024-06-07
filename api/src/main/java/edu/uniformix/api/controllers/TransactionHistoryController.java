@@ -96,7 +96,6 @@ public class TransactionHistoryController {
         if ("retirada".equalsIgnoreCase(transactionHistoryDto.operationType())) {
             byte[] pdfBytes = protocolPdfService.generateTransactionPDF(
                     transactionHistoryDto.employeeName(),
-                    transactionHistoryDto.unit(),
                     transaction.getProtocolNumber(),
                     transactionHistoryDto.uniform(),
                     transactionHistoryDto.quantity()
