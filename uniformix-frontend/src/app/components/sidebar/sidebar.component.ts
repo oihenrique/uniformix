@@ -26,15 +26,9 @@ export class SidebarComponent implements OnInit {
     });
 
     this.router.events.pipe(
-      filter(() => this.router.url.startsWith('/suppliers'))
+      filter(() => this.router.url.startsWith('/history'))
     ).subscribe(() => {
-      this.markAsActive('Fornecedores');
-    });
-
-    this.router.events.pipe(
-      filter(() => this.router.url.startsWith('/categories'))
-    ).subscribe(() => {
-      this.markAsActive('Categorias');
+      this.markAsActive('Histórico');
     });
 
     this.router.events.pipe(
