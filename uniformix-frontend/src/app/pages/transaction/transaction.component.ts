@@ -67,7 +67,7 @@ export class TransactionComponent implements OnInit {
   }
 
   fetchUnitData(): void {
-    this.unitService.getUnitList().subscribe((unit) => {
+    this.unitService.getActiveUnitList().subscribe((unit) => {
       this.unitList = unit;
     });
   }
