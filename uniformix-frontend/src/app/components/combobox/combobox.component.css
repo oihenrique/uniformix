@@ -16,11 +16,6 @@ select {
     padding: 4px;
 }
 
-option {
-    color: var(--primary-color);
-    background-color: var(--primary-color);
-}
-
 select:focus-within {
     outline: 1px solid var(--focus-color);
     opacity: .9;
