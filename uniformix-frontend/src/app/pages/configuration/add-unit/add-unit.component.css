@@ -83,7 +83,7 @@
 }
 
 .table-body-row:nth-child(even) {
-  background-color: var(--line-color-blue-line-color);
+  background-color: var(--table-blue-line-color);
 }
 
 .table-body-row:hover {
@@ -93,5 +93,23 @@
 .table-body-row.selected {
   background-color: var(--focus-color-400);
 }
+
+.table-body-row td.unit-name {
+  text-align: left;
+  padding-left: 2rem; /* Adjust padding as needed */
+}
+
+.table-body-row td.unit-icon {
+  text-align: right;
+  padding-right: 2rem; /* Adjust padding as needed */
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
 
 /* END OF TABLE CSS */

@@ -11,6 +11,9 @@ import { UnitServiceService } from 'src/app/services/unit-service.service';
   styleUrls: ['./add-unit.component.css'],
 })
 export class AddUnitComponent implements OnInit {
+  eyeIcon: string = '../../assets/icons/eye.svg';
+  eyeClosedIcon: string = '../../assets/icons/eye-closed.svg';
+  
   public sm = { width: '14rem' };
   public md = { width: '20rem' };
   public lg = { width: '32rem' };
@@ -73,6 +76,7 @@ export class AddUnitComponent implements OnInit {
         this.alertTypes.success,
         `Unidade ${this.unitName} foi inativada!`
       );
+      this.routerService.resetPage();
     } catch (error) {
       this.alertService.showAlert(
         this.alertTypes.error,

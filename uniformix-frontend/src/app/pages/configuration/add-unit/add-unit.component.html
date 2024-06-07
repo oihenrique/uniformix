@@ -11,12 +11,14 @@
               *ngFor="let unit of unit$"
               class="table-body-row"
               [ngClass]="{ 'selected ': unit === selectedUnit }"
-              (click)="getUnitName(unit.name)"
-              (click)="selectUnit(unit)"
+              (click)="getUnitName(unit.name); selectUnit(unit)"
             >
-              <td>{{ unit.name }}</td>
+              <td class="unit-name"> {{ unit.name }} </td>
+              <td class="unit-icon">
+                <span><img [src]="unit.active ? eyeIcon : eyeClosedIcon" class="icon"></span>
+              </td>
             </tr>
-          </tbody>
+          </tbody>          
         </table>
       </div>
       <form
@@ -29,6 +31,19 @@
           placeholder="Loja 01"
           [size]="sm"
           name="name"
+          ngDefaultControl
+          ngModel
+        ></app-input>
+        <app-combobox
+          sLabel="Estado"
+          ngDefaultControl
+          ngModel
+        ></app-combobox>
+        <app-input
+          labelText="Cidade"
+          placeholder="Campina Grande"
+          name="cidade"
+          [size]="sm"
           ngDefaultControl
           ngModel
         ></app-input>
