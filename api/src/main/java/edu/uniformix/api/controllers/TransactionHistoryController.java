@@ -1,15 +1,9 @@
 package edu.uniformix.api.controllers;
 
-import edu.uniformix.api.domain.TransactionHistory;
-import edu.uniformix.api.domain.Uniform;
-import edu.uniformix.api.domain.Unit;
-import edu.uniformix.api.domain.Users;
+import edu.uniformix.api.domain.*;
 import edu.uniformix.api.domain.dtos.transactionHistory.TransactionHistoryDto;
 import edu.uniformix.api.domain.dtos.transactionHistory.TransactionHistoryListDto;
-import edu.uniformix.api.repositories.TransactionHistoryRepository;
-import edu.uniformix.api.repositories.UniformRepository;
-import edu.uniformix.api.repositories.UnitRepository;
-import edu.uniformix.api.repositories.UserRepository;
+import edu.uniformix.api.repositories.*;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.ProtocolPdfService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -38,6 +32,8 @@ public class TransactionHistoryController {
     UserRepository userRepository;
     @Autowired
     UniformRepository uniformRepository;
+    @Autowired
+    BatchRepository batchRepository;
 
     ProtocolPdfService protocolPdfService = new ProtocolPdfService();
 
@@ -48,10 +44,13 @@ public class TransactionHistoryController {
                      HttpServletResponse response) throws IOException {
         TransactionHistory transaction = new TransactionHistory(transactionHistoryDto);
         int updatedUniformQuantity;
+        int updatedBatchQuantity;
 
         transaction.setProtocolNumber(CodeService.generateProtocolNumber());
 
         Uniform uniform = uniformRepository.findByName(transactionHistoryDto.uniform());
+        Batch batch = batchRepository.findByCode(uniform.getBatch().getBatchCode());
+
         if (uniform == null) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Uniform not found");
             return;
@@ -71,15 +70,21 @@ public class TransactionHistoryController {
 
         if ("retirada".equalsIgnoreCase(transactionHistoryDto.operationType())) {
             updatedUniformQuantity = uniform.getQuantity() - transaction.getQuantity();
+            updatedBatchQuantity = batch.getQuantity() - transaction.getQuantity();
+
             if (updatedUniformQuantity < 0) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Insufficient uniform quantity");
                 return;
             }
         } else {
             updatedUniformQuantity = uniform.getQuantity() + transaction.getQuantity();
+            updatedBatchQuantity = batch.getQuantity() + transaction.getQuantity();
         }
 
+        batch.setQuantity(updatedBatchQuantity);
         uniform.setQuantity(updatedUniformQuantity);
+
+        batchRepository.save(batch);
         uniformRepository.save(uniform);
 
         transaction.setUniform(uniform);
