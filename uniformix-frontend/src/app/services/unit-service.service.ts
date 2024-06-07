@@ -23,6 +23,11 @@ export class UnitServiceService {
     return this.http.get<unitInterface[]>(this.baseUrl);
   }
 
+  public getActiveUnitList(): Observable<unitInterface[]> {
+
+    return this.http.get<unitInterface[]>(this.baseUrl + '/active');
+  }
+
   public post(unit: unitInterface): Observable<unitInterface> {
 
     return this.http.post<unitInterface>(this.baseUrl, unit); // colocar o options depois
