@@ -43,6 +43,14 @@ public class UnitController {
         return ResponseEntity.ok(unitList);
     }
 
+    @GetMapping("/active")
+    public ResponseEntity<List<UnitListDto>> listActive(@PageableDefault(sort = "name")Pageable paginate) {
+        Page<UnitListDto> unitPage = unitRepository.findAllActive(paginate).map(UnitListDto::new);
+        List<UnitListDto> unitList = unitPage.getContent();
+
+        return ResponseEntity.ok(unitList);
+    }
+
     @DeleteMapping("/{name}")
     public ResponseEntity<Object> inativateByName(@PathVariable String name) {
         Unit unit = unitRepository.findByName(name);
