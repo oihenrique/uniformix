@@ -98,7 +98,9 @@ public class TransactionHistoryController {
                     transactionHistoryDto.employeeName(),
                     transaction.getProtocolNumber(),
                     transactionHistoryDto.uniform(),
-                    transactionHistoryDto.quantity()
+                    transactionHistoryDto.quantity(),
+                    unit.getState(),
+                    unit.getCity()
             );
 
             response.setContentType("application/pdf");
@@ -109,7 +111,7 @@ public class TransactionHistoryController {
 
 
     @GetMapping
-    public ResponseEntity<List<TransactionHistoryListDto>> list(@PageableDefault(sort = "date", direction = Sort.Direction.DESC) Pageable paginate) {
+    public ResponseEntity<List<TransactionHistoryListDto>> list(@PageableDefault(sort = "date", direction = Sort.Direction.ASC) Pageable paginate) {
         Page<TransactionHistoryListDto> transactionHistoryPage = transactionHistoryRepository.findAll(paginate).map(TransactionHistoryListDto::new);
         List<TransactionHistoryListDto> transactionHistoryList = transactionHistoryPage.getContent();
 

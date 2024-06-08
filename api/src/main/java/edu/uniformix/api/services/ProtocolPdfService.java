@@ -19,14 +19,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ProtocolPdfService {
-    public byte[] generateTransactionPDF(String employeeName, String protocolNumber, String uniformName, int quantity) {
+    public byte[] generateTransactionPDF(String employeeName, String protocolNumber, String uniformName, int quantity, String unitState, String unitCity) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        String responsibilityText = "Eu, " + employeeName + "DECLARO que estou recebendo meu uniforme " +
+        String responsibilityText = "Eu, " + UtilsService.capitalizeWords(employeeName) + ", DECLARO que estou recebendo meu uniforme " +
                 "para utilização no desempenho das minhas funções, ciente das normas internas e de como se dá o seu devido uso. " +
                 "Estou ciente também de que, em caso de dano ou extravio, pagarei o valor proporcional correspondete ao custo " +
                 "de outra aquisição e assumo o compromisso de zelar pelo bom uso destes, bem como deverei devolver o fardamento em caso " +
@@ -82,7 +81,7 @@ public class ProtocolPdfService {
 
             Paragraph signature = new Paragraph(
                     "Assinatura: ______________________________________________________________\n" +
-                            "Data: " + UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + "\n"
+                            unitCity + ", " + unitState + ", " + UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + ".\n"
             ).setFont(font)
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
