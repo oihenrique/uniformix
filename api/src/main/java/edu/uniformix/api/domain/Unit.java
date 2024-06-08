@@ -16,15 +16,21 @@ public class Unit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String state;
+    private String city;
     private boolean active;
 
-    public Unit(String name, boolean active) {
+    public Unit(String name, String state, String city, boolean active) {
         this.name = name;
+        this.state = state;
+        this.city = city;
         this.active = active;
     }
 
     public Unit(UnitDto unitDto) {
         this.name = unitDto.name();
+        this.state = unitDto.state();
+        this.city = unitDto.city();
         this.active = true;
     }
 }

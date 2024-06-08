@@ -36,13 +36,15 @@
         ></app-input>
         <app-combobox
           sLabel="Estado"
+          [cbList]="enumKeys"
+          name="state"
           ngDefaultControl
           ngModel
         ></app-combobox>
         <app-input
           labelText="Cidade"
           placeholder="Campina Grande"
-          name="cidade"
+          name="city"
           [size]="sm"
           ngDefaultControl
           ngModel

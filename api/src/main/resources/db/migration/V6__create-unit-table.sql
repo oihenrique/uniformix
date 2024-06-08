@@ -1,5 +1,7 @@
 CREATE TABLE unit (
     id SERIAL PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
+    state VARCHAR(2),
+    city VARCHAR(30),
     active BOOLEAN NOT NULL DEFAULT TRUE
 );

@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotNull;
 public record UnitDto(
         @NotBlank
         String name,
+        @NotBlank
+        String state,
+        @NotBlank
+        String city,
         @NotNull
         boolean active
 ) {

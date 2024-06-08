@@ -4,6 +4,8 @@ import { unitInterface } from 'src/app/interfaces/unitInterface';
 import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { RouterServiceService } from 'src/app/services/router-service.service';
 import { UnitServiceService } from 'src/app/services/unit-service.service';
+import { BrazilStates, BrazilStatesRecord } from './brazilStates.enum';
+
 
 @Component({
   selector: 'app-add-unit',
@@ -22,6 +24,7 @@ export class AddUnitComponent implements OnInit {
   unit$: unitInterface[] = [];
   unitName: string = '';
   selectedUnit: unitInterface | null = null;
+  enumKeys: object[] = Object.entries(BrazilStatesRecord).map(([key, name]) => ({ key, name }));
 
   constructor(
     private unitService: UnitServiceService,
@@ -52,6 +55,7 @@ export class AddUnitComponent implements OnInit {
       this.alertService.showAlert(this.alertTypes.error, 'Preencha o campo!');
     } else {
       try {
+        unit.state = this.getStateAbbreviation(unit.state);
         await this.unitService.post(unit).toPromise();
         this.alertService.showAlert(
           this.alertTypes.success,
@@ -83,5 +87,14 @@ export class AddUnitComponent implements OnInit {
         `Erro ao inativar a unidade ${this.unitName}`
       );
     }
+  }
+
+  getStateAbbreviation(stateName: string): string {
+    for (const [key, value] of Object.entries(BrazilStatesRecord)) {
+      if (value === stateName) {
+        return key;
+      }
+    }
+    return '';
   }
 }
