@@ -109,7 +109,6 @@ public class TransactionHistoryController {
         }
     }
 
-
     @GetMapping
     public ResponseEntity<List<TransactionHistoryListDto>> list(@PageableDefault(sort = "date", direction = Sort.Direction.ASC) Pageable paginate) {
         Page<TransactionHistoryListDto> transactionHistoryPage = transactionHistoryRepository.findAll(paginate).map(TransactionHistoryListDto::new);
@@ -120,18 +119,13 @@ public class TransactionHistoryController {
 
     @GetMapping("/search/{search}")
     public ResponseEntity<List<TransactionHistoryListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "date", direction = Sort.Direction.DESC) Pageable paginate) {
-        try {
-            Page<TransactionHistoryListDto> transactionHistoryPage = transactionHistoryRepository.findByEmployeeName(search.toLowerCase(), paginate).map(TransactionHistoryListDto::new);
-            List<TransactionHistoryListDto> transactionHistoryList = transactionHistoryPage.getContent();
+        Page<TransactionHistoryListDto> transactionHistoryPage = transactionHistoryRepository.findByEmployeeName(search.toLowerCase(), paginate).map(TransactionHistoryListDto::new);
+        List<TransactionHistoryListDto> transactionHistoryList = transactionHistoryPage.getContent();
 
-            if (transactionHistoryList.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            } else {
-                return ResponseEntity.ok(transactionHistoryList);
-            }
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+        if (transactionHistoryList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(transactionHistoryList);
         }
     }
 }

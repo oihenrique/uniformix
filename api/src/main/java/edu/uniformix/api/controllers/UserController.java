@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +27,9 @@ public class UserController {
     @PostMapping
     @Transactional
     public ResponseEntity<UserListDto> register(@RequestBody @Valid UserDto userDTO, UriComponentsBuilder uriBuilder) {
-        if (repository.findByLogin(userDTO.login()) != null) return ResponseEntity.badRequest().build();
+        if (repository.findByLogin(userDTO.login()) != null) {
+            return ResponseEntity.badRequest().build();
+        }
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(userDTO.password());
         Users users = new Users(userDTO, encryptedPassword);
@@ -42,43 +43,45 @@ public class UserController {
     @GetMapping
     public ResponseEntity<Page<UserListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
         Page<UserListDto> userList = repository.findAllByActiveTrue(paginate);
-
         return ResponseEntity.ok(userList);
     }
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> update(@RequestBody @Valid UpdateUserDto updateUserDTO, @PathVariable String id) {
+    public ResponseEntity<UserListDto> update(@RequestBody @Valid UpdateUserDto updateUserDTO, @PathVariable String id) {
         Users users = repository.findById(id).orElse(null);
 
         if (users == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.notFound().build();
         }
 
         UtilsService.copyNonNullProperties(updateUserDTO, users);
+        repository.save(users);
 
         return ResponseEntity.ok(new UserListDto(users));
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<Object> deactivate(@PathVariable String id) {
+    public ResponseEntity<Void> deactivate(@PathVariable String id) {
         Users users = repository.findById(id).orElse(null);
 
         if (users == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.notFound().build();
         }
+
+        users.setActive(false);
+        repository.save(users);
 
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    @Transactional
-    public ResponseEntity<Object> detail(@PathVariable String id) {
+    public ResponseEntity<UserListDto> detail(@PathVariable String id) {
         Users users = repository.findById(id).orElse(null);
 
         if (users == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(new UserListDto(users));

@@ -1,10 +1,8 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Category;
-import edu.uniformix.api.domain.Unit;
 import edu.uniformix.api.domain.dtos.category.CategoryDto;
 import edu.uniformix.api.domain.dtos.category.CategoryListDto;
-import edu.uniformix.api.domain.dtos.unit.UnitDto;
 import edu.uniformix.api.repositories.CategoryRepository;
 import edu.uniformix.api.services.UtilsService;
 import jakarta.validation.Valid;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +47,7 @@ public class CategoryController {
         Category category = categoryRepository.findById(id).orElse(null);
 
         if (category == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category not found");
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(new CategoryListDto(category));
@@ -62,7 +59,7 @@ public class CategoryController {
         Category category = categoryRepository.findById(id).orElse(null);
 
         if (category == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category not found");
+            return ResponseEntity.notFound().build();
         }
 
         UtilsService.copyNonNullProperties(categoryDto, category);
@@ -75,7 +72,7 @@ public class CategoryController {
         Category category = categoryRepository.findByName(name);
 
         if (category == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category not found");
+            return ResponseEntity.notFound().build();
         }
 
         category.setState(false);
@@ -90,7 +87,7 @@ public class CategoryController {
         Category category = categoryRepository.findById(id).orElse(null);
 
         if (category == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category not found");
+            return ResponseEntity.notFound().build();
         }
 
         categoryRepository.delete(category);
@@ -103,19 +100,15 @@ public class CategoryController {
         Category category = categoryRepository.findByName(name);
 
         if (category == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
+            return ResponseEntity.notFound().build();
         }
 
         if (category.isState() == categoryDto.state()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Category already in the requested state");
+            return ResponseEntity.badRequest().body("Category already in the requested state");
         }
 
-        try {
-            category.setState(categoryDto.state());
-            categoryRepository.save(category);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update category state");
-        }
+        category.setState(categoryDto.state());
+        categoryRepository.save(category);
+        return ResponseEntity.ok().build();
     }
 }

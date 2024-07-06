@@ -1,7 +1,6 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Uniform;
-import edu.uniformix.api.domain.dtos.batch.BatchListDto;
 import edu.uniformix.api.domain.dtos.uniform.UniformDto;
 import edu.uniformix.api.domain.dtos.uniform.UniformListDto;
 import edu.uniformix.api.repositories.UniformRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +47,7 @@ public class UniformController {
         Uniform uniform = uniformRepository.findById(id).orElse(null);
 
         if (uniform == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uniform not found");
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(new UniformListDto(uniform));
@@ -61,7 +59,7 @@ public class UniformController {
         Uniform uniform = uniformRepository.findById(id).orElse(null);
 
         if (uniform == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uniform not found");
+            return ResponseEntity.notFound().build();
         }
 
         UtilsService.copyNonNullProperties(uniformDto, uniform);
@@ -74,7 +72,7 @@ public class UniformController {
         Uniform uniform = uniformRepository.findById(id).orElse(null);
 
         if (uniform == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Uniform not found");
+            return ResponseEntity.notFound().build();
         }
 
         uniformRepository.delete(uniform);

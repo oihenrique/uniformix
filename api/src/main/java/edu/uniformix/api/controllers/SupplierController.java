@@ -1,10 +1,8 @@
 package edu.uniformix.api.controllers;
 
 import edu.uniformix.api.domain.Supplier;
-import edu.uniformix.api.domain.Unit;
 import edu.uniformix.api.domain.dtos.supplier.SupplierDto;
 import edu.uniformix.api.domain.dtos.supplier.SupplierListDto;
-import edu.uniformix.api.domain.dtos.unit.UnitDto;
 import edu.uniformix.api.repositories.SupplierRepository;
 import edu.uniformix.api.services.CodeService;
 import edu.uniformix.api.services.UtilsService;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -59,7 +56,7 @@ public class SupplierController {
         Supplier supplier = supplierRepository.findById(id).orElse(null);
 
         if (supplier == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Supplier not found");
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(new SupplierListDto(supplier));
@@ -71,7 +68,7 @@ public class SupplierController {
         Supplier supplier = supplierRepository.findById(id).orElse(null);
 
         if (supplier == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Supplier not found");
+            return ResponseEntity.notFound().build();
         }
 
         UtilsService.copyNonNullProperties(supplierDto, supplier);
@@ -84,11 +81,10 @@ public class SupplierController {
         Supplier supplier = supplierRepository.findById(id).orElse(null);
 
         if (supplier == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Supplier not found");
+            return ResponseEntity.notFound().build();
         }
 
         supplier.setState(false);
-
         supplierRepository.save(supplier);
 
         return ResponseEntity.noContent().build();
@@ -100,7 +96,7 @@ public class SupplierController {
         Supplier supplier = supplierRepository.findById(id).orElse(null);
 
         if (supplier == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Supplier not found");
+            return ResponseEntity.notFound().build();
         }
 
         supplierRepository.delete(supplier);
@@ -113,19 +109,15 @@ public class SupplierController {
         Supplier supplier = supplierRepository.findByName(name);
 
         if (supplier == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Supplier not found");
+            return ResponseEntity.notFound().build();
         }
 
         if (supplier.isState() == supplierDto.state()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Supplier already in the requested state");
+            return ResponseEntity.badRequest().body("Supplier already in the requested state");
         }
 
-        try {
-            supplier.setState(supplierDto.state());
-            supplierRepository.save(supplier);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update supplier state");
-        }
+        supplier.setState(supplierDto.state());
+        supplierRepository.save(supplier);
+        return ResponseEntity.ok().build();
     }
 }

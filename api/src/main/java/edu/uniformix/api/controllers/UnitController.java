@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -27,40 +26,34 @@ public class UnitController {
     @Transactional
     public ResponseEntity<UnitListDto> post(@RequestBody @Valid UnitDto unitDto, UriComponentsBuilder uriBuilder) {
         Unit unit = new Unit(unitDto);
-
         unitRepository.save(unit);
 
         var uri = uriBuilder.buildAndExpand("/{id}").toUri();
-
         return ResponseEntity.created(uri).body(new UnitListDto(unit));
     }
 
     @GetMapping
-    public ResponseEntity<List<UnitListDto>> list(@PageableDefault(sort = "name")Pageable paginate) {
+    public ResponseEntity<List<UnitListDto>> list(@PageableDefault(sort = "name") Pageable paginate) {
         Page<UnitListDto> unitPage = unitRepository.findAll(paginate).map(UnitListDto::new);
         List<UnitListDto> unitList = unitPage.getContent();
-
         return ResponseEntity.ok(unitList);
     }
 
     @GetMapping("/active")
-    public ResponseEntity<List<UnitListDto>> listActive(@PageableDefault(sort = "name")Pageable paginate) {
+    public ResponseEntity<List<UnitListDto>> listActive(@PageableDefault(sort = "name") Pageable paginate) {
         Page<UnitListDto> unitPage = unitRepository.findAllActive(paginate).map(UnitListDto::new);
         List<UnitListDto> unitList = unitPage.getContent();
-
         return ResponseEntity.ok(unitList);
     }
 
     @DeleteMapping("/{name}")
-    public ResponseEntity<Object> inativateByName(@PathVariable String name) {
+    public ResponseEntity<Void> inativateByName(@PathVariable String name) {
         Unit unit = unitRepository.findByName(name);
-
         if (unit == null) {
-            return ResponseEntity.status((HttpStatus.BAD_REQUEST)).body("Unit not found");
+            return ResponseEntity.notFound().build();
         }
 
         unit.setActive(false);
-
         unitRepository.save(unit);
 
         return ResponseEntity.noContent().build();
@@ -69,21 +62,17 @@ public class UnitController {
     @PatchMapping("/{name}")
     public ResponseEntity<Object> updateUnitState(@RequestBody @Valid UnitDto unitDto, @PathVariable String name) {
         Unit unit = unitRepository.findByName(name);
-
         if (unit == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Unit not found");
+            return ResponseEntity.notFound().build();
         }
 
         if (unit.isActive() == unitDto.active()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unit already in the requested state");
+            return ResponseEntity.badRequest().body("Unit already in the requested state");
         }
 
-        try {
-            unit.setActive(unitDto.active());
-            unitRepository.save(unit);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update unit state");
-        }
+        unit.setActive(unitDto.active());
+        unitRepository.save(unit);
+
+        return ResponseEntity.ok().build();
     }
 }

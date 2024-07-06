@@ -31,6 +31,16 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
+// TODO: verificar onde está precisando de try with resources
+// TODO: remover tratamentos de exceção desnecessários
+// Todo: organizar o código
+// Todo: padronizar e melhoras nome das variáveis
+// Todo: melhorar velocidade do código
+// Todo: remover armazenamento de objetos desnecessariamente
+// Todo: melhorar validação de campos nos dtos
+// Todo: melhorar rotas HTTP
+// Todo: remover métodos não usados
+
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200/")
 @RequestMapping("batch")
@@ -86,20 +96,16 @@ public class BatchController {
         return ResponseEntity.ok(batchList);
     }
 
+    // Todo: colocar ordem de resultados
     @GetMapping("/search/{search}")
     public ResponseEntity<List<BatchListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "acquisitionDate") Pageable paginate) {
-        try {
-            Page<BatchListDto> batchPage = batchRepository.findByText(search.toLowerCase(), paginate).map(BatchListDto::new);
-            List<BatchListDto> batchList = batchPage.getContent();
+        Page<BatchListDto> batchPage = batchRepository.findByText(search.toLowerCase(), paginate).map(BatchListDto::new);
+        List<BatchListDto> batchList = batchPage.getContent();
 
-            if (batchList.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            } else {
-                return ResponseEntity.ok(batchList);
-            }
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+        if (batchList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(batchList);
         }
     }
 
