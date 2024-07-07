@@ -72,12 +72,12 @@ export class AddBatchComponent implements OnInit {
       });
   }
 
-  onSubmit(batch: batchInterface): void {
+  async onSubmit(batch: batchInterface): Promise<void> {
     batch.uniform = this.uniformStack;
     batch.quantity = Number(this.calculateTotalQuantity());
 
     if (!this.batchService.hasEmptyFields(batch)) {
-      this.batchService.post(batch).subscribe();
+      await this.batchService.post(batch).subscribe();
       this.alertService.showAlert(this.alertTypes.success, 'Lote Cadastrado!');
 
       setTimeout(() => {
@@ -93,7 +93,7 @@ export class AddBatchComponent implements OnInit {
   }
 
   onSubmitUniform(uniform: uniformInterface): void {
-    if (!this.uniformService.hasEmptyFields(uniform)) {
+    if (!this.uniformService.hasEmptyFields(uniform) && uniform.quantity > 1) {
       const data = this.uniformService.generateUniformObject(uniform);
       this.uniformStack.push(data);
 
@@ -102,10 +102,16 @@ export class AddBatchComponent implements OnInit {
       ) as HTMLInputElement;
       batchQuantityInput.value = this.calculateTotalQuantity().toString();
     } else {
-      this.alertService.showAlert(
-        this.alertTypes.error,
-        'Preencha todos os campos!'
-      );
+      if(uniform.quantity <= 0) {
+        this.alertService.showAlert(
+          this.alertTypes.error, 'A quantidade deve ser maior que 0.'
+        )
+      } else {
+        this.alertService.showAlert(
+          this.alertTypes.error,
+          'Preencha todos os campos!'
+        );
+      }
     }
   }
 
