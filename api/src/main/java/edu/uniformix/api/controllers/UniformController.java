@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("uniform")
 public class UniformController {
     @Autowired
-    UniformRepository uniformRepository;
+    private UniformRepository uniformRepository;
 
     @PostMapping
     @Transactional
