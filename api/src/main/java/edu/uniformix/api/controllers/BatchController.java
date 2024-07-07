@@ -31,15 +31,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-// TODO: verificar onde está precisando de try with resources
-// TODO: remover tratamentos de exceção desnecessários
-// Todo: organizar o código
-// Todo: padronizar e melhoras nome das variáveis
-// Todo: melhorar velocidade do código
-// Todo: remover armazenamento de objetos desnecessariamente
-// Todo: melhorar validação de campos nos dtos
-// Todo: melhorar rotas HTTP
-// Todo: remover métodos não usados
 
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200/")
