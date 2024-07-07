@@ -3,7 +3,9 @@ import { tableInfoInterface } from 'src/app/interfaces/tableInfoInterface';
 import { BatchServiceService } from 'src/app/services/batch-service.service';
 import { RouterServiceService } from 'src/app/services/router-service.service';
 import { TableInfoServiceService } from 'src/app/services/tableInfoService.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, of } from 'rxjs';
+import { AlertServiceService } from 'src/app/services/alert-service.service';
+import { AlertTypeEnum } from 'src/app/components/alert/alertType.enum';
 
 @Component({
   selector: 'app-inventory',
@@ -15,6 +17,7 @@ export class InventoryComponent implements OnInit {
   transactionIcon = '../../assets/icons/transaction.svg';
   searchIcon = '../../assets/icons/Search icon.svg';
   exportIcon = '../../assets/icons/Export icon.svg';
+  alertTypes = AlertTypeEnum;
 
   info: tableInfoInterface[] = [];
   columns: Array<keyof tableInfoInterface> = [
@@ -43,7 +46,8 @@ export class InventoryComponent implements OnInit {
   constructor(
     private tableService: TableInfoServiceService,
     private routerService: RouterServiceService,
-    private batchService: BatchServiceService
+    private batchService: BatchServiceService,
+    private alertService: AlertServiceService
   ) {}
 
   ngOnInit(): void {
@@ -75,14 +79,27 @@ export class InventoryComponent implements OnInit {
   }
 
   onSearchSubmit(text: string): void {
-    this.batchService.getBatchByText(text).subscribe((result) => {
-      this.searchResult$.next(result);
-    });
-
-    this.searchResult$.subscribe((result) => {
-      this.info = result;
-    });
+    if (text.trim() !== '') {
+      this.batchService.getBatchByText(text.trim()).subscribe(
+        (result) => {
+          this.searchResult$.next(result);
+          this.info = result;
+        }, 
+        (error) => {
+          if (error.status === 404) {
+            this.alertService.showAlert(this.alertTypes.error, 'Lote não encontrado. Verifique o texto e tente novamente.');
+          } else {
+            console.error('Erro ao buscar lote:', error);
+            this.alertService.showAlert(this.alertTypes.error, 'Erro ao buscar lote. Tente novamente.');
+          }
+        }
+      );
+    } else {
+      this.alertService.showAlert(this.alertTypes.error, 'Preencha o campo de texto.');
+    }
   }
+  
+  
 
   async delete(info: tableInfoInterface[], code: string): Promise<void> {
     this.tableService.deleteBatch(info, code).subscribe();
