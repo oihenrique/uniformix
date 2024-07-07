@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -6,13 +6,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-  public sm = {width: '14rem'};
-  public md = {width: '20rem'};
-  public lg = {width: '32rem'};
+  @ViewChild('inputElement') inputElementRef!: ElementRef<HTMLInputElement>;
+
+  public sm = { width: '14rem' };
+  public md = { width: '20rem' };
+  public lg = { width: '32rem' };
 
   public disabledStyle = {
     'background-color': '#EBEBE4'
-  }
+  };
 
   @Input() size: object = this.md;
   @Input() placeholder: string = '';
@@ -26,6 +28,13 @@ export class InputComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (this.type === 'number') {
+      this.inputElementRef.nativeElement.addEventListener('input', () => {
+        const value = parseInt(this.inputElementRef.nativeElement.value);
+        if (value < 0) {
+          this.inputElementRef.nativeElement.value = '0';
+        }
+      });
+    }
   }
-
 }
