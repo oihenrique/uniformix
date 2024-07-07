@@ -18,11 +18,10 @@ public class CsvReportService {
     private BatchController batchController;
 
     public byte[] writeCsv() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        OutputStreamWriter osWriter = new OutputStreamWriter(baos, StandardCharsets.UTF_8);
-        CSVWriter writer = new CSVWriter(osWriter);
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+             OutputStreamWriter osWriter = new OutputStreamWriter(baos, StandardCharsets.UTF_8);
+             CSVWriter writer = new CSVWriter(osWriter)) {
 
-        try {
             List<BatchListDto> data = batchController.fetchData();
 
             String[] headers = {"Codigo", "Descricao", "Quantidade", "Categoria", "Fornecedor", "Aquisicao"};
@@ -36,12 +35,13 @@ public class CsvReportService {
             }
 
             writer.writeAll(reportData);
-            writer.close();
+            writer.flush();
+
+            return baos.toByteArray();
 
         } catch (Exception e) {
             e.printStackTrace();
+            return new byte[0];
         }
-
-        return baos.toByteArray();
     }
 }
