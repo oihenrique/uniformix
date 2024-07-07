@@ -87,9 +87,8 @@ public class BatchController {
         return ResponseEntity.ok(batchList);
     }
 
-    // Todo: colocar ordem de resultados
     @GetMapping("/search/{search}")
-    public ResponseEntity<List<BatchListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "acquisitionDate") Pageable paginate) {
+    public ResponseEntity<List<BatchListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "acquisitionDate", direction = Sort.Direction.DESC) Pageable paginate) {
         Page<BatchListDto> batchPage = batchRepository.findByText(search.toLowerCase(), paginate).map(BatchListDto::new);
         List<BatchListDto> batchList = batchPage.getContent();
 
