@@ -82,7 +82,7 @@ public class ProtocolPdfService {
 
             Paragraph signature = new Paragraph(
                     "Assinatura: ______________________________________________________________\n" +
-                            unitCity + ", " + unitState + ", " + UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + ".\n"
+                            unitCity + ", " + unitState + ", \n" + UtilsService.dateFormatter(Timestamp.valueOf(LocalDateTime.now())) + ".\n"
             ).setFont(font)
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
