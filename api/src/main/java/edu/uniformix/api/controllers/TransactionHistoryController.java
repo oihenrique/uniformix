@@ -118,7 +118,7 @@ public class TransactionHistoryController {
     }
 
     @GetMapping("/search/{search}")
-    public ResponseEntity<List<TransactionHistoryListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "date", direction = Sort.Direction.DESC) Pageable paginate) {
+    public ResponseEntity<List<TransactionHistoryListDto>> searchList(@PathVariable String search, @PageableDefault(sort = "date", direction = Sort.Direction.ASC) Pageable paginate) {
         Page<TransactionHistoryListDto> transactionHistoryPage = transactionHistoryRepository.findByEmployeeName(search.toLowerCase(), paginate).map(TransactionHistoryListDto::new);
         List<TransactionHistoryListDto> transactionHistoryList = transactionHistoryPage.getContent();
 
