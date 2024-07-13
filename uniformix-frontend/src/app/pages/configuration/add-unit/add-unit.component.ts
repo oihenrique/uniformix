@@ -74,17 +74,22 @@ export class AddUnitComponent implements OnInit {
 
   async setUnitState(state: boolean): Promise<void> {
     try {
-      await this.unitService.setState(this.unitName, state);
-      console.log(this.unitName, state);
-      this.alertService.showAlert(
-        this.alertTypes.success,
-        `Unidade ${this.unitName} foi inativada!`
-      );
-      this.routerService.resetPage();
+      if(this.unitName !== '') {
+        await this.unitService.setState(this.unitName, state);
+        this.alertService.showAlert(
+          this.alertTypes.success,
+          `Unidade ${this.unitName} foi atualizada`
+        );
+      } else {
+        this.alertService.showAlert(
+          this.alertTypes.info,
+          `Selecione uma unidade`
+        );
+      }
     } catch (error) {
       this.alertService.showAlert(
         this.alertTypes.error,
-        `Erro ao inativar a unidade ${this.unitName}`
+        `Erro ao atualizar a unidade ${this.unitName}`
       );
     }
   }

@@ -11,6 +11,9 @@ import { SupplierServiceService } from 'src/app/services/supplier-service.servic
   styleUrls: ['./add-supplier.component.css'],
 })
 export class AddSupplierComponent implements OnInit {
+  eyeIcon: string = '../../assets/icons/eye.svg';
+  eyeClosedIcon: string = '../../assets/icons/eye-closed.svg';
+
   public sm = { width: '14rem' };
   public md = { width: '20rem' };
   public lg = { width: '32rem' };
@@ -67,15 +70,22 @@ export class AddSupplierComponent implements OnInit {
 
   async setSupplierState(state: boolean): Promise<void> {
     try {
-      await this.supplierService.setState(this.supplierName, state);
-      this.alertService.showAlert(
-        this.alertTypes.success,
-        `Fornecedor ${this.supplierName} foi inativado!`
-      );
+      if (this.supplierName !== '') {
+        await this.supplierService.setState(this.supplierName, state);
+        this.alertService.showAlert(
+          this.alertTypes.success,
+          `Fornecedor ${this.supplierName} foi atualizado!`
+        );
+      } else {
+        this.alertService.showAlert(
+          this.alertTypes.info,
+          `Selecione um fornecedor`
+        );
+      }
     } catch (error) {
       this.alertService.showAlert(
         this.alertTypes.error,
-        `Erro ao inativar o fornecedor ${this.supplierName}`
+        `Erro ao atualizar o fornecedor ${this.supplierName}`
       );
     }
   }

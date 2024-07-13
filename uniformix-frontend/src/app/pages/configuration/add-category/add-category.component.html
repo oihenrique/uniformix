@@ -11,10 +11,12 @@
               *ngFor="let category of categorie$"
               class="table-body-row"
               [ngClass]="{'selected': category === selectedCategory}"
-              (click)="getCategoryName(category.name)"
-              (click)="selectCategory(category)"
+              (click)="getCategoryName(category.name); selectCategory(category)"
             >
               <td>{{ category.name }}</td>
+              <td class="unit-icon">
+                <span><img [src]="category.state ? eyeIcon : eyeClosedIcon" class="icon"></span>
+              </td>
             </tr>
           </tbody>
         </table>

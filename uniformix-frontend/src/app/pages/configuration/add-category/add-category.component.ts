@@ -11,6 +11,9 @@ import { RouterServiceService } from 'src/app/services/router-service.service';
   styleUrls: ['./add-category.component.css'],
 })
 export class AddCategoryComponent implements OnInit {
+  eyeIcon: string = '../../assets/icons/eye.svg';
+  eyeClosedIcon: string = '../../assets/icons/eye-closed.svg';
+
   public sm = { width: '14rem' };
   public md = { width: '20rem' };
   public lg = { width: '32rem' };
@@ -67,11 +70,18 @@ export class AddCategoryComponent implements OnInit {
 
   async setCategoryState(state: boolean): Promise<void> {
     try {
-      await this.categoryService.setState(this.categoryName, state);
-      this.alertService.showAlert(
-        this.alertTypes.success,
-        `Categoria ${this.categoryName} foi inativada!`
-      );
+      if(this.categoryName !== '') {
+        await this.categoryService.setState(this.categoryName, state);
+        this.alertService.showAlert(
+          this.alertTypes.success,
+          `Categoria ${this.categoryName} foi atualizada!`
+        );
+      } else {
+        this.alertService.showAlert(
+          this.alertTypes.info,
+          `Selecione uma categoria`
+        );
+      }
     } catch (error) {
       this.alertService.showAlert(
         this.alertTypes.error,
