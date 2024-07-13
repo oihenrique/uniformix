@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { AlertTypeEnum } from 'src/app/components/alert/alertType.enum';
 import { transactionInterface } from 'src/app/interfaces/transactionInterface';
+import { AlertServiceService } from 'src/app/services/alert-service.service';
 import { TransactionServiceService } from 'src/app/services/transaction-service.service';
 
 @Component({
@@ -10,6 +12,7 @@ import { TransactionServiceService } from 'src/app/services/transaction-service.
 })
 export class HistoryComponent implements OnInit {
   searchIcon = '../../assets/icons/Search icon.svg';
+  alertTypes = AlertTypeEnum;
 
   info: transactionInterface[] = [];
   columns: Array<keyof transactionInterface> = [
@@ -35,10 +38,13 @@ export class HistoryComponent implements OnInit {
   };
 
   protocolCode: string = '';
-  searchResult$: any;
+  searchResult$ = new BehaviorSubject<transactionInterface[]>([]);
   tablePageNumber$: number = 0;
 
-  constructor(private transactionService: TransactionServiceService) {}
+  constructor(
+    private transactionService: TransactionServiceService,
+    private alertService: AlertServiceService
+  ) {}
 
   ngOnInit(): void {
     this.fetchData();
@@ -53,7 +59,7 @@ export class HistoryComponent implements OnInit {
 
     this.transactionService.get(this.tablePageNumber$).subscribe((transaction) => {
       this.info = transaction;
-      this.searchResult$ = of(this.info);
+      this.searchResult$.next(this.info);
     });
   }
 
@@ -62,14 +68,23 @@ export class HistoryComponent implements OnInit {
   }
 
   onSearchSubmit(name: string): void {
-    this.transactionService.searchByName(name).subscribe((result) => {
-      this.searchResult$ = result;
-    });
-
-    new Observable((item) => {
-      setTimeout(() => {
-        item.next((this.info = this.searchResult$));
-      }, 1500);
-    }).subscribe();
+    if (name.trim() !== '') {
+      this.transactionService.searchByName(name.trim()).subscribe(
+        (result) => {
+          this.searchResult$.next(result);
+          this.info = result;
+        },
+        (error) => {
+          if (error.status === 404) {
+            this.alertService.showAlert(this.alertTypes.error, 'Transação não encontrada. Verifique o texto e tente novamente.');
+          } else {
+            console.error('Erro ao buscar transação:', error);
+            this.alertService.showAlert(this.alertTypes.error, 'Erro ao buscar transação. Tente novamente.');
+          }
+        }
+      );
+    } else {
+      this.alertService.showAlert(this.alertTypes.error, 'Preencha o campo de texto.');
+    }
   }
 }
