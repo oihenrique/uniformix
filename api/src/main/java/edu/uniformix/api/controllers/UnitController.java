@@ -3,6 +3,7 @@ package edu.uniformix.api.controllers;
 import edu.uniformix.api.domain.Unit;
 import edu.uniformix.api.domain.dtos.unit.UnitDto;
 import edu.uniformix.api.domain.dtos.unit.UnitListDto;
+import edu.uniformix.api.domain.dtos.unit.UnitUpdateDto;
 import edu.uniformix.api.repositories.UnitRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,17 +61,17 @@ public class UnitController {
     }
 
     @PatchMapping("/{name}")
-    public ResponseEntity<Object> updateUnitState(@RequestBody @Valid UnitDto unitDto, @PathVariable String name) {
+    public ResponseEntity<Object> updateUnitState(@RequestBody @Valid UnitUpdateDto unitUpdateDto, @PathVariable String name) {
         Unit unit = unitRepository.findByName(name);
         if (unit == null) {
             return ResponseEntity.notFound().build();
         }
 
-        if (unit.isActive() == unitDto.active()) {
+        if (unit.isActive() == unitUpdateDto.active()) {
             return ResponseEntity.badRequest().body("Unit already in the requested state");
         }
 
-        unit.setActive(unitDto.active());
+        unit.setActive(unitUpdateDto.active());
         unitRepository.save(unit);
 
         return ResponseEntity.ok().build();
